@@ -23,20 +23,19 @@
     .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
     .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
     .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
-    .btn{display:inline-block;padding:12px 16px;border-radius:12px;background:var(--accent);color:#062338;font-weight:700}
+    .btn{display:inline-block;padding:12px 16px;border-radius:12px;background:var(--accent);color:#062338;font-weight:700;cursor:pointer;border:none;font-family:inherit;font-size:inherit}
     .btn.sec{background:#15202b;color:var(--text);border:1px solid var(--border)}
     .badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 0}
     .tag{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:#0e141b;color:#cfe6ff;font-size:.9rem}
 
-    /* Showcase row (your sketch) */
     .showcase{max-width:var(--w);margin:36px auto 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px}
     .desk-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow);text-align:center}
-    .desk-card img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:#0c1015}
+    .desk-card img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:#0c1015;cursor:pointer;transition:transform .2s,box-shadow .2s}
+    .desk-card img:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(62,166,255,.3)}
     .desk-card h3{margin:10px 0 2px;font-size:1.1rem}
     .desk-card p{margin:0;color:var(--low);font-size:.92rem}
     .desk-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
 
-    /* Features */
     .features{max-width:var(--w);margin:28px auto 40px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
     .card h4{margin:4px 0 8px}
@@ -44,20 +43,50 @@
     .full{grid-column:1/-1}
     .full p{margin:0;color:var(--muted)}
 
+    .server-section{max-width:var(--w);margin:48px auto 24px;padding:0 20px}
+    .server-header{text-align:center;margin-bottom:32px}
+    .server-header h2{font-size:36px;margin:0 0 12px;color:var(--text)}
+    .server-header p{color:var(--muted);max-width:800px;margin:0 auto}
+    .server-features{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);margin-bottom:24px}
+    .server-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+    .server-grid h4{margin:0 0 12px;color:var(--accent)}
+    .server-grid ul{color:var(--muted);margin:0;padding-left:20px;line-height:1.8}
+    .server-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
     footer{border-top:1px solid var(--border);background:var(--surface);margin-top:30px}
     .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+
+    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+    .modal.active{display:flex}
+    .modal-content{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;animation:modalSlide .3s ease}
+    .modal-content h2{margin:0 0 16px;color:var(--accent)}
+    .modal-content h3{margin:20px 0 10px;color:var(--accent);font-size:1.1rem}
+    .modal-content p{color:var(--muted);line-height:1.7;margin:12px 0}
+    .modal-content ul{color:var(--muted);line-height:1.7}
+    .modal-content code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.9em}
+    .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:28px;cursor:pointer;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background .2s}
+    .modal-close:hover{background:var(--surface);color:var(--text)}
+
+    .img-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;padding:40px;backdrop-filter:blur(8px)}
+    .img-modal.active{display:flex}
+    .img-modal img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 20px 80px rgba(0,0,0,.8);animation:imgZoom .3s ease}
+    .img-modal-close{position:absolute;top:20px;right:20px;background:rgba(17,22,29,.9);border:1px solid var(--border);color:var(--text);font-size:28px;cursor:pointer;padding:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;transition:background .2s}
+    .img-modal-close:hover{background:var(--card)}
+
+    @keyframes modalSlide{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes imgZoom{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 
     @media (max-width:980px){
       .showcase{grid-template-columns:1fr}
       .features{grid-template-columns:1fr}
       .hero h1{font-size:32px}
+      .modal-content{padding:20px;max-width:calc(100% - 40px)}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <!-- Swap src for your logo when ready -->
       <img src="" alt="SoltrOS logo">
       <div class="name">Soltros OS</div>
     </header>
@@ -68,12 +97,11 @@
     <p>
       SoltrOS is an immutable Linux desktop built on Fedora Core OS, aimed at gaming and development.
       Updates land weekly as images—no big version jumps or upgrade headaches.
-      One week you might be on Fedora 42, the next it’s 43, and it just works.
-      Pick your pace: <b>LTS</b> follows Fedora’s stable releases; <b>Unstable</b> tracks upcoming features from alphas and betas (with guardrails).
+      One week you might be on Fedora 42, the next it's 43, and it just works.
+      Pick your pace: <b>LTS</b> follows Fedora's stable releases; <b>Unstable</b> tracks upcoming features from alphas and betas (with guardrails).
       Either way, you get a clean, fast system that keeps rolling forward.
     </p>
     <div class="cta">
-      <!-- TODO: point these to Releases/ISOs or a Downloads page -->
       <a class="btn" href="https://bit.ly/soltros-os-stable">Download LTS</a>
       <a class="btn sec" href="https://bit.ly/soltros-os-unstable">Download Unstable</a>
       <a class="btn sec" href="https://github.com/soltros/soltros-os">Source</a>
@@ -81,43 +109,93 @@
     <div class="badges">
       <span class="tag">bootc / rpm-ostree</span>
       <span class="tag">Optimized kernel</span>
-      <span class="tag">KDE • COSMIC • Liri</span>
+      <span class="tag">KDE • COSMIC • GNOME</span>
       <span class="tag">Rolling (LTS / Unstable)</span>
       <span class="tag">x86_64</span>
       <span class="tag">Nix (flakes) via Determinate</span>
     </div>
   </section>
 
-  <!-- Showcase row from your diagram -->
   <section class="showcase">
     <div class="desk-card">
-      <!-- TODO: replace with your real screenshot path -->
-      <img src="screenshots/soltros-os_cosmic.png" alt="COSMIC desktop screenshot">
+      <img src="screenshots/soltros-os_cosmic.png" alt="COSMIC desktop screenshot" onclick="openImageModal(this.src, this.alt)">
       <h3>COSMIC</h3>
       <p>LTS / Unstable</p>
       <div class="desk-actions">
-        <a class="btn sec" href="#">Learn more</a>
+        <button class="btn sec" onclick="openModal('cosmic')">Learn more</button>
       </div>
     </div>
     <div class="desk-card">
-      <img src="screenshots/soltros-os_kde.png" alt="Plasma desktop screenshot">
+      <img src="screenshots/soltros-os_kde.png" alt="Plasma desktop screenshot" onclick="openImageModal(this.src, this.alt)">
       <h3>Plasma</h3>
       <p>LTS / Unstable</p>
       <div class="desk-actions">
-        <a class="btn sec" href="#">Learn more</a>
+        <button class="btn sec" onclick="openModal('plasma')">Learn more</button>
       </div>
     </div>
     <div class="desk-card">
-      <img src="screenshots/liri.png" alt="Liri desktop screenshot">
-      <h3>Liri</h3>
+      <img src="screenshots/soltros-os_gnome.png" alt="GNOME desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+      <h3>GNOME</h3>
       <p>LTS / Unstable</p>
       <div class="desk-actions">
-        <a class="btn sec" href="#">Learn more</a>
+        <button class="btn sec" onclick="openModal('gnome')">Learn more</button>
       </div>
     </div>
   </section>
 
-  <!-- Features outline from README -->
+  <section class="server-section">
+    <div class="server-header">
+      <h2>SoltrOS Server Edition</h2>
+      <p>Container-native server built on Fedora BootC with Docker CE, Podman, and enterprise management tools</p>
+    </div>
+    
+    <div class="server-features">
+      <div class="server-grid">
+        <div>
+          <h4>📦 Container Platform</h4>
+          <ul>
+            <li>Docker CE with BuildX & Compose</li>
+            <li>Podman & Buildah for OCI containers</li>
+            <li>Tailscale for secure networking</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4>🖥️ Management Tools</h4>
+          <ul>
+            <li>Cockpit web console (port 9090)</li>
+            <li>Libvirt/KVM virtualization</li>
+            <li>System monitoring with PCP</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4>🔐 Security & Compliance</h4>
+          <ul>
+            <li>Signed container images (Sigstore)</li>
+            <li>Audit & AIDE intrusion detection</li>
+            <li>Network security with nftables</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4>🛠️ Server Essentials</h4>
+          <ul>
+            <li>SSH server ready</li>
+            <li>Smart monitoring tools</li>
+            <li>Development & debugging utilities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="server-cta">
+      <a class="btn" href="https://github.com/soltros/soltros-os-server">Download Server</a>
+      <a class="btn sec" href="https://github.com/soltros/soltros-os-server">Documentation</a>
+      <button class="btn sec" onclick="openModal('server')">Learn more</button>
+    </div>
+  </section>
+
   <section class="features">
     <div class="card">
       <h4>🎮 Gaming ready</h4>
@@ -163,7 +241,7 @@
     <div class="card">
       <h4>🎨 Desktops</h4>
       <ul>
-        <li>Vanilla <b>Plasma</b>, <b>COSMIC</b>, or <b>Liri</b></li>
+        <li>Vanilla <b>Plasma</b>, <b>COSMIC</b>, or <b>GNOME</b></li>
         <li>Dark defaults, Papirus icons</li>
         <li>Fast startup (LightDM)</li>
       </ul>
@@ -181,7 +259,7 @@
 
     <div class="card full">
       <h4>Included highlights</h4>
-      <p>kernel-cachyos · tailscale · thermald · lm_sensors · Steam · Lutris · VLC · Jellyfin MP · LibreOffice · Bitwarden · RetroArch · Podman Desktop · Flatseal · Mission Center · Warehouse</p>
+      <p>optimized kernel · tailscale · thermald · lm_sensors · Steam · Lutris · VLC · Jellyfin MP · LibreOffice · Bitwarden · RetroArch · Podman Desktop · Flatseal · Mission Center · Warehouse</p>
     </div>
   </section>
 
@@ -191,6 +269,138 @@
     </div>
   </footer>
 
-  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  <div class="modal" id="infoModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="img-modal" id="imgModal" onclick="closeImageModal()">
+    <button class="img-modal-close" onclick="closeImageModal()">&times;</button>
+    <img id="modalImage" src="" alt="">
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const desktopInfo = {
+      cosmic: {
+        title: 'COSMIC Desktop',
+        content: `
+          <p>COSMIC is System76's next-generation desktop environment built with Rust. It offers a modern, efficient, and customizable experience.</p>
+          <ul>
+            <li><strong>Rust-based:</strong> Built for performance and reliability</li>
+            <li><strong>Tiling support:</strong> Advanced window management out of the box</li>
+            <li><strong>Customizable:</strong> Extensive theming and layout options</li>
+            <li><strong>Modern UI:</strong> Clean, intuitive interface design</li>
+          </ul>
+          <p>Perfect for users who want cutting-edge technology with a polished desktop experience.</p>
+        `
+      },
+      plasma: {
+        title: 'KDE Plasma Desktop',
+        content: `
+          <p>KDE Plasma is a powerful, feature-rich desktop environment known for its flexibility and beautiful design.</p>
+          <ul>
+            <li><strong>Highly customizable:</strong> Tweak every aspect of your desktop</li>
+            <li><strong>Feature-complete:</strong> Tons of built-in tools and widgets</li>
+            <li><strong>Modern design:</strong> Sleek interface with smooth animations</li>
+            <li><strong>Performance:</strong> Surprisingly light despite rich features</li>
+          </ul>
+          <p>Ideal for power users who want complete control over their desktop environment.</p>
+        `
+      },
+      gnome: {
+        title: 'GNOME Desktop',
+        content: `
+          <p>GNOME is a clean, modern desktop environment focused on simplicity and productivity with a polished, cohesive experience.</p>
+          <ul>
+            <li><strong>Simple & elegant:</strong> Distraction-free interface that gets out of your way</li>
+            <li><strong>Activities overview:</strong> Powerful workspace and window management</li>
+            <li><strong>Extensions:</strong> Customize your workflow with community add-ons</li>
+            <li><strong>Touch-friendly:</strong> Great for laptops with touchscreens and gestures</li>
+            <li><strong>Integrated ecosystem:</strong> Cohesive suite of polished applications</li>
+          </ul>
+          <p>Perfect for users who value simplicity, elegance, and a consistent user experience across all their applications.</p>
+        `
+      },
+      server: {
+        title: 'SoltrOS Server Edition',
+        content: `
+          <p>A container-native server platform built on Fedora BootC, designed for modern infrastructure with enterprise-grade management tools.</p>
+          
+          <h3>Why SoltrOS Server?</h3>
+          <ul>
+            <li><strong>Container-First:</strong> Docker CE and Podman pre-configured and ready to deploy</li>
+            <li><strong>Immutable Infrastructure:</strong> RPM-OSTree based for reliable, atomic updates</li>
+            <li><strong>Web Management:</strong> Cockpit console provides full system control from any browser</li>
+            <li><strong>Enterprise Security:</strong> Built-in audit logging, intrusion detection, and signed images</li>
+          </ul>
+          
+          <h3>Key Features</h3>
+          <ul>
+            <li><strong>Dual Container Runtimes:</strong> Use Docker for compatibility or Podman for rootless security</li>
+            <li><strong>Zero-Config Networking:</strong> Tailscale integration for secure remote access</li>
+            <li><strong>Full Virtualization:</strong> KVM/Libvirt support for running VMs alongside containers</li>
+            <li><strong>Performance Monitoring:</strong> PCP (Performance Co-Pilot) tracks system metrics</li>
+            <li><strong>Rollback Ready:</strong> Easy system recovery with bootc image-based updates</li>
+          </ul>
+          
+          <h3>Perfect For</h3>
+          <p>Homelab enthusiasts, small business infrastructure, development servers, container orchestration, self-hosted services, and anyone wanting a rock-solid server foundation with modern tooling.</p>
+          
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Quick Start:</strong> After installation, access Cockpit at <code>https://your-server:9090</code> to manage containers, VMs, storage, and more from your browser.
+          </p>
+        `
+      }
+    };
+
+    function openModal(desktop) {
+      const modal = document.getElementById('infoModal');
+      const body = document.getElementById('modalBody');
+      const info = desktopInfo[desktop];
+      
+      body.innerHTML = `<h2>${info.title}</h2>${info.content}`;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('infoModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnBackdrop(event) {
+      if (event.target.id === 'infoModal') {
+        closeModal();
+      }
+    }
+
+    function openImageModal(src, alt) {
+      const modal = document.getElementById('imgModal');
+      const img = document.getElementById('modalImage');
+      
+      img.src = src;
+      img.alt = alt;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imgModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeImageModal();
+      }
+    });
+  </script>
 </body>
 </html>
