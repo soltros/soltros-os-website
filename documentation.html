@@ -354,94 +354,210 @@
         <main class="main-content">
             <!-- Introduction Page -->
             <div id="intro" class="page active">
-                <h1>SoltrOS - Desktop Edition</h1>
-                <p>A gaming-optimized, rolling immutable Linux distribution based on Fedora releases, featuring MacBook hardware support, gaming performance enhancements, the KDE Plasma desktop environment, and developer-friendly tools.</p>
-                <p><em>Inspired by VeneOS - bringing together the best of gaming and productivity.</em></p>
+                <h1>Introduction to SoltrOS</h1>
+                <p>SoltrOS is an immutable Linux desktop distribution built on Fedora Core OS, designed for gamers and developers who want a stable, rolling-release system that just works.</p>
+
+                <h2>What is SoltrOS?</h2>
+                <p>SoltrOS combines the stability of immutable operating systems with the flexibility of multiple package management systems. Built on the <code>quay.io/fedora-ostree-desktops/base-atomic</code> image, it delivers a gaming-optimized desktop experience with comprehensive developer tools.</p>
 
                 <div class="info-box">
-                    <strong>Updates land weekly as images</strong> — no big version jumps or upgrade headaches. One week you might be on Fedora 42, the next it's 43, and it just works. Pick your pace: <strong>LTS</strong> follows Fedora's stable releases; <strong>Unstable</strong> tracks upcoming features from alphas and betas (with guardrails).
+                    <p><strong>Immutable by Design:</strong> Your base system is read-only and updated atomically. If an update fails or causes issues, you can instantly roll back to the previous working state. No more broken systems from partial updates.</p>
                 </div>
 
-                <h2>Quick Start</h2>
+                <h2>Core Philosophy</h2>
+                <p>SoltrOS is built around three core principles:</p>
+
                 <div class="feature-grid">
                     <div class="feature-card">
+                        <h4>🔒 Stability First</h4>
+                        <p>Immutable base system with atomic updates means your OS never breaks. Every update is applied as a complete unit, and rollbacks are instant.</p>
+                    </div>
+                    <div class="feature-card">
                         <h4>🎮 Gaming Ready</h4>
-                        <p>Optimized kernel with gaming enhancements, GameMode, MangoHud, and controller support out of the box.</p>
+                        <p>Optimized kernel, pre-configured gaming tools, controller support, and performance tuning out of the box. MacBook thermal management included.</p>
                     </div>
                     <div class="feature-card">
-                        <h4>🔒 Immutable & Stable</h4>
-                        <p>Atomic updates with instant rollback. Your system never breaks from updates.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>💻 MacBook Optimized</h4>
-                        <p>Thermal management with thermald & mbpfan, Apple SMC support via applesmc kernel module.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>📦 Five Package Managers</h4>
-                        <p>RPM-OSTree, Flatpak, Distrobox, Nix, and Homebrew for maximum flexibility.</p>
+                        <h4>📦 Maximum Flexibility</h4>
+                        <p>Five package managers (RPM-OSTree, Flatpak, Distrobox, Nix, Homebrew) give you access to virtually any software while maintaining system integrity.</p>
                     </div>
                 </div>
 
-                <h2>Key Features</h2>
+                <h2>How Updates Work</h2>
+                <p>Unlike traditional Linux distributions that require major version upgrades every 6 months, SoltrOS rolls forward continuously:</p>
                 <ul>
-                    <li><strong>Base Image:</strong> quay.io/fedora-ostree-desktops/base-atomic (Cosmic uses cosmic-atomic upstream)</li>
-                    <li><strong>Desktop:</strong> KDE Plasma with SDDM (Gnome and COSMIC variants available)</li>
-                    <li><strong>Package Managers:</strong> 5 complementary systems (RPM-OSTree, Flatpak, Distrobox, Nix, Homebrew)</li>
-                    <li><strong>Pre-installed Apps:</strong> 40+ Flatpak applications</li>
-                    <li><strong>Shell:</strong> Zsh as default with modern tooling</li>
-                    <li><strong>Helper Script:</strong> helper.sh for easy system management</li>
-                    <li><strong>Update Model:</strong> Rolling release with atomic updates</li>
+                    <li><strong>Weekly Image Updates:</strong> New system images are built and delivered weekly</li>
+                    <li><strong>No Version Jumps:</strong> One week you're on Fedora 42, the next week it's 43—seamlessly</li>
+                    <li><strong>Two Update Tracks:</strong> Choose LTS (stable releases) or Unstable (bleeding edge features)</li>
+                    <li><strong>Atomic Application:</strong> Updates apply completely or not at all—no broken systems</li>
+                    <li><strong>Instant Rollback:</strong> Don't like an update? Reboot to the previous version in seconds</li>
                 </ul>
 
-                <h2>Available Editions</h2>
+                <h2>Who is SoltrOS For?</h2>
+                
+                <h3>Gamers</h3>
+                <ul>
+                    <li>Want a gaming-optimized Linux system that stays stable</li>
+                    <li>Need Steam, Lutris, and other gaming platforms working out of the box</li>
+                    <li>Use controllers and gaming peripherals that need proper support</li>
+                    <li>Want performance optimizations without manual tweaking</li>
+                </ul>
+
+                <h3>Developers</h3>
+                <ul>
+                    <li>Need a stable base system that won't break during important work</li>
+                    <li>Want access to containerized development environments (Distrobox)</li>
+                    <li>Use multiple programming languages and toolchains (Nix support)</li>
+                    <li>Prefer modern CLI tools and shell environments</li>
+                </ul>
+
+                <h3>MacBook Users</h3>
+                <ul>
+                    <li>Run Linux on MacBook hardware and need proper thermal management</li>
+                    <li>Want Apple hardware sensors (applesmc) properly supported</li>
+                    <li>Need responsive fan control for gaming and heavy workloads</li>
+                    <li>Appreciate humidity-resistant thermal configurations</li>
+                </ul>
+
+                <h2>What Makes SoltrOS Different?</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>Edition</th>
-                            <th>Desktop</th>
-                            <th>Release Cycle</th>
-                            <th>Image Name</th>
+                            <th>Feature</th>
+                            <th>Traditional Linux</th>
+                            <th>SoltrOS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Unstable KDE</td>
-                            <td>KDE Plasma</td>
-                            <td>Rawhide/Bleeding Edge</td>
-                            <td>soltros-os</td>
+                            <td>System Updates</td>
+                            <td>Package-by-package, can break</td>
+                            <td>Atomic images, never breaks</td>
                         </tr>
                         <tr>
-                            <td>LTS KDE</td>
-                            <td>KDE Plasma</td>
-                            <td>Stable/6-month cycle</td>
-                            <td>soltros-os_lts</td>
+                            <td>Major Upgrades</td>
+                            <td>Risky, manual, every 6-12 months</td>
+                            <td>Automatic, seamless, continuous</td>
                         </tr>
                         <tr>
-                            <td>Unstable COSMIC</td>
-                            <td>COSMIC</td>
-                            <td>Rawhide/Bleeding Edge</td>
-                            <td>soltros-unstable_cosmic</td>
+                            <td>Rollback</td>
+                            <td>Difficult or impossible</td>
+                            <td>Instant, one command</td>
                         </tr>
                         <tr>
-                            <td>LTS COSMIC</td>
-                            <td>COSMIC</td>
-                            <td>Stable/6-month cycle</td>
-                            <td>soltros-lts_cosmic</td>
+                            <td>Gaming Setup</td>
+                            <td>Manual configuration required</td>
+                            <td>Pre-configured and optimized</td>
                         </tr>
                         <tr>
-                            <td>Unstable Gnome</td>
-                            <td>Gnome</td>
-                            <td>Rawhide/Bleeding Edge</td>
-                            <td>soltros-os-unstable_gnome</td>
+                            <td>Package Managers</td>
+                            <td>1-2 (apt, dnf, pacman, etc.)</td>
+                            <td>5 complementary systems</td>
                         </tr>
                         <tr>
-                            <td>LTS Gnome</td>
-                            <td>Gnome</td>
-                            <td>Stable/6-month cycle</td>
-                            <td>soltros-os-lts_gnome</td>
+                            <td>MacBook Support</td>
+                            <td>Varies, often manual</td>
+                            <td>Built-in thermal management</td>
                         </tr>
                     </tbody>
                 </table>
+
+                <h2>Available Editions</h2>
+                <p>SoltrOS comes in multiple flavors to suit your preference:</p>
+
+                <h3>Desktop Environments</h3>
+                <ul>
+                    <li><strong>KDE Plasma:</strong> Full-featured, customizable (default)</li>
+                    <li><strong>Gnome:</strong> Clean, modern GNOME desktop</li>
+                    <li><strong>COSMIC:</strong> System76's new Rust-based desktop (uses cosmic-atomic base)</li>
+                </ul>
+
+                <h3>Release Tracks</h3>
+                <ul>
+                    <li><strong>LTS (Long Term Support):</strong> Follows Fedora's stable 6-month release cycle, tested and reliable</li>
+                    <li><strong>Unstable:</strong> Tracks Fedora Rawhide for bleeding-edge features, includes guardrails for stability</li>
+                </ul>
+
+                <h3>Server Edition</h3>
+                <p>A headless, container-native server distribution with Docker CE, Cockpit web management, and enterprise tools. Perfect for homelab, development servers, or production infrastructure.</p>
+
+                <h2>Getting Started</h2>
+                <p>Ready to try SoltrOS? Here's what you need to know:</p>
+                <ol>
+                    <li><strong>Choose Your Edition:</strong> Pick your desktop environment and update track</li>
+                    <li><strong>Install:</strong> Download the ISO or switch from an existing Fedora Atomic system</li>
+                    <li><strong>First Boot:</strong> Run the helper script to install applications and set up your environment</li>
+                    <li><strong>Enjoy:</strong> Your system is configured, optimized, and ready to use</li>
+                </ol>
+
+                <div class="info-box">
+                    <p><strong>New to Immutable Linux?</strong> Don't worry! SoltrOS includes a comprehensive helper script (<code>helper.sh</code>) that makes system management intuitive. Common tasks like installing applications, updating the system, or setting up development tools are just one command away.</p>
+                </div>
+
+                <h2>System Requirements</h2>
+                <ul>
+                    <li><strong>CPU:</strong> 64-bit x86_64 processor (Intel or AMD)</li>
+                    <li><strong>RAM:</strong> 4GB minimum, 8GB+ recommended</li>
+                    <li><strong>Storage:</strong> 20GB minimum, 40GB+ recommended</li>
+                    <li><strong>Graphics:</strong> Any GPU (optimized for AMD and NVIDIA)</li>
+                    <li><strong>Network:</strong> Internet connection for installation and updates</li>
+                </ul>
+
+                <h2>Next Steps</h2>
+                <p>Continue reading to learn more about:</p>
+                <ul>
+                    <li><strong>Installation:</strong> How to install SoltrOS on your system</li>
+                    <li><strong>Features:</strong> Detailed look at gaming, MacBook support, and developer tools</li>
+                    <li><strong>Package Management:</strong> Understanding the five package manager system</li>
+                    <li><strong>Usage:</strong> Common workflows and daily usage tips</li>
+                </ul>
+
+                <h2>Why Waterfox Instead of Firefox?</h2>
+                <p>SoltrOS ships with Waterfox as the default browser instead of Firefox. This is a deliberate choice based on privacy and user autonomy principles:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🔒 Privacy First</h4>
+                        <p>Waterfox removes Mozilla's telemetry, data collection, and tracking systems. No usage data is sent back to Mozilla or third parties by default.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🚫 No Monetization Schemes</h4>
+                        <p>Waterfox doesn't include Mozilla's controversial monetization features like sponsored shortcuts, "recommended" content, or paid search partnerships that compromise your privacy.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚙️ User Control</h4>
+                        <p>You maintain full control over your browsing experience without being opted into experimental features, A/B testing, or "suggested" content you didn't ask for.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔧 Firefox Compatible</h4>
+                        <p>Waterfox is based on Firefox ESR and maintains full compatibility with Firefox extensions, configurations, and workflows—just without the privacy concerns.</p>
+                    </div>
+                </div>
+
+                <h3>Specific Issues with Modern Firefox</h3>
+                <ul>
+                    <li><strong>Telemetry by Default:</strong> Firefox collects extensive usage data, even in "private" mode</li>
+                    <li><strong>Sponsored Content:</strong> New tab page shows sponsored shortcuts and "recommended by Pocket" articles</li>
+                    <li><strong>Mozilla VPN Promotions:</strong> Constant upselling of Mozilla's paid services</li>
+                    <li><strong>Default Search Deals:</strong> Revenue-sharing agreements with search engines that affect default settings</li>
+                    <li><strong>Opt-Out Rather Than Opt-In:</strong> Privacy-invasive features are enabled by default, requiring users to manually disable them</li>
+                    <li><strong>Firefox Suggest:</strong> Sends your search queries to Mozilla's servers for "suggestions"</li>
+                    <li><strong>Experiments:</strong> Users are automatically enrolled in A/B testing without explicit consent</li>
+                </ul>
+
+                <h3>Waterfox Philosophy</h3>
+                <p>Waterfox returns to what a browser should be: a tool that works for you, not a platform that monetizes your data. It provides:</p>
+                <ul>
+                    <li>Clean, ad-free new tab page</li>
+                    <li>No telemetry or data collection</li>
+                    <li>No sponsored content or recommendations</li>
+                    <li>No service upselling or promotions</li>
+                    <li>Full Firefox extension compatibility</li>
+                    <li>Regular security updates from Firefox ESR base</li>
+                </ul>
+
+                <div class="info-box">
+                    <p><strong>Want Firefox anyway?</strong> You're free to install Firefox via Flatpak if you prefer: <code>flatpak install flathub org.mozilla.firefox</code>. SoltrOS doesn't lock you in—we just provide privacy-respecting defaults.</p>
+                </div>
             </div>
 
             <!-- Installation Page -->
