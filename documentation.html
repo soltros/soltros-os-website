@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoltrOS - Gaming-Ready Immutable Linux</title>
+    <title>SoltrOS Documentation</title>
     <style>
         * {
             margin: 0;
@@ -23,143 +23,145 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg) 0%, var(--darker) 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
-            padding: 3rem 2rem;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 180, 216, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="rgba(144,224,239,0.1)" stroke-width="2" fill="none"/></svg>');
-            opacity: 0.1;
-        }
-
-        .logo {
-            font-size: 3.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            position: relative;
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 2rem;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .nav-btn {
-            background: rgba(0, 180, 216, 0.2);
-            border: 2px solid var(--primary);
-            color: var(--text);
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-
-        .nav-btn:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 180, 216, 0.4);
-        }
-
-        .nav-btn.active {
-            background: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 180, 216, 0.6);
+            line-height: 1.7;
         }
 
         .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--darker);
+            border-right: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            padding: 1.5rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 120px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .logo p {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            color: var(--accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-item {
+            padding: 0.7rem 1.5rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 3rem;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
         }
 
-        .section {
+        .page {
             display: none;
-            animation: fadeIn 0.5s;
         }
 
-        .section.active {
+        .page.active {
             display: block;
+            animation: fadeIn 0.3s;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(0, 180, 216, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 180, 216, 0.3);
-        }
-
-        .card h2 {
+        h1 {
             color: var(--primary);
+            font-size: 2.5rem;
             margin-bottom: 1rem;
-            font-size: 1.8rem;
         }
 
-        .card h3 {
+        h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+        }
+
+        h3 {
             color: var(--accent);
+            font-size: 1.5rem;
             margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        h4 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-top: 1rem;
             margin-bottom: 0.5rem;
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+        p {
+            margin-bottom: 1rem;
         }
 
-        .feature {
-            background: rgba(0, 180, 216, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
         }
 
-        .feature h4 {
-            color: var(--primary);
+        li {
             margin-bottom: 0.5rem;
         }
 
@@ -169,476 +171,331 @@
             border-radius: 4px;
             color: var(--accent);
             font-family: 'Courier New', monospace;
+            font-size: 0.9em;
         }
 
         pre {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             padding: 1.5rem;
             border-radius: 8px;
             overflow-x: auto;
             border: 1px solid var(--primary);
-            margin: 1rem 0;
+            margin: 1.5rem 0;
         }
 
         pre code {
             background: none;
             padding: 0;
+            font-size: 0.95em;
         }
 
-        .install-box {
-            background: linear-gradient(135deg, var(--dark), var(--secondary));
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            border: 2px solid var(--primary);
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
         }
 
-        .install-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .warning-box {
+            background: rgba(234, 179, 8, 0.1);
+            border-left: 4px solid #eab308;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
         }
 
-        .step {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent);
-        }
-
-        .step-number {
-            display: inline-block;
-            background: var(--primary);
-            color: var(--dark);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-            margin-right: 1rem;
-        }
-
-        .package-layers {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
             margin: 2rem 0;
         }
 
-        .layer {
-            background: linear-gradient(90deg, rgba(0, 180, 216, 0.2), rgba(0, 180, 216, 0.05));
+        .feature-card {
+            background: var(--card-bg);
             padding: 1.5rem;
             border-radius: 8px;
-            border-left: 6px solid var(--primary);
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
-        .layer h4 {
+        .feature-card h4 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        th {
+            background: var(--secondary);
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        a {
             color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
 
         .badge {
             display: inline-block;
             background: var(--primary);
-            color: var(--dark);
+            color: var(--darker);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 600;
             margin-right: 0.5rem;
         }
 
-        ul {
-            margin-left: 2rem;
-            margin-top: 0.5rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 1rem;
-            border: 1px solid rgba(0, 180, 216, 0.2);
-            text-align: left;
-        }
-
-        .comparison-table th {
-            background: var(--secondary);
-            color: var(--text);
-        }
-
-        .comparison-table tr:nth-child(even) {
-            background: rgba(0, 180, 216, 0.05);
-        }
-
-        .checkmark {
-            color: #4ade80;
-            font-weight: bold;
-        }
-
-        .crossmark {
-            color: #f87171;
-            font-weight: bold;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-top: 1px solid rgba(0, 180, 216, 0.2);
-            color: var(--accent);
-        }
-
-        .highlight {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5rem;
+            .sidebar {
+                display: none;
             }
 
-            .card {
+            .main-content {
+                margin-left: 0;
                 padding: 1.5rem;
             }
 
-            .feature-grid {
-                grid-template-columns: 1fr;
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">SoltrOS</div>
-        <div class="tagline">Immutable Fedora for gaming & development</div>
-        <div class="nav">
-            <button class="nav-btn active" onclick="showSection('overview')">Overview</button>
-            <button class="nav-btn" onclick="showSection('features')">Features</button>
-            <button class="nav-btn" onclick="showSection('install')">Installation</button>
-            <button class="nav-btn" onclick="showSection('server')">Server Edition</button>
-            <button class="nav-btn" onclick="showSection('packages')">Package Management</button>
-            <button class="nav-btn" onclick="showSection('commands')">Commands</button>
-            <button class="nav-btn" onclick="showSection('technical')">Technical Details</button>
-        </div>
-    </div>
-
     <div class="container">
-        <!-- Overview Section -->
-        <div id="overview" class="section active">
-            <div class="card">
-                <h2>Welcome to SoltrOS</h2>
-                <p>An immutable Linux desktop built on Fedora Core OS, aimed at gaming and development. Updates land weekly as images—no big version jumps or upgrade headaches. One week you might be on Fedora 42, the next it's 43, and it just works.</p>
-                <p style="margin-top: 1rem;">Pick your pace: <strong>LTS</strong> follows Fedora's stable releases; <strong>Unstable</strong> tracks upcoming features from alphas and betas (with guardrails). Either way, you get a clean, fast system that keeps rolling forward.</p>
-                <p style="margin-top: 1rem;"><em>Inspired by VeneOS - bringing together the best of gaming and productivity.</em></p>
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <svg class="logo-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="90" fill="url(#logoGradient)" opacity="0.2"/>
+                    <path d="M 100 30 L 140 70 L 120 70 L 120 120 L 140 120 L 100 170 L 60 120 L 80 120 L 80 70 L 60 70 Z" 
+                          fill="url(#logoGradient)" stroke="#60a5fa" stroke-width="2"/>
+                </svg>
+                <h1>SoltrOS</h1>
+                <p>Documentation</p>
             </div>
 
-            <div class="card">
-                <h2>Why SoltrOS?</h2>
+            <div class="nav-section">
+                <div class="nav-section-title">Getting Started</div>
+                <div class="nav-item active" onclick="showPage('intro')">Introduction</div>
+                <div class="nav-item" onclick="showPage('installation')">Installation</div>
+                <div class="nav-item" onclick="showPage('first-boot')">First Boot Setup</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Features</div>
+                <div class="nav-item" onclick="showPage('gaming')">Gaming Features</div>
+                <div class="nav-item" onclick="showPage('macbook')">MacBook Support</div>
+                <div class="nav-item" onclick="showPage('developer')">Developer Tools</div>
+                <div class="nav-item" onclick="showPage('software')">Included Software</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Package Management</div>
+                <div class="nav-item" onclick="showPage('packages')">Five Package Managers</div>
+                <div class="nav-item" onclick="showPage('rpm-ostree')">RPM-OSTree</div>
+                <div class="nav-item" onclick="showPage('flatpak')">Flatpak</div>
+                <div class="nav-item" onclick="showPage('distrobox')">Distrobox</div>
+                <div class="nav-item" onclick="showPage('nix')">Nix</div>
+                <div class="nav-item" onclick="showPage('homebrew')">Homebrew</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Usage</div>
+                <div class="nav-item" onclick="showPage('commands')">Helper Commands</div>
+                <div class="nav-item" onclick="showPage('workflows')">Common Workflows</div>
+                <div class="nav-item" onclick="showPage('customization')">Customization</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Server Edition</div>
+                <div class="nav-item" onclick="showPage('server')">Server Overview</div>
+                <div class="nav-item" onclick="showPage('server-install')">Server Installation</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Resources</div>
+                <div class="nav-item" onclick="showPage('troubleshooting')">Troubleshooting</div>
+                <div class="nav-item" onclick="showPage('contributing')">Contributing</div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Introduction Page -->
+            <div id="intro" class="page active">
+                <h1>SoltrOS - Desktop Edition</h1>
+                <p>A gaming-optimized, rolling immutable Linux distribution based on Fedora releases, featuring MacBook hardware support, gaming performance enhancements, the KDE Plasma desktop environment, and developer-friendly tools.</p>
+                <p><em>Inspired by VeneOS - bringing together the best of gaming and productivity.</em></p>
+
+                <div class="info-box">
+                    <strong>Updates land weekly as images</strong> — no big version jumps or upgrade headaches. One week you might be on Fedora 42, the next it's 43, and it just works. Pick your pace: <strong>LTS</strong> follows Fedora's stable releases; <strong>Unstable</strong> tracks upcoming features from alphas and betas (with guardrails).
+                </div>
+
+                <h2>Quick Start</h2>
                 <div class="feature-grid">
-                    <div class="feature">
-                        <h4>🎮 Gaming Optimized</h4>
-                        <p>Optimized kernel with gaming enhancements. Pre-configured for Steam, Lutris, and more.</p>
+                    <div class="feature-card">
+                        <h4>🎮 Gaming Ready</h4>
+                        <p>Optimized kernel with gaming enhancements, GameMode, MangoHud, and controller support out of the box.</p>
                     </div>
-                    <div class="feature">
+                    <div class="feature-card">
                         <h4>🔒 Immutable & Stable</h4>
-                        <p>Atomic updates with instant rollback capability. Your system never breaks from updates.</p>
+                        <p>Atomic updates with instant rollback. Your system never breaks from updates.</p>
                     </div>
-                    <div class="feature">
-                        <h4>💻 MacBook Support</h4>
-                        <p>Sophisticated thermal management with mbpfan and thermald for optimal MacBook performance.</p>
+                    <div class="feature-card">
+                        <h4>💻 MacBook Optimized</h4>
+                        <p>Thermal management with thermald & mbpfan, Apple SMC support via applesmc kernel module.</p>
                     </div>
-                    <div class="feature">
+                    <div class="feature-card">
                         <h4>📦 Five Package Managers</h4>
-                        <p>RPM-OSTree, Flatpak, Distrobox, Nix, and Homebrew - unprecedented flexibility.</p>
-                    </div>
-                    <div class="feature">
-                        <h4>🚀 Developer Ready</h4>
-                        <p>Zsh/Fish shells, modern CLI tools, and containerized development environments.</p>
-                    </div>
-                    <div class="feature">
-                        <h4>🎨 KDE Plasma Desktop</h4>
-                        <p>Beautiful, lightweight desktop environment with dark theme by default.</p>
+                        <p>RPM-OSTree, Flatpak, Distrobox, Nix, and Homebrew for maximum flexibility.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="card">
-                <h2>Quick Facts</h2>
+                <h2>Key Features</h2>
                 <ul>
-                    <li><strong>Base:</strong> Fedora 43 (Kinoite)</li>
-                    <li><strong>Kernel:</strong> Optimized for gaming and performance</li>
-                    <li><strong>Desktop:</strong> KDE Plasma with SDDM</li>
-                    <li><strong>Update Model:</strong> Rolling release with atomic updates</li>
-                    <li><strong>Package Managers:</strong> 5 (RPM-OSTree, Flatpak, Distrobox, Nix, Homebrew)</li>
+                    <li><strong>Base Image:</strong> quay.io/fedora-ostree-desktops/base-atomic (Cosmic uses cosmic-atomic upstream)</li>
+                    <li><strong>Desktop:</strong> KDE Plasma with SDDM (Gnome and COSMIC variants available)</li>
+                    <li><strong>Package Managers:</strong> 5 complementary systems (RPM-OSTree, Flatpak, Distrobox, Nix, Homebrew)</li>
                     <li><strong>Pre-installed Apps:</strong> 40+ Flatpak applications</li>
-                    <li><strong>License:</strong> GPL-3.0</li>
+                    <li><strong>Shell:</strong> Zsh as default with modern tooling</li>
+                    <li><strong>Helper Script:</strong> helper.sh for easy system management</li>
+                    <li><strong>Update Model:</strong> Rolling release with atomic updates</li>
                 </ul>
+
+                <h2>Available Editions</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Edition</th>
+                            <th>Desktop</th>
+                            <th>Release Cycle</th>
+                            <th>Image Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Unstable KDE</td>
+                            <td>KDE Plasma</td>
+                            <td>Rawhide/Bleeding Edge</td>
+                            <td>soltros-os</td>
+                        </tr>
+                        <tr>
+                            <td>LTS KDE</td>
+                            <td>KDE Plasma</td>
+                            <td>Stable/6-month cycle</td>
+                            <td>soltros-os_lts</td>
+                        </tr>
+                        <tr>
+                            <td>Unstable COSMIC</td>
+                            <td>COSMIC</td>
+                            <td>Rawhide/Bleeding Edge</td>
+                            <td>soltros-unstable_cosmic</td>
+                        </tr>
+                        <tr>
+                            <td>LTS COSMIC</td>
+                            <td>COSMIC</td>
+                            <td>Stable/6-month cycle</td>
+                            <td>soltros-lts_cosmic</td>
+                        </tr>
+                        <tr>
+                            <td>Unstable Gnome</td>
+                            <td>Gnome</td>
+                            <td>Rawhide/Bleeding Edge</td>
+                            <td>soltros-os-unstable_gnome</td>
+                        </tr>
+                        <tr>
+                            <td>LTS Gnome</td>
+                            <td>Gnome</td>
+                            <td>Stable/6-month cycle</td>
+                            <td>soltros-os-lts_gnome</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
 
-        <!-- Features Section -->
-        <div id="features" class="section">
-            <div class="card">
-                <h2>🎮 Gaming Features</h2>
-                <h3>Performance Optimizations</h3>
-                <ul>
-                    <li>Optimized kernel with gaming-focused enhancements</li>
-                    <li>Enhanced kernel parameters for maximum performance</li>
-                    <li>Increased memory map areas (vm.max_map_count = 2147483642)</li>
-                    <li>Optimized CPU governor settings for gaming workloads</li>
-                    <li>Network optimizations for reduced online gaming latency</li>
-                </ul>
+            <!-- Installation Page -->
+            <div id="installation" class="page">
+                <h1>Installation</h1>
+                <p>There are two primary methods to install SoltrOS:</p>
 
-                <h3>Gaming Ecosystem</h3>
-                <ul>
-                    <li>Controller support for PlayStation, Xbox, Nintendo Switch Pro, Steam, and 8BitDo</li>
-                    <li>MangoHud and GameMode integration</li>
-                    <li>Steam runtime optimizations with proper GPU configurations</li>
-                    <li>Pre-configured Proton compatibility for Windows games</li>
-                </ul>
-            </div>
+                <h2>Method 1: ISO Installation (Recommended)</h2>
+                <p>Download the official ISO, flash it to a USB device, and install it to your computer.</p>
 
-            <div class="card">
-                <h2>💻 MacBook Optimizations</h2>
-                <ul>
-                    <li><strong>Thermal Management:</strong> Aggressive thermal control starting at 58°C</li>
-                    <li><strong>Apple SMC Support:</strong> Native hardware sensor access via applesmc kernel module</li>
-                    <li><strong>Fan Control:</strong> Responsive thermal management with mbpfan</li>
-                    <li><strong>Hardware Sensors:</strong> Complete monitoring with lm_sensors</li>
-                    <li><strong>Humidity Resistance:</strong> Optimized fan curves for better longevity</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>🛠️ Developer Experience</h2>
-                <h3>Shell Environment</h3>
-                <ul>
-                    <li>Zsh as default shell with Oh My Zsh support</li>
-                    <li>Fish shell available with modern plugins</li>
-                    <li>Pre-configured aliases for common tools (eza, bat, flatpak apps)</li>
-                    <li>Starship prompt, Atuin history, Zoxide navigation</li>
-                </ul>
-
-                <h3>Development Tools</h3>
-                <ul>
-                    <li>Git with SSH signing integration</li>
-                    <li>Podman, Buildah, Skopeo for container development</li>
-                    <li>Modern CLI tools: ripgrep, fd-find, bat, btop</li>
-                    <li>Containerized development with Distrobox</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>📦 Included Software</h2>
-                <h3>System Packages (RPM)</h3>
-                <div class="feature-grid">
-                    <div class="feature">
-                        <h4>Core Tools</h4>
-                        <p>Zsh, Fish, Git, Tailscale, GIMP, Distrobox</p>
-                    </div>
-                    <div class="feature">
-                        <h4>Gaming</h4>
-                        <p>GameMode, MangoHud, Goverlay, CoreCtrl, Steam devices</p>
-                    </div>
-                    <div class="feature">
-                        <h4>Thermal Management</h4>
-                        <p>mbpfan, thermald, lm_sensors</p>
-                    </div>
-                    <div class="feature">
-                        <h4>Desktop</h4>
-                        <p>KDE Plasma, SDDM, Papirus icons, Kvantum themes</p>
-                    </div>
+                <div class="info-box">
+                    <p><strong>Bleeding-edge edition:</strong> Latest packages from Rawhide - <a href="https://bit.ly/soltros-os-unstable" target="_blank">Download Unstable ISO</a></p>
+                    <p><strong>Stable/LTS edition:</strong> Pinned to 6-month Fedora cycle - <a href="https://bit.ly/soltros-os-stable" target="_blank">Download LTS ISO</a></p>
+                    <p style="margin-top: 1rem;"><em>Once SoltrOS is installed, it rolls updates forever. No need to swap to new ISOs every 6 months.</em></p>
                 </div>
 
-                <h3>Flatpak Applications (40+)</h3>
-                <ul>
-                    <li><strong>Browsers:</strong> Waterfox</li>
-                    <li><strong>Communication:</strong> Discord, Telegram, Slack</li>
-                    <li><strong>Media:</strong> VLC, Jellyfin Media Player, Clapper</li>
-                    <li><strong>Gaming:</strong> Steam, Lutris, RetroArch, Heroic Games Launcher, Prism Launcher</li>
-                    <li><strong>Development:</strong> Zed Editor, VSCodium, Podman Desktop</li>
-                    <li><strong>Productivity:</strong> LibreOffice, Bitwarden, Thunderbird</li>
-                    <li><strong>System Tools:</strong> Flatseal, Mission Center, Warehouse</li>
-                </ul>
-            </div>
-        </div>
+                <h3>Creating a Bootable USB</h3>
+                <p>Use a tool like Balena Etcher, Rufus (Windows), or dd (Linux) to flash the ISO to a USB drive.</p>
 
-        <!-- Installation Section -->
-        <div id="install" class="section">
+                <pre><code># Linux example using dd
+sudo dd if=soltros-os-latest.iso of=/dev/sdX bs=4M status=progress
+sudo sync</code></pre>
 
-        <!-- Server Edition Section -->
-        <div id="server" class="section">
-            <div class="card">
-                <h2>🖥️ SoltrOS Server Edition</h2>
-                <p>Container-native server built on Fedora BootC with Docker CE, Podman, and enterprise management tools.</p>
-                
-                <div class="feature-grid" style="margin-top: 2rem;">
-                    <div class="feature">
-                        <h4>📦 Container Platform</h4>
-                        <ul style="margin-left: 0; list-style: none;">
-                            <li>• Docker CE with BuildX & Compose</li>
-                            <li>• Podman & Buildah for OCI containers</li>
-                            <li>• Tailscale for secure networking</li>
-                        </ul>
-                    </div>
-                    <div class="feature">
-                        <h4>🖥️ Management Tools</h4>
-                        <ul style="margin-left: 0; list-style: none;">
-                            <li>• Cockpit web console (port 9090)</li>
-                            <li>• Libvirt/KVM virtualization</li>
-                            <li>• System monitoring with PCP</li>
-                        </ul>
-                    </div>
-                    <div class="feature">
-                        <h4>🔐 Security & Compliance</h4>
-                        <ul style="margin-left: 0; list-style: none;">
-                            <li>• Signed container images (Sigstore)</li>
-                            <li>• Audit & AIDE intrusion detection</li>
-                            <li>• Network security with nftables</li>
-                        </ul>
-                    </div>
-                    <div class="feature">
-                        <h4>🛠️ Server Essentials</h4>
-                        <ul style="margin-left: 0; list-style: none;">
-                            <li>• SSH server ready</li>
-                            <li>• Smart monitoring tools</li>
-                            <li>• Development & debugging utilities</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                <h2>Method 2: Bootc Switch from Existing System</h2>
+                <p>If you're already running Fedora Silverblue, Kinoite, Bazzite, or Bluefin, you can switch directly to SoltrOS:</p>
 
-            <div class="install-box">
-                <h2 style="color: var(--accent); margin-bottom: 1.5rem;">Installing Server Edition</h2>
-                
-                <div class="install-steps">
-                    <div class="step">
-                        <h3><span class="step-number">1</span>Start with Fedora CoreOS/Server</h3>
-                        <p>Begin with a minimal Fedora CoreOS or Server installation</p>
-                    </div>
-
-                    <div class="step">
-                        <h3><span class="step-number">2</span>Switch to SoltrOS Server</h3>
-                        <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os-server:latest
+                <h3>Switch to Unstable/KDE (main)</h3>
+                <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os:latest
 sudo systemctl reboot</code></pre>
-                    </div>
 
-                    <div class="step">
-                        <h3><span class="step-number">3</span>Access Cockpit Web Console</h3>
-                        <p>After reboot, access the web console at:</p>
-                        <pre><code>https://&lt;your-server-ip&gt;:9090/</code></pre>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>Quick Start Commands</h2>
-                <pre><code># Check Docker status
-systemctl status docker
-
-# Check Tailscale status
-systemctl status tailscaled
-
-# Check Podman version
-podman version
-
-# Access Cockpit help
-cockpit-bridge --help</code></pre>
-
-                <h3 style="margin-top: 2rem;">Key Differences from Desktop</h3>
-                <ul>
-                    <li><strong>No GUI:</strong> Headless server optimized for remote management</li>
-                    <li><strong>Docker CE:</strong> Full Docker support for container orchestration</li>
-                    <li><strong>Cockpit:</strong> Web-based management interface</li>
-                    <li><strong>PCP Monitoring:</strong> Performance Co-Pilot for system metrics</li>
-                    <li><strong>Virtualization Ready:</strong> Libvirt/KVM pre-configured</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>Resources</h2>
-                <ul>
-                    <li><strong>Documentation:</strong> <a href="https://github.com/soltros/soltros-os-server" style="color: var(--primary);">github.com/soltros/soltros-os-server</a></li>
-                    <li><strong>Issues:</strong> <a href="https://github.com/soltros/soltros-os-server/issues" style="color: var(--primary);">Report bugs and request features</a></li>
-                    <li><strong>Base:</strong> Fedora 42 BootC • RPM-OSTree Based</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Installation Section -->
-        <div id="install" class="section">
-            <div class="install-box">
-                <h2 style="color: var(--accent); margin-bottom: 1.5rem;">Installation Methods</h2>
-                
-                <div class="install-steps">
-                    <div class="step">
-                        <h3><span class="step-number">1</span>ISO Installation (Recommended)</h3>
-                        <p>Download the official ISO and flash it to a USB device:</p>
-                        <ul>
-                            <li><strong>Bleeding-edge:</strong> Latest packages from Rawhide</li>
-                            <li><strong>Stable/LTS:</strong> Pinned to 6-month Fedora cycle</li>
-                        </ul>
-                        <p style="margin-top: 0.5rem;"><em>Once installed, SoltrOS rolls updates forever - no need to swap ISOs.</em></p>
-                    </div>
-
-                    <div class="step">
-                        <h3><span class="step-number">2</span>Bootc Switch from Existing System</h3>
-                        <p>Switch from Fedora Silverblue/Kinoite/Bazzite/Bluefin:</p>
-                        <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os:latest
+                <h3>Switch to LTS/KDE</h3>
+                <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os_lts:latest
 sudo systemctl reboot</code></pre>
-                        <p>Or for the LTS version:</p>
-                        <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os_lts:latest
+
+                <h3>Switch to Unstable COSMIC</h3>
+                <pre><code>sudo bootc switch ghcr.io/soltros/soltros-unstable_cosmic:latest
 sudo systemctl reboot</code></pre>
-                    </div>
-                </div>
-            </div>
 
-            <div class="card">
-                <h2>First Boot Setup</h2>
-                <div class="install-steps">
-                    <div class="step">
-                        <h3><span class="step-number">1</span>Install Flatpak Applications</h3>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh install-flatpaks</code></pre>
-                    </div>
+                <h3>Switch to LTS COSMIC</h3>
+                <pre><code>sudo bootc switch ghcr.io/soltros/soltros-lts_cosmic:latest
+sudo systemctl reboot</code></pre>
 
-                    <div class="step">
-                        <h3><span class="step-number">2</span>Setup Development Environment</h3>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh setup-cli</code></pre>
-                    </div>
+                <h3>Switch to Unstable Gnome</h3>
+                <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os-unstable_gnome:latest
+sudo systemctl reboot</code></pre>
 
-                    <div class="step">
-                        <h3><span class="step-number">3</span>Configure Git (Optional)</h3>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh setup-git</code></pre>
-                    </div>
+                <h3>Switch to LTS Gnome</h3>
+                <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os-lts_gnome:latest
+sudo systemctl reboot</code></pre>
 
-                    <div class="step">
-                        <h3><span class="step-number">4</span>Setup Development Containers (Optional)</h3>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh setup-distrobox</code></pre>
-                    </div>
-
-                    <div class="step">
-                        <h3><span class="step-number">5</span>Install Nix Package Manager (Optional)</h3>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh install-nix</code></pre>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>Important Notice</h2>
-                <p>If you experience bootc issues due to policy.json problems, run these commands:</p>
-                <pre><code># Download the public key
+                <h2>Important Notice: Policy.json Fix</h2>
+                <div class="warning-box">
+                    <p><strong>If you experience bootc issues</strong> due to policy.json problems, run these commands:</p>
+                    <pre><code># Download the public key
 sudo mkdir -p /etc/pki/containers
 sudo curl -L https://github.com/soltros/Soltros-OS/raw/main/soltros.pub -o /etc/pki/containers/soltros.pub
 
@@ -649,185 +506,240 @@ sudo curl -L https://github.com/soltros/Soltros-OS/raw/main/resources/policy.jso
 # Verify permissions
 sudo chmod 644 /etc/pki/containers/soltros.pub
 sudo chmod 644 /etc/containers/policy.json</code></pre>
-            </div>
-        </div>
-
-        <!-- Package Management Section -->
-        <div id="packages" class="section">
-            <div class="card">
-                <h2>Quintuple Package Management System</h2>
-                <p>SoltrOS implements five complementary package systems that work together seamlessly:</p>
-
-                <div class="package-layers">
-                    <div class="layer">
-                        <h4><span class="badge">Layer 1</span>RPM-OSTree (System Foundation)</h4>
-                        <p><strong>Purpose:</strong> Immutable base system with atomic updates</p>
-                        <p><strong>Use for:</strong> Core system components, kernel, drivers, essential services</p>
-                        <pre><code>sudo bootc switch ghcr.io/soltros/soltros-os:latest</code></pre>
-                    </div>
-
-                    <div class="layer">
-                        <h4><span class="badge">Layer 2</span>Flatpak (Desktop Applications)</h4>
-                        <p><strong>Purpose:</strong> Sandboxed desktop applications</p>
-                        <p><strong>Use for:</strong> Gaming platforms, creative tools, productivity software</p>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh install-flatpaks</code></pre>
-                    </div>
-
-                    <div class="layer">
-                        <h4><span class="badge">Layer 3</span>Distrobox (Development Environments)</h4>
-                        <p><strong>Purpose:</strong> Containerized development environments</p>
-                        <p><strong>Use for:</strong> Isolated development, access to any Linux distro's packages</p>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh setup-distrobox</code></pre>
-                    </div>
-
-                    <div class="layer">
-                        <h4><span class="badge">Layer 4</span>Nix (Declarative Package Management)</h4>
-                        <p><strong>Purpose:</strong> Declarative configuration with 80,000+ packages</p>
-                        <p><strong>Use for:</strong> Development tools, multiple versions simultaneously</p>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh install-nix
-nixmanager install firefox</code></pre>
-                    </div>
-
-                    <div class="layer">
-                        <h4><span class="badge">Layer 5</span>Homebrew (Universal Compatibility)</h4>
-                        <p><strong>Purpose:</strong> Fallback for packages not in other systems</p>
-                        <p><strong>Use for:</strong> macOS-familiar tools, extensive package selection</p>
-                        <pre><code>sh /usr/share/soltros/bin/helper.sh install-homebrew
-brew install &lt;package&gt;</code></pre>
-                    </div>
                 </div>
             </div>
 
-            <div class="card">
-                <h2>Package Manager Comparison</h2>
-                <table class="comparison-table">
+            <!-- First Boot Setup Page -->
+            <div id="first-boot" class="page">
+                <h1>First Boot Setup</h1>
+                <p>After installing SoltrOS, follow these steps to complete your setup:</p>
+
+                <h2>1. Install Flatpak Applications</h2>
+                <p>Install all pre-configured Flatpak applications (40+ apps including Steam, Discord, VLC, LibreOffice, and more):</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh install-flatpaks</code></pre>
+
+                <h2>2. Setup Development Environment</h2>
+                <p>Configure shell with modern plugins and aliases:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh setup-cli</code></pre>
+
+                <h2>3. Configure Git (Optional)</h2>
+                <p>Setup Git with SSH signing support:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh setup-git</code></pre>
+
+                <h2>4. Setup Development Containers (Optional)</h2>
+                <p>Create Ubuntu and Arch containers for development:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh setup-distrobox</code></pre>
+
+                <h2>5. Install Nix Package Manager (Optional)</h2>
+                <p>Add access to 80,000+ packages via Nix:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh install-nix</code></pre>
+
+                <h2>6. Install Homebrew (Optional)</h2>
+                <p>Add macOS-style package manager for additional tools:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh install-homebrew</code></pre>
+
+                <h2>7. Switch to Zsh (Optional)</h2>
+                <p>Change your default shell from Bash to Zsh:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh change-to-zsh</code></pre>
+
+                <h2>Complete Setup Script</h2>
+                <p>Run all essential setup steps at once:</p>
+                <pre><code># Full setup
+sh /usr/share/soltros/bin/helper.sh install-flatpaks
+sh /usr/share/soltros/bin/helper.sh setup-cli
+sh /usr/share/soltros/bin/helper.sh setup-distrobox
+sh /usr/share/soltros/bin/helper.sh install-nix
+sh /usr/share/soltros/bin/helper.sh change-to-zsh</code></pre>
+            </div>
+
+            <!-- Gaming Features Page -->
+            <div id="gaming" class="page">
+                <h1>Gaming Features</h1>
+
+                <h2>Performance Optimizations</h2>
+                <p>SoltrOS includes comprehensive gaming optimizations that work out of the box:</p>
+
+                <h3>Kernel-Level Performance</h3>
+                <ul>
+                    <li><strong>Optimized Kernel:</strong> Gaming-focused kernel enhancements</li>
+                    <li><strong>Memory Management:</strong> Increased memory map areas (vm.max_map_count = 2147483642)</li>
+                    <li><strong>CPU Governor:</strong> Performance mode for gaming workloads</li>
+                    <li><strong>Network Optimization:</strong> Reduced latency for online gaming</li>
+                </ul>
+
+                <h3>Gaming-Specific Sysctl Parameters</h3>
+                <pre><code># From /etc/sysctl.d/99-gaming.conf
+vm.max_map_count = 2147483642
+fs.file-max = 2097152
+net.core.rmem_default = 262144
+net.core.rmem_max = 16777216
+net.core.wmem_default = 262144
+net.core.wmem_max = 16777216
+vm.swappiness = 1
+vm.dirty_ratio = 15
+vm.dirty_background_ratio = 5</code></pre>
+
+                <h2>Hardware Support</h2>
+                <h3>Controller Support</h3>
+                <p>Universal controller access for:</p>
+                <ul>
+                    <li>PlayStation (PS3, PS4, PS5)</li>
+                    <li>Xbox (Xbox One, Series X/S)</li>
+                    <li>Nintendo Switch Pro Controller</li>
+                    <li>Steam Controller</li>
+                    <li>8BitDo controllers</li>
+                </ul>
+
+                <h3>GPU Optimization</h3>
+                <ul>
+                    <li>Pre-configured for both AMD and NVIDIA graphics</li>
+                    <li>DisplayPort/HDMI audio resume fixes</li>
+                    <li>Optional AMD GPU overclocking support</li>
+                </ul>
+
+                <h2>Gaming Ecosystem Integration</h2>
+                <ul>
+                    <li><strong>Steam:</strong> Pre-installed via Flatpak with native runtime configurations</li>
+                    <li><strong>Lutris:</strong> Available for non-Steam games and emulators</li>
+                    <li><strong>Heroic Games Launcher:</strong> Epic Games Store and GOG support</li>
+                    <li><strong>RetroArch:</strong> Retro gaming emulation</li>
+                    <li><strong>MangoHud:</strong> Performance monitoring overlay</li>
+                    <li><strong>GameMode:</strong> Automatic performance switching</li>
+                    <li><strong>Proton:</strong> Optimized Windows game compatibility</li>
+                </ul>
+
+                <h2>Enable AMD GPU Overclocking</h2>
+                <p>For AMD GPU users who want to overclock:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh enable-amdgpu-oc</code></pre>
+            </div>
+
+            <!-- MacBook Support Page -->
+            <div id="macbook" class="page">
+                <h1>MacBook Support</h1>
+                <p>SoltrOS includes specialized optimizations for MacBook hardware:</p>
+
+                <h2>Thermal Management</h2>
+                <p>Aggressive thermal management for humidity resistance and optimal performance:</p>
+
+                <pre><code># From /etc/mbpfan.conf
+[general]
+low_temp = 58        # Start ramping fans earlier
+high_temp = 62       # Aggressive ramp-up
+max_temp = 78        # Full speed earlier than default
+polling_interval = 1 # Check every second</code></pre>
+
+                <h3>Why These Settings?</h3>
+                <ul>
+                    <li><strong>Low Temperature (58°C):</strong> Fans start sooner than default to prevent heat buildup</li>
+                    <li><strong>High Temperature (62°C):</strong> More aggressive ramp-up for better cooling</li>
+                    <li><strong>Max Temperature (78°C):</strong> Full fan speed earlier to protect components</li>
+                    <li><strong>Polling Interval:</strong> 1-second checks for responsive thermal control</li>
+                </ul>
+
+                <h2>Hardware Integration</h2>
+                <ul>
+                    <li><strong>Apple SMC Support:</strong> Native sensor access via <code>applesmc</code> kernel module</li>
+                    <li><strong>Fan Control:</strong> Responsive thermal management with <code>mbpfan</code></li>
+                    <li><strong>Hardware Monitoring:</strong> Complete sensor access with <code>lm_sensors</code></li>
+                    <li><strong>Thermal Daemon:</strong> Additional thermal management with <code>thermald</code></li>
+                </ul>
+
+                <h2>Automatic Module Loading</h2>
+                <p>The <code>applesmc</code> module is automatically loaded at boot:</p>
+                <pre><code># From /etc/modules-load.d/applesmc.conf
+applesmc</code></pre>
+
+                <h2>Verify MacBook Support</h2>
+                <p>Check that thermal management is working:</p>
+                <pre><code># Check mbpfan status
+systemctl status mbpfan
+
+# Check thermald status
+systemctl status thermald
+
+# View sensor data
+sensors
+
+# Check if applesmc is loaded
+lsmod | grep applesmc</code></pre>
+            </div>
+
+            <!-- Developer Tools Page -->
+            <div id="developer" class="page">
+                <h1>Developer Tools</h1>
+
+                <h2>Shell Environment</h2>
+                <p>SoltrOS provides a modern, productivity-focused shell environment:</p>
+
+                <h3>Default Shell: Zsh</h3>
+                <ul>
+                    <li>Zsh set as default for new users</li>
+                    <li>Oh My Zsh support</li>
+                    <li>Custom configurations available</li>
+                    <li>Modern completions and plugins</li>
+                </ul>
+
+                <h3>Fish Shell (Alternative)</h3>
+                <ul>
+                    <li>Fish shell available as alternative</li>
+                    <li>Modern syntax highlighting</li>
+                    <li>Intelligent auto-suggestions</li>
+                </ul>
+
+                <h3>Modern CLI Tools</h3>
+                <p>Pre-installed modern alternatives to traditional Unix tools:</p>
+                <table>
                     <thead>
                         <tr>
-                            <th>Feature</th>
-                            <th>RPM-OSTree</th>
-                            <th>Flatpak</th>
-                            <th>Distrobox</th>
-                            <th>Nix</th>
-                            <th>Homebrew</th>
+                            <th>Traditional</th>
+                            <th>Modern Alternative</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>System Integration</td>
-                            <td class="checkmark">✓</td>
-                            <td class="checkmark">✓</td>
-                            <td class="crossmark">✗</td>
-                            <td class="checkmark">✓</td>
-                            <td class="crossmark">✗</td>
+                            <td>ls</td>
+                            <td>eza</td>
+                            <td>Modern file listing with colors and icons</td>
                         </tr>
                         <tr>
-                            <td>Sandboxed</td>
-                            <td class="crossmark">✗</td>
-                            <td class="checkmark">✓</td>
-                            <td class="checkmark">✓</td>
-                            <td class="crossmark">✗</td>
-                            <td class="crossmark">✗</td>
+                            <td>cat</td>
+                            <td>bat</td>
+                            <td>Syntax highlighting and git integration</td>
                         </tr>
                         <tr>
-                            <td>Atomic Updates</td>
-                            <td class="checkmark">✓</td>
-                            <td class="checkmark">✓</td>
-                            <td class="crossmark">✗</td>
-                            <td class="checkmark">✓</td>
-                            <td class="crossmark">✗</td>
+                            <td>grep</td>
+                            <td>ripgrep</td>
+                            <td>Blazing fast search</td>
                         </tr>
                         <tr>
-                            <td>Package Count</td>
-                            <td>Limited</td>
-                            <td>~2,000</td>
-                            <td>Unlimited</td>
-                            <td>~80,000</td>
-                            <td>~6,000</td>
+                            <td>find</td>
+                            <td>fd-find</td>
+                            <td>User-friendly alternative to find</td>
+                        </tr>
+                        <tr>
+                            <td>top</td>
+                            <td>btop</td>
+                            <td>Beautiful resource monitor</td>
+                        </tr>
+                        <tr>
+                            <td>cd</td>
+                            <td>zoxide</td>
+                            <td>Smarter directory jumping</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
 
-        <!-- Commands Section -->
-        <div id="commands" class="section">
-            <div class="card">
-                <h2>SoltrOS Helper Commands</h2>
-                <p>All commands use the format: <code>sh /usr/share/soltros/bin/helper.sh &lt;command&gt;</code></p>
+                <h2>Development Tools</h2>
 
-                <h3>Installation & Setup</h3>
-                <pre><code>install                  # Install all SoltrOS components
-install-flatpaks         # Install all Flatpak applications
-install-dev-tools        # Install development tools
-install-gaming           # Install gaming applications
-install-multimedia       # Install multimedia tools
-setup-cli                # Setup shell configurations
-setup-git                # Configure Git with SSH signing
-setup-distrobox          # Setup development containers
-install-homebrew         # Setup Brew package manager
-install-nix              # Setup Nix package manager
-install-oh-my-zsh        # Setup Oh My Zsh
-change-to-zsh            # Switch from Bash to Zsh
-download-zsh-configs     # Download custom Zsh configs</code></pre>
+                <h3>Container Development</h3>
+                <ul>
+                    <li><strong>Podman:</strong> Daemonless container engine</li>
+                    <li><strong>Buildah:</strong> OCI container image builder</li>
+                    <li><strong>Skopeo:</strong> Work with container registries</li>
+                    <li><strong>Podman Compose:</strong> Docker Compose alternative</li>
+                </ul>
 
-                <h3>System Configuration</h3>
-                <pre><code>enable-amdgpu-oc         # Enable AMD GPU overclocking
-toggle-session           # Toggle between X11 and Wayland</code></pre>
-
-                <h3>System Management</h3>
-                <pre><code>update                   # Update system (rpm-ostree, flatpaks, containers)
-clean                    # Clean up the system
-help                     # Show all available commands</code></pre>
-            </div>
-
-            <div class="card">
-                <h2>Common Workflows</h2>
-                
-                <h3>Complete Initial Setup</h3>
-                <pre><code># Install all essential applications
-sh /usr/share/soltros/bin/helper.sh install-flatpaks
-
-# Setup development environment
-sh /usr/share/soltros/bin/helper.sh setup-cli
-sh /usr/share/soltros/bin/helper.sh setup-git
-sh /usr/share/soltros/bin/helper.sh setup-distrobox
-
-# Install advanced package managers
-sh /usr/share/soltros/bin/helper.sh install-nix
-sh /usr/share/soltros/bin/helper.sh install-homebrew
-
-# Switch to Zsh
-sh /usr/share/soltros/bin/helper.sh change-to-zsh</code></pre>
-
-                <h3>Gaming Setup</h3>
-                <pre><code># Install gaming apps
-sh /usr/share/soltros/bin/helper.sh install-gaming
-
-# Enable AMD GPU overclocking (if applicable)
-sh /usr/share/soltros/bin/helper.sh enable-amdgpu-oc</code></pre>
-
-                <h3>System Maintenance</h3>
-                <pre><code># Update everything
-sh /usr/share/soltros/bin/helper.sh update
-
-# Clean up
-sh /usr/share/soltros/bin/helper.sh clean
-
-# Rollback if needed
-rpm-ostree rollback
-sudo systemctl reboot</code></pre>
-            </div>
-        </div>
-
-        <!-- Technical Details Section -->
-        <div id="technical" class="section">
-            <div class="card">
-                <h2>Architecture Overview</h2>
-                <p>SoltrOS uses a multi-stage container build process with the following components:</p>
-
-                <h3>Build Pipeline</h3>
-                <ol>
-                    <li><strong>Kernel Integration:</strong> Optimized kernel with automatic fallbacks</li>
-                    <li><strong>Container Signing:</strong> Cosign-based image verification</li>
-                    <li><strong>Desktop Environment:</strong> KDE Plasma with SDDM</li>
-                    <li><strong>
+                <h3>Version Control</h3>
+                <ul>
+                    <li><strong>Git:</strong> Latest version with SSH signing support</li>
