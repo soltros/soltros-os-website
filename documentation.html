@@ -317,17 +317,7 @@
         <!-- Sidebar Navigation -->
         <nav class="sidebar">
             <div class="logo">
-                <svg class="logo-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="100" cy="100" r="90" fill="url(#logoGradient)" opacity="0.2"/>
-                    <path d="M 100 30 L 140 70 L 120 70 L 120 120 L 140 120 L 100 170 L 60 120 L 80 120 L 80 70 L 60 70 Z" 
-                          fill="url(#logoGradient)" stroke="#60a5fa" stroke-width="2"/>
-                </svg>
+                <img src="https://soltros.info/soltros.svg" alt="SoltrOS Logo" class="logo-img">
                 <h1>SoltrOS</h1>
                 <p>Documentation</p>
             </div>
@@ -350,6 +340,19 @@
             <div class="nav-section">
                 <div class="nav-section-title">Package Management</div>
                 <div class="nav-item" onclick="showPage('packages')">Five Package Managers</div>
+                <div class="nav-item" onclick="showPage('rpm-ostree')">RPM-OSTree</div>
+                <div class="nav-item" onclick="showPage('flatpak')">Flatpak</div>
+                <div class="nav-item" onclick="showPage('distrobox')">Distrobox</div>
+                <div class="nav-item" onclick="showPage('nix')">Nix</div>
+                <div class="nav-item" onclick="showPage('homebrew')">Homebrew</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Usage</div>
+                <div class="nav-item" onclick="showPage('commands')">Helper Commands</div>
+                <div class="nav-item" onclick="showPage('workflows')">Common Workflows</div>
+                <div class="nav-item" onclick="showPage('customization')">Customization</div>
+            </div>
                 <div class="nav-item" onclick="showPage('rpm-ostree')">RPM-OSTree</div>
                 <div class="nav-item" onclick="showPage('flatpak')">Flatpak</div>
                 <div class="nav-item" onclick="showPage('distrobox')">Distrobox</div>
@@ -1055,6 +1058,72 @@ distrobox list</code></pre>
                 <div class="info-box">
                     <p><strong>Need help?</strong> Run <code>sh /usr/share/soltros/bin/helper.sh help</code> to see all available commands.</p>
                 </div>
+            </div>
+
+            <!-- Gaming Features Page -->
+            <div id="gaming" class="page">
+                <h1>Gaming Features</h1>
+
+            <!-- Five Package Managers Page -->
+            <div id="packages" class="page">
+                <h1>Five Package Managers</h1>
+                <p>SoltrOS takes a unique approach to package management by providing five complementary systems, each designed for a specific purpose.</p>
+
+                <h2>Why Five Package Managers?</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🔒 RPM-OSTree</h4>
+                        <p>Rock-solid, unchanging base that can't be tampered with or messed up.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📦 Flatpak</h4>
+                        <p>GUI apps, mainstream applications, and sandboxed safety.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🍺 Homebrew</h4>
+                        <p>CLI tools for developers.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>❄️ Nix</h4>
+                        <p>Robust tools or apps you can't get as Flatpaks. Try things with nix-shell.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📦 Distrobox</h4>
+                        <p>AUR access, DEBs, or safe tinkering in containers.</p>
+                    </div>
+                </div>
+
+                <h2>Real-World Examples</h2>
+                
+                <h3>Try Microsoft Edge Temporarily</h3>
+                <pre><code>nix-shell -p microsoft-edge
+# Use Edge, then exit - it's gone</code></pre>
+
+                <h3>Install a Rogue DEB Package</h3>
+                <pre><code>distrobox enter ubuntu
+sudo dpkg -i package.deb</code></pre>
+
+                <h3>Access AUR Packages</h3>
+                <pre><code>distrobox enter arch
+yay -S &lt;package&gt;</code></pre>
+
+                <h2>Quick Reference</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>I Want To...</th>
+                            <th>Use This</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Install a desktop app</td><td>Flatpak</td></tr>
+                        <tr><td>Install a system driver</td><td>RPM-OSTree</td></tr>
+                        <tr><td>Install a CLI tool</td><td>Homebrew</td></tr>
+                        <tr><td>Try software temporarily</td><td>Nix (nix-shell)</td></tr>
+                        <tr><td>Install from AUR</td><td>Distrobox</td></tr>
+                        <tr><td>Install a DEB package</td><td>Distrobox</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Gaming Features Page -->
