@@ -798,44 +798,236 @@ rpm-ostree status</code></pre>
             <!-- First Boot Setup Page -->
             <div id="first-boot" class="page">
                 <h1>First Boot Setup</h1>
-                <p>After installing SoltrOS, follow these steps to complete your setup:</p>
+                <p>After installing SoltrOS and logging in for the first time, you'll want to complete these setup steps to get the most out of your system. SoltrOS includes a powerful helper script that automates most of the configuration.</p>
 
-                <h2>1. Install Flatpak Applications</h2>
-                <p>Install all pre-configured Flatpak applications (40+ apps including Steam, Discord, VLC, LibreOffice, and more):</p>
+                <h2>The Helper Script</h2>
+                <p>SoltrOS includes <code>helper.sh</code>, a comprehensive management tool located at <code>/usr/share/soltros/bin/helper.sh</code>. All commands in this guide use this script.</p>
+
+                <div class="info-box">
+                    <p><strong>Running helper commands:</strong> All helper commands follow this format:</p>
+                    <pre><code>sh /usr/share/soltros/bin/helper.sh &lt;command&gt;</code></pre>
+                    <p>For convenience, you can create an alias in your shell:</p>
+                    <pre><code>echo "alias helper='sh /usr/share/soltros/bin/helper.sh'" >> ~/.bashrc
+source ~/.bashrc
+
+# Now you can just run:
+helper &lt;command&gt;</code></pre>
+                </div>
+
+                <h2>Essential Setup Steps</h2>
+
+                <h3>Step 1: Install Flatpak Applications</h3>
+                <p>SoltrOS comes with a curated list of 40+ pre-selected Flatpak applications optimized for gaming and productivity. Install them all with one command:</p>
+
                 <pre><code>sh /usr/share/soltros/bin/helper.sh install-flatpaks</code></pre>
 
-                <h2>2. Setup Development Environment</h2>
-                <p>Configure shell with modern plugins and aliases:</p>
+                <p>This will automatically install:</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🎮 Gaming</h4>
+                        <ul style="margin-left: 1.2rem; font-size: 0.9em;">
+                            <li>Steam</li>
+                            <li>Lutris</li>
+                            <li>RetroArch</li>
+                            <li>Heroic Games Launcher</li>
+                            <li>Prism Launcher</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>💬 Communication</h4>
+                        <ul style="margin-left: 1.2rem; font-size: 0.9em;">
+                            <li>Discord</li>
+                            <li>Telegram</li>
+                            <li>Slack</li>
+                            <li>Thunderbird</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎨 Creative Tools</h4>
+                        <ul style="margin-left: 1.2rem; font-size: 0.9em;">
+                            <li>Blender</li>
+                            <li>Inkscape</li>
+                            <li>Kdenlive</li>
+                            <li>Audacity</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📝 Productivity</h4>
+                        <ul style="margin-left: 1.2rem; font-size: 0.9em;">
+                            <li>LibreOffice</li>
+                            <li>Bitwarden</li>
+                            <li>Zed Editor</li>
+                            <li>VSCodium</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p style="margin-top: 1rem;"><strong>Full list of pre-selected Flatpaks:</strong> <a href="https://github.com/soltros/Soltros-OS/blob/main/repo_files/flatpaks" target="_blank">View on GitHub</a></p>
+
+                <h3>Step 2: Install Homebrew Package Manager</h3>
+                <p>Homebrew provides access to thousands of additional packages not available in other package managers. Install it with:</p>
+
+                <pre><code>sh /usr/share/soltros/bin/helper.sh install-homebrew</code></pre>
+
+                <p>After installation, you can use Homebrew to install packages:</p>
+                <pre><code>brew install &lt;package-name&gt;</code></pre>
+
+                <h3>Step 3: Install Nix Package Manager</h3>
+                <p>Nix provides access to 80,000+ packages with declarative configuration. SoltrOS uses the Determinate Systems Nix installer, which is pre-configured for RPM-OSTree compatibility:</p>
+
+                <pre><code>sh /usr/share/soltros/bin/helper.sh install-nix</code></pre>
+
+                <div class="info-box">
+                    <p><strong>What happens:</strong> This runs the Determinate Systems Nix installer in RPM-OSTree mode, which ensures Nix works correctly on SoltrOS's immutable filesystem. The installer is pre-downloaded to <code>/nix/determinate-nix-installer.sh</code>.</p>
+                </div>
+
+                <h3>Step 4: Setup Nixmanager (Nix Frontend)</h3>
+                <p>After installing Nix, set up nixmanager—a custom frontend script that makes managing Nix packages much easier through a bundled flake configuration:</p>
+
+                <pre><code>sh /usr/share/soltros/bin/helper.sh setup-nixmanager</code></pre>
+
+                <p>Nixmanager provides simple commands for Nix package management:</p>
+                <pre><code># Install a package
+nixmanager install firefox
+
+# Remove a package
+nixmanager remove firefox
+
+# Update all packages
+nixmanager update
+
+# Search for packages
+nixmanager search &lt;package-name&gt;</code></pre>
+
+                <h4>If You're Using Bash Instead of Zsh</h4>
+                <p>SoltrOS defaults to Zsh, but if you're using Bash, add the nixmanager alias:</p>
+
+                <pre><code>sh /usr/share/soltros/bin/helper.sh add-nixmanager</code></pre>
+
+                <p>This adds the nixmanager alias to your <code>~/.bashrc</code> so it works in Bash shells.</p>
+
+                <h2>Optional Setup Steps</h2>
+
+                <h3>Setup Shell Configuration</h3>
+                <p>Configure your shell with modern plugins and tools:</p>
                 <pre><code>sh /usr/share/soltros/bin/helper.sh setup-cli</code></pre>
 
-                <h2>3. Configure Git (Optional)</h2>
+                <p>This configures your shell with:</p>
+                <ul>
+                    <li>Modern CLI tool aliases (eza, bat, etc.)</li>
+                    <li>Improved shell completions</li>
+                    <li>Custom prompt configurations</li>
+                    <li>Useful shortcuts and functions</li>
+                </ul>
+
+                <h3>Configure Git</h3>
                 <p>Setup Git with SSH signing support:</p>
                 <pre><code>sh /usr/share/soltros/bin/helper.sh setup-git</code></pre>
 
-                <h2>4. Setup Development Containers (Optional)</h2>
+                <h3>Setup Development Containers</h3>
                 <p>Create Ubuntu and Arch containers for development:</p>
                 <pre><code>sh /usr/share/soltros/bin/helper.sh setup-distrobox</code></pre>
 
-                <h2>5. Install Nix Package Manager (Optional)</h2>
-                <p>Add access to 80,000+ packages via Nix:</p>
-                <pre><code>sh /usr/share/soltros/bin/helper.sh install-nix</code></pre>
+                <p>This creates pre-configured Distrobox containers that you can use for development without affecting your host system.</p>
 
-                <h2>6. Install Homebrew (Optional)</h2>
-                <p>Add macOS-style package manager for additional tools:</p>
-                <pre><code>sh /usr/share/soltros/bin/helper.sh install-homebrew</code></pre>
+                <h3>Install Oh My Zsh</h3>
+                <p>Add Oh My Zsh plugins and themes to Zsh (already the default shell):</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh install-oh-my-zsh</code></pre>
 
-                <h2>7. Switch to Zsh (Optional)</h2>
-                <p>Change your default shell from Bash to Zsh:</p>
+                <h3>Download Custom Zsh Configurations</h3>
+                <p>Download curated Zsh configuration files:</p>
+                <pre><code>sh /usr/share/soltros/bin/helper.sh download-zsh-configs</code></pre>
+
+                <h3>Switch to Zsh (if needed)</h3>
+                <p>If you're on a different shell and want to switch to Zsh (the default):</p>
                 <pre><code>sh /usr/share/soltros/bin/helper.sh change-to-zsh</code></pre>
 
                 <h2>Complete Setup Script</h2>
-                <p>Run all essential setup steps at once:</p>
-                <pre><code># Full setup
+                <p>To run all essential setup steps at once, execute these commands in order:</p>
+
+                <pre><code># Essential setup
 sh /usr/share/soltros/bin/helper.sh install-flatpaks
-sh /usr/share/soltros/bin/helper.sh setup-cli
-sh /usr/share/soltros/bin/helper.sh setup-distrobox
+sh /usr/share/soltros/bin/helper.sh install-homebrew
 sh /usr/share/soltros/bin/helper.sh install-nix
-sh /usr/share/soltros/bin/helper.sh change-to-zsh</code></pre>
+sh /usr/share/soltros/bin/helper.sh setup-nixmanager
+
+# Optional but recommended
+sh /usr/share/soltros/bin/helper.sh setup-cli
+sh /usr/share/soltros/bin/helper.sh setup-git
+sh /usr/share/soltros/bin/helper.sh setup-distrobox</code></pre>
+
+                <h2>Understanding Your Package Managers</h2>
+                <p>After setup, you now have access to five different package managers, each with a specific purpose:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Package Manager</th>
+                            <th>Command</th>
+                            <th>Use For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RPM-OSTree</td>
+                            <td><code>rpm-ostree install</code></td>
+                            <td>System packages (kernel, drivers, services)</td>
+                        </tr>
+                        <tr>
+                            <td>Flatpak</td>
+                            <td><code>flatpak install</code></td>
+                            <td>Desktop applications (sandboxed)</td>
+                        </tr>
+                        <tr>
+                            <td>Distrobox</td>
+                            <td><code>distrobox enter</code></td>
+                            <td>Development environments</td>
+                        </tr>
+                        <tr>
+                            <td>Nix</td>
+                            <td><code>nixmanager install</code></td>
+                            <td>Development tools, CLI utilities</td>
+                        </tr>
+                        <tr>
+                            <td>Homebrew</td>
+                            <td><code>brew install</code></td>
+                            <td>Additional tools and utilities</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Learn more about when to use each package manager in the <strong>Package Management</strong> section.</p>
+
+                <h2>Verification</h2>
+                <p>Verify your setup is complete:</p>
+
+                <pre><code># Check Flatpak apps are installed
+flatpak list
+
+# Verify Homebrew
+brew --version
+
+# Verify Nix
+nix --version
+
+# Test nixmanager
+nixmanager --help
+
+# Check Distrobox containers (if installed)
+distrobox list</code></pre>
+
+                <h2>What's Next?</h2>
+                <p>Now that your system is set up, explore:</p>
+                <ul>
+                    <li><strong>Gaming Features:</strong> Learn about gaming optimizations and controller support</li>
+                    <li><strong>Package Management:</strong> Deep dive into the five package managers</li>
+                    <li><strong>Commands:</strong> Complete reference of all helper.sh commands</li>
+                    <li><strong>Customization:</strong> Personalize your desktop and workflow</li>
+                </ul>
+
+                <div class="info-box">
+                    <p><strong>Need help?</strong> Run <code>sh /usr/share/soltros/bin/helper.sh help</code> to see all available commands.</p>
+                </div>
             </div>
 
             <!-- Gaming Features Page -->
