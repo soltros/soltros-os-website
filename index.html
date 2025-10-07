@@ -165,6 +165,23 @@ Both tracks deliver a clean, performant system that evolves continuously without
     </div>
   </section>
 
+  <section class="logo-divider">
+    <div class="split-logo-card">
+      <img src="server-desktop_combined.png" alt="SoltrOS Split Logo" class="split-logo">
+      <div class="logo-labels">
+        <div class="label-item">
+          <div class="color-dot blue"></div>
+          <span>Desktop</span>
+        </div>
+        <div class="label-separator">|</div>
+        <div class="label-item">
+          <div class="color-dot white"></div>
+          <span>Server</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="showcase">
     <div class="desk-card">
       <div class="image-wrapper">
@@ -204,84 +221,6 @@ Both tracks deliver a clean, performant system that evolves continuously without
       <div class="desk-actions">
         <button class="btn sec" onclick="openModal('gnome')">Learn more</button>
       </div>
-    </div>
-  </section>
-
-  <section class="logo-divider">
-    <div class="split-logo-card">
-      <img src="server-desktop_combined.png" alt="SoltrOS Split Logo" class="split-logo">
-      <div class="logo-labels">
-        <div class="label-item">
-          <div class="color-dot blue"></div>
-          <span>Desktop</span>
-        </div>
-        <div class="label-separator">|</div>
-        <div class="label-item">
-          <div class="color-dot white"></div>
-          <span>Server</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="server-section">
-    <div class="server-header">
-      <h2>SoltrOS Server Edition</h2>
-      <p>Container-native server built on Fedora BootC with Docker CE, Podman, and enterprise management tools</p>
-    </div>
-    
-    <div class="server-showcase">
-      <div class="image-wrapper">
-        <img src="screenshots/serv2.png" alt="SoltrOS Server screenshot" onclick="openImageModal(this.src, this.alt)">
-        <div class="hover-badge server-badge">
-          <img src="soltros_white.svg" alt="SoltrOS Server logo">
-        </div>
-      </div>
-    </div>
-    
-    <div class="server-features">
-      <div class="server-grid">
-        <div>
-          <h4>📦 Container Platform</h4>
-          <ul>
-            <li>Docker CE with BuildX & Compose</li>
-            <li>Podman & Buildah for OCI containers</li>
-            <li>Tailscale for secure networking</li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4>🖥️ Management Tools</h4>
-          <ul>
-            <li>Cockpit web console (port 9090)</li>
-            <li>Libvirt/KVM virtualization</li>
-            <li>System monitoring with PCP</li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4>🔐 Security & Compliance</h4>
-          <ul>
-            <li>Signed container images (Sigstore)</li>
-            <li>Audit & AIDE intrusion detection</li>
-            <li>Network security with nftables</li>
-          </ul>
-        </div>
-        
-        <div>
-          <h4>🛠️ Server Essentials</h4>
-          <ul>
-            <li>SSH server ready</li>
-            <li>Smart monitoring tools</li>
-            <li>Development & debugging utilities</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    
-    <div class="server-cta">
-      <a class="btn" href="https://publicweb.soltros.info/files/soltros-os-server-latest-42.iso">Download Server</a>
-      <button class="btn sec" onclick="openModal('server')">Learn more</button>
     </div>
   </section>
 
@@ -349,6 +288,67 @@ Both tracks deliver a clean, performant system that evolves continuously without
     <div class="card full">
       <h4>Included highlights</h4>
       <p>optimized kernel · tailscale · thermald · lm_sensors · Steam · Lutris · VLC · Jellyfin MP · LibreOffice · Bitwarden · RetroArch · Podman Desktop · Flatseal · Mission Center · Warehouse</p>
+    </div>
+  </section>
+
+  <section class="server-section">
+    <div class="server-header">
+      <h2>SoltrOS Server Edition</h2>
+      <p>Container-native server built on Fedora BootC with Docker CE, Podman, and enterprise management tools</p>
+    </div>
+    
+    <div class="server-showcase">
+      <div class="image-wrapper">
+        <img src="screenshots/serv2.png" alt="SoltrOS Server screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+      </div>
+    </div>
+    
+    <div class="server-features">
+      <div class="server-grid">
+        <div>
+          <h4>📦 Container Platform</h4>
+          <ul>
+            <li>Docker CE with BuildX & Compose</li>
+            <li>Podman & Buildah for OCI containers</li>
+            <li>Tailscale for secure networking</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4>🖥️ Management Tools</h4>
+          <ul>
+            <li>Cockpit web console (port 9090)</li>
+            <li>Libvirt/KVM virtualization</li>
+            <li>System monitoring with PCP</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4>🔐 Security & Compliance</h4>
+          <ul>
+            <li>Signed container images (Sigstore)</li>
+            <li>Audit & AIDE intrusion detection</li>
+            <li>Network security with nftables</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4>🛠️ Server Essentials</h4>
+          <ul>
+            <li>SSH server ready</li>
+            <li>Smart monitoring tools</li>
+            <li>Development & debugging utilities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="server-cta">
+      <a class="btn" href="https://publicweb.soltros.info/files/soltros-os-server-latest-42.iso">Download Server</a>
+      <button class="btn sec" onclick="openModal('server')">Learn more</button>
     </div>
   </section>
 
