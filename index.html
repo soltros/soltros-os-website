@@ -78,9 +78,10 @@
     .split-logo-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;box-shadow:var(--shadow)}
     .split-logo{width:180px;height:180px;margin:0 auto 24px;display:block}
     .logo-labels{display:flex;align-items:center;justify-content:center;gap:24px;font-size:1.1rem;font-weight:600}
-    .label-item{display:flex;align-items:center;gap:10px}
+    .label-item{display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 16px;border-radius:8px;transition:background .2s}
+    .label-item:hover{background:var(--surface)}
     .color-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border)}
-    .color-dot.blue{background:var(--accent);box-shadow:0 0 12px rgba(62,166,255,.4)}
+    .color-dot.blue{background:var(--accent);box-shadow:0 0 12px rgba(73,225,248,1)}
     .color-dot.white{background:#f8f9fa;box-shadow:0 0 12px rgba(248,249,250,.3)}
     .label-separator{color:var(--border);font-size:1.5rem;font-weight:300}
 
@@ -93,12 +94,12 @@
     .server-tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:32px}
     .tool-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;position:relative;transition:transform .2s,box-shadow .2s;cursor:pointer;aspect-ratio:1}
     .tool-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
-    .tool-card .tool-icon{width:64px;height:64px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
-    .tool-card .tool-icon img{width:100%;height:100%;object-fit:contain}
-    .tool-card h4{margin:0;font-size:.95rem;color:var(--text)}
+    .tool-card .tool-icon{width:64px;height:64px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .tool-card .tool-icon img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+    .tool-card h4{margin:0;font-size:.95rem;color:var(--text);pointer-events:none}
     .tool-card:hover .hover-badge{opacity:1;transform:scale(1) translateY(0)}
-    .server-badge{background:rgba(0,0,0,0.75) !important;box-shadow:0 4px 12px rgba(0,0,0,.5) !important;width:48px;height:48px;backdrop-filter:blur(8px)}
-    .server-badge img{border:none !important;background:transparent !important;width:32px !important;height:32px !important}
+    .server-badge{background:rgba(0,0,0,0.75) !important;box-shadow:0 4px 12px rgba(0,0,0,.5) !important;width:48px;height:48px;backdrop-filter:blur(8px);pointer-events:none !important}
+    .server-badge img{border:none !important;background:transparent !important;width:32px !important;height:32px !important;pointer-events:none !important}
     
     .server-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
 
@@ -171,12 +172,12 @@ Both tracks deliver a clean, performant system that evolves continuously without
     <div class="split-logo-card">
       <img src="server-desktop_combined.png" alt="SoltrOS Split Logo" class="split-logo">
       <div class="logo-labels">
-        <div class="label-item">
+        <div class="label-item" onclick="scrollToSection('showcase')">
           <div class="color-dot blue"></div>
           <span>Desktop</span>
         </div>
         <div class="label-separator">|</div>
-        <div class="label-item">
+        <div class="label-item" onclick="scrollToSection('server-section')">
           <div class="color-dot white"></div>
           <span>Server</span>
         </div>
@@ -184,7 +185,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
     </div>
   </section>
 
-  <section class="showcase">
+  <section class="showcase" id="showcase">
     <div class="desk-card">
       <div class="image-wrapper">
         <img src="screenshots/soltros-os_cosmic.png" alt="COSMIC desktop screenshot" onclick="openImageModal(this.src, this.alt)">
@@ -293,14 +294,14 @@ Both tracks deliver a clean, performant system that evolves continuously without
     </div>
   </section>
 
-  <section class="server-section">
+  <section class="server-section" id="server-section">
     <div class="server-header">
       <h2>SoltrOS Server Edition</h2>
       <p>Container-native server built on Fedora BootC with Docker CE, Podman, and enterprise management tools</p>
     </div>
     
     <div class="server-tools-grid">
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('docker')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -310,7 +311,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <h4>Docker CE</h4>
       </div>
       
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('podman')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -320,7 +321,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <h4>Podman</h4>
       </div>
       
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('cockpit')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -330,7 +331,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <h4>Cockpit</h4>
       </div>
       
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('kvm')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -340,7 +341,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <h4>KVM/Libvirt</h4>
       </div>
       
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('tailscale')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -350,7 +351,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <h4>Tailscale</h4>
       </div>
       
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('buildah')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -360,7 +361,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <h4>Buildah</h4>
       </div>
       
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('aide')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -370,7 +371,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <h4>AIDE</h4>
       </div>
       
-      <div class="tool-card">
+      <div class="tool-card" onclick="openModal('nftables')">
         <div class="hover-badge server-badge">
           <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
@@ -460,6 +461,95 @@ Both tracks deliver a clean, performant system that evolves continuously without
           <p>Perfect for users who value simplicity, elegance, and a consistent user experience across all their applications.</p>
         `
       },
+      docker: {
+        title: 'Docker CE',
+        content: `
+          <p>Docker is the industry-standard container platform that makes it easy to build, ship, and run distributed applications.</p>
+          <ul>
+            <li><strong>Complete toolkit:</strong> Includes Docker Engine, BuildX, and Docker Compose</li>
+            <li><strong>Wide compatibility:</strong> Run millions of containers from Docker Hub</li>
+            <li><strong>Developer friendly:</strong> Simple commands and workflow</li>
+          </ul>
+        `
+      },
+      podman: {
+        title: 'Podman',
+        content: `
+          <p>Podman is a daemonless container engine for developing, managing, and running OCI containers with a focus on security.</p>
+          <ul>
+            <li><strong>Rootless containers:</strong> Run containers without root privileges</li>
+            <li><strong>Docker compatible:</strong> Drop-in replacement with same CLI</li>
+            <li><strong>Systemd integration:</strong> Native support for system services</li>
+          </ul>
+        `
+      },
+      cockpit: {
+        title: 'Cockpit',
+        content: `
+          <p>Cockpit is a web-based server management interface that makes Linux server administration easy and accessible.</p>
+          <ul>
+            <li><strong>Web console:</strong> Manage your server from any browser</li>
+            <li><strong>Real-time monitoring:</strong> CPU, memory, network, and storage metrics</li>
+            <li><strong>Container management:</strong> Control Docker and Podman containers visually</li>
+          </ul>
+          <p>Access at: <code>https://your-server:9090</code></p>
+        `
+      },
+      kvm: {
+        title: 'KVM/Libvirt',
+        content: `
+          <p>KVM (Kernel-based Virtual Machine) with Libvirt provides enterprise-grade virtualization directly in the Linux kernel.</p>
+          <ul>
+            <li><strong>Full virtualization:</strong> Run complete operating systems as VMs</li>
+            <li><strong>High performance:</strong> Near-native performance with hardware acceleration</li>
+            <li><strong>Flexible management:</strong> Control VMs via Cockpit, CLI, or virt-manager</li>
+          </ul>
+        `
+      },
+      tailscale: {
+        title: 'Tailscale',
+        content: `
+          <p>Tailscale creates a secure private network between your devices using WireGuard, making remote access simple and secure.</p>
+          <ul>
+            <li><strong>Zero-config VPN:</strong> Connect devices without port forwarding</li>
+            <li><strong>WireGuard based:</strong> Modern, fast, and secure encryption</li>
+            <li><strong>Easy access:</strong> Reach your server from anywhere securely</li>
+          </ul>
+        `
+      },
+      buildah: {
+        title: 'Buildah',
+        content: `
+          <p>Buildah is a tool for building OCI and Docker container images without requiring a daemon.</p>
+          <ul>
+            <li><strong>Flexible builds:</strong> Create images from scratch or Dockerfiles</li>
+            <li><strong>Scriptable:</strong> Integrate into CI/CD pipelines easily</li>
+            <li><strong>Lightweight:</strong> No daemon required, minimal overhead</li>
+          </ul>
+        `
+      },
+      aide: {
+        title: 'AIDE',
+        content: `
+          <p>AIDE (Advanced Intrusion Detection Environment) monitors file system changes to detect unauthorized modifications.</p>
+          <ul>
+            <li><strong>Intrusion detection:</strong> Identify unauthorized file changes</li>
+            <li><strong>Compliance:</strong> Meet security audit requirements</li>
+            <li><strong>Automated checks:</strong> Regular integrity verification</li>
+          </ul>
+        `
+      },
+      nftables: {
+        title: 'nftables',
+        content: `
+          <p>nftables is the modern Linux firewall framework that replaces iptables with improved performance and syntax.</p>
+          <ul>
+            <li><strong>Advanced filtering:</strong> Flexible packet filtering and NAT</li>
+            <li><strong>Better performance:</strong> More efficient than legacy iptables</li>
+            <li><strong>Simplified rules:</strong> Cleaner, more readable configuration</li>
+          </ul>
+        `
+      },
       server: {
         title: 'SoltrOS Server Edition',
         content: `
@@ -491,6 +581,13 @@ Both tracks deliver a clean, performant system that evolves continuously without
         `
       }
     };
+
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
 
     function openModal(desktop) {
       const modal = document.getElementById('infoModal');
