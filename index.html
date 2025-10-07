@@ -74,6 +74,16 @@
     .full{grid-column:1/-1}
     .full p{margin:0;color:var(--muted)}
 
+    .logo-divider{max-width:var(--w);margin:56px auto;padding:0 20px}
+    .split-logo-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;box-shadow:var(--shadow)}
+    .split-logo{width:180px;height:180px;margin:0 auto 24px;display:block}
+    .logo-labels{display:flex;align-items:center;justify-content:center;gap:24px;font-size:1.1rem;font-weight:600}
+    .label-item{display:flex;align-items:center;gap:10px}
+    .color-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border)}
+    .color-dot.blue{background:var(--accent);box-shadow:0 0 12px rgba(62,166,255,.4)}
+    .color-dot.white{background:#f8f9fa;box-shadow:0 0 12px rgba(248,249,250,.3)}
+    .label-separator{color:var(--border);font-size:1.5rem;font-weight:300}
+
     .server-section{max-width:var(--w);margin:48px auto 24px;padding:0 20px}
     .server-header{text-align:center;margin-bottom:32px}
     .server-header h2{font-size:36px;margin:0 0 12px;color:var(--text)}
@@ -83,8 +93,8 @@
     .server-showcase img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:#0c1015;cursor:pointer;transition:transform .2s,box-shadow .2s;display:block}
     .server-showcase img:hover{transform:scale(1.01);box-shadow:0 4px 20px rgba(62,166,255,.3)}
     .server-showcase:hover .hover-badge{opacity:1;transform:scale(1) translateY(0)}
-    .server-badge{background:#0000 !important;box-shadow:0 4px 12px rgba(248,249,250,.3) !important}
-    .server-badge img{border:none !important;background:transparent !important}
+    .server-badge{background:rgba(0,0,0,0.75) !important;box-shadow:0 4px 12px rgba(0,0,0,.5) !important;width:60px;height:60px;backdrop-filter:blur(8px)}
+    .server-badge img{border:none !important;background:transparent !important;width:42px !important;height:42px !important}
     .server-features{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);margin-bottom:24px}
     .server-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
     .server-grid h4{margin:0 0 12px;color:var(--accent)}
@@ -197,6 +207,23 @@ Both tracks deliver a clean, performant system that evolves continuously without
     </div>
   </section>
 
+  <section class="logo-divider">
+    <div class="split-logo-card">
+      <img src="server-desktop_combined.png" alt="SoltrOS Split Logo" class="split-logo">
+      <div class="logo-labels">
+        <div class="label-item">
+          <div class="color-dot blue"></div>
+          <span>Desktop</span>
+        </div>
+        <div class="label-separator">|</div>
+        <div class="label-item">
+          <div class="color-dot white"></div>
+          <span>Server</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="server-section">
     <div class="server-header">
       <h2>SoltrOS Server Edition</h2>
@@ -207,7 +234,7 @@ Both tracks deliver a clean, performant system that evolves continuously without
       <div class="image-wrapper">
         <img src="screenshots/serv2.png" alt="SoltrOS Server screenshot" onclick="openImageModal(this.src, this.alt)">
         <div class="hover-badge server-badge">
-          <img src="soltros_white.svg" width="15" height="15" alt="SoltrOS Server logo">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
         </div>
       </div>
     </div>
