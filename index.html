@@ -29,9 +29,40 @@
     .tag{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:#0e141b;color:#cfe6ff;font-size:.9rem}
 
     .showcase{max-width:var(--w);margin:36px auto 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px}
-    .desk-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow);text-align:center}
-    .desk-card img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:#0c1015;cursor:pointer;transition:transform .2s,box-shadow .2s}
+    .desk-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow);text-align:center;position:relative}
+    .desk-card .image-wrapper{position:relative;overflow:hidden;border-radius:12px}
+    .desk-card img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:#0c1015;cursor:pointer;transition:transform .2s,box-shadow .2s;display:block}
     .desk-card img:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(62,166,255,.3)}
+    
+    /* Hover badge styling */
+    .hover-badge{
+      position:absolute;
+      top:12px;
+      right:12px;
+      width:52px;
+      height:52px;
+      background:var(--accent);
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      transform:scale(0.8) translateY(-10px);
+      transition:opacity .3s ease, transform .3s ease;
+      box-shadow:0 4px 12px rgba(62,166,255,.4);
+      pointer-events:none;
+      z-index:10;
+    }
+    .hover-badge img{
+      width:34px;
+      height:34px;
+      object-fit:contain;
+    }
+    .desk-card:hover .hover-badge{
+      opacity:1;
+      transform:scale(1) translateY(0);
+    }
+    
     .desk-card h3{margin:10px 0 2px;font-size:1.1rem}
     .desk-card p{margin:0;color:var(--low);font-size:.92rem}
     .desk-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
@@ -119,7 +150,12 @@ Both tracks deliver a clean, performant system that evolves continuously without
 
   <section class="showcase">
     <div class="desk-card">
-      <img src="screenshots/soltros-os_cosmic.png" alt="COSMIC desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_cosmic.png" alt="COSMIC desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge">
+          <img src="soltros.svg" alt="SoltrOS logo">
+        </div>
+      </div>
       <h3>COSMIC</h3>
       <p><a href="https://www.mediafire.com/file_premium/atvkvk9uoqp3pkj/soltros-os-lts_cosmic-latest.iso/file">LTS</a> / Unstable </p>
       <div class="desk-actions">
@@ -127,7 +163,12 @@ Both tracks deliver a clean, performant system that evolves continuously without
       </div>
     </div>
     <div class="desk-card">
-      <img src="screenshots/soltros-os_kde.png" alt="Plasma desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_kde.png" alt="Plasma desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge">
+          <img src="soltros.svg" alt="SoltrOS logo">
+        </div>
+      </div>
       <h3>Plasma</h3>
       <p><a href="https://bit.ly/soltros-os-stable">LTS</a> / <a href="https://bit.ly/soltros-os-unstable">Unstable</a></p>
       <div class="desk-actions">
@@ -135,7 +176,12 @@ Both tracks deliver a clean, performant system that evolves continuously without
       </div>
     </div>
     <div class="desk-card">
-      <img src="screenshots/soltros-os_gnome.png" alt="GNOME desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_gnome.png" alt="GNOME desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge">
+          <img src="soltros.svg" alt="SoltrOS logo">
+        </div>
+      </div>
       <h3>GNOME</h3>
       <p><a href="https://www.mediafire.com/file_premium/1tj2qoo38iezkc1/soltros-os-lts_gnome-latest.iso/file">LTS</a> / <a href="https://www.mediafire.com/file_premium/ix3amdjov7bqjud/soltros-os-unstable-gnome.iso/file">Unstable</a></p>
       <div class="desk-actions">
