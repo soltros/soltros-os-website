@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>System Packages - SoltrOS</title>
+  <meta name="description" content="Explore the system packages included in SoltrOS. Every package is layered directly into the immutable image for reliability and performance.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    .hero{text-align:center;padding:16px 0 6px}
+    .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
+    .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
+    
+    .category-section{max-width:var(--w);margin:40px auto 20px;padding:0 20px}
+    .category-header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:20px;
+      padding-bottom:12px;
+      border-bottom:2px solid var(--border)
+    }
+    .category-header h2{margin:0;font-size:1.75rem;color:var(--text)}
+    .category-icon{font-size:1.75rem}
+    
+    .package-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+      gap:14px;
+      margin-bottom:40px
+    }
+    
+    .package-item{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:8px
+    }
+    .package-name{
+      font-family:ui-monospace,monospace;
+      color:var(--accent);
+      font-size:.95rem;
+      font-weight:600
+    }
+    .package-desc{
+      color:var(--muted);
+      font-size:.9rem;
+      line-height:1.5;
+      margin:0
+    }
+    
+    .info-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:24px;
+      margin:20px 0
+    }
+    .info-card h3{margin:0 0 12px;color:var(--accent)}
+    .info-card p{color:var(--muted);line-height:1.7;margin:8px 0}
+    .info-card ul{margin:12px 0;padding-left:20px;color:var(--muted)}
+    .info-card li{margin:6px 0}
+    
+    .cta-section{
+      text-align:center;
+      max-width:700px;
+      margin:60px auto;
+      padding:0 20px
+    }
+    .cta-section h2{color:var(--text);margin:0 0 16px}
+    .cta-section p{color:var(--muted);margin:0 0 24px;font-size:1.05rem}
+    .btn{
+      display:inline-block;
+      padding:12px 20px;
+      border-radius:12px;
+      background:var(--accent);
+      color:#062338;
+      font-weight:700;
+      cursor:pointer;
+      border:none;
+      font-family:inherit;
+      font-size:inherit;
+      text-decoration:none
+    }
+    .btn:hover{opacity:.9}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .hero h1{font-size:32px}
+      .package-grid{grid-template-columns:1fr}
+      .category-header h2{font-size:1.5rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="soltros-logo.png" alt="SoltrOS Logo">
+      <div class="name">SoltrOS</div>
+    </header>
+  </div>
+
+  <section class="hero wrap">
+    <h1>System Packages</h1>
+    <p>
+      These packages are layered directly into the SoltrOS image using RPM-OSTree. 
+      They're part of the immutable base system, ensuring reliability and atomic updates.
+    </p>
+  </section>
+
+  <section class="category-section">
+    <div class="info-card">
+      <h3>What are System Packages?</h3>
+      <p>
+        Unlike Flatpak applications that run in sandboxes, system packages are integrated directly into the operating system image. 
+        This provides better system integration, lower overhead, and is essential for core functionality like hardware drivers, 
+        audio systems, and development tools.
+      </p>
+      <p>
+        SoltrOS uses <strong>RPM-OSTree</strong> for managing system packages. Every update is atomic—either it fully succeeds 
+        or it doesn't apply at all. If something goes wrong, you can always roll back to the previous working state.
+      </p>
+    </div>
+  </section>
+
+  <!-- SHELLS -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🐚</span>
+      <h2>Shells</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">zsh (Default Shell)</div>
+        <p class="package-desc">Powerful shell with extensive customization options. Pre-configured with Oh My Zsh, terminalparty theme, and autocomplete plugins for the best out-of-box experience.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">fish</div>
+        <p class="package-desc">Friendly Interactive Shell with autosuggestions and syntax highlighting out of the box.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUDIO SYSTEM -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🔊</span>
+      <h2>Audio System</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">pipewire</div>
+        <p class="package-desc">Modern multimedia server replacing PulseAudio with lower latency and better Bluetooth support.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">pipewire-pulse</div>
+        <p class="package-desc">PulseAudio replacement layer for application compatibility.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">wireplumber</div>
+        <p class="package-desc">Session and policy manager for PipeWire, handling audio routing and configuration.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">pipewire-alsa</div>
+        <p class="package-desc">ALSA plugin for PipeWire compatibility with legacy audio applications.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">pipewire-jack-audio-connection-kit</div>
+        <p class="package-desc">JACK audio compatibility for professional audio production applications.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">alsa-utils</div>
+        <p class="package-desc">Command-line tools for configuring ALSA sound cards.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">playerctl</div>
+        <p class="package-desc">Control media players from the command line or with keybindings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLUETOOTH -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">📶</span>
+      <h2>Bluetooth</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">bluez</div>
+        <p class="package-desc">Official Linux Bluetooth protocol stack with excellent device compatibility.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">bluez-cups</div>
+        <p class="package-desc">CUPS backend for printing over Bluetooth.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">bluez-obexd</div>
+        <p class="package-desc">OBEX server for file transfer over Bluetooth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRAPHICS & DISPLAY -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🖥️</span>
+      <h2>Graphics & Display</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">mesa-dri-drivers</div>
+        <p class="package-desc">Open-source graphics drivers for AMD, Intel, and other GPUs.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">mesa-vulkan-drivers</div>
+        <p class="package-desc">Vulkan API support for modern graphics and gaming.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">mesa-va-drivers</div>
+        <p class="package-desc">Video acceleration drivers for hardware-accelerated video playback.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">xorg-x11-server-Xwayland</div>
+        <p class="package-desc">X11 compatibility layer for running legacy applications on Wayland.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">switcheroo-control</div>
+        <p class="package-desc">Automatic GPU switching for laptops with dual graphics (integrated + discrete).</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">sddm</div>
+        <p class="package-desc">Simple Desktop Display Manager for graphical login sessions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAMING & PERFORMANCE -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🎮</span>
+      <h2>Gaming & Performance</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">gamemode</div>
+        <p class="package-desc">Optimizes system performance when launching games (CPU governor, scheduling).</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">mangohud</div>
+        <p class="package-desc">Vulkan and OpenGL overlay for monitoring FPS, temperatures, and system stats in games.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">goverlay</div>
+        <p class="package-desc">Graphical UI for configuring MangoHud and other gaming overlays.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">corectrl</div>
+        <p class="package-desc">Control your AMD and NVIDIA GPU settings with overclocking and fan curves.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">steam-devices</div>
+        <p class="package-desc">Udev rules for Steam Controller, Steam Deck, and other gaming devices.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gamescope</div>
+        <p class="package-desc">SteamOS session micro-compositor for gaming with better performance and upscaling.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gamescope-session</div>
+        <p class="package-desc">Session files for running Gamescope as a desktop session (like Steam Deck).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THERMAL MANAGEMENT -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🌡️</span>
+      <h2>Thermal Management</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">mbpfan</div>
+        <p class="package-desc">Fan control daemon specifically for MacBook hardware.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">thermald</div>
+        <p class="package-desc">Thermal daemon that prevents overheating on Intel systems.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">lm_sensors</div>
+        <p class="package-desc">Hardware monitoring for reading temperature, voltage, and fan sensors.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLI TOOLS -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">⌨️</span>
+      <h2>Essential CLI Tools</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">btop</div>
+        <p class="package-desc">Beautiful terminal-based system monitor with graphs and process management.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">ripgrep</div>
+        <p class="package-desc">Blazingly fast grep alternative with better defaults and regex support.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">fd-find</div>
+        <p class="package-desc">Fast and user-friendly alternative to the find command.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">git-delta</div>
+        <p class="package-desc">Syntax-highlighting pager for git, diff, and grep output.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM MONITORING -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">📊</span>
+      <h2>System Monitoring & Hardware</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">nvtop</div>
+        <p class="package-desc">GPU monitoring tool (NVIDIA, AMD, Intel) showing utilization and memory usage.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">powertop</div>
+        <p class="package-desc">Power consumption analysis and optimization for laptops.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">smartmontools</div>
+        <p class="package-desc">Monitor hard drive health with S.M.A.R.T. data.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">usbutils</div>
+        <p class="package-desc">Tools for examining USB devices (lsusb).</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">pciutils</div>
+        <p class="package-desc">Tools for examining PCI devices (lspci).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTAINERS & DEVELOPMENT -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🐳</span>
+      <h2>Container & Development Tools</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">buildah</div>
+        <p class="package-desc">Build OCI container images without a daemon.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">skopeo</div>
+        <p class="package-desc">Work with container images and registries without running containers.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">podman-compose</div>
+        <p class="package-desc">Docker Compose compatibility for Podman.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">libvirtd</div>
+        <p class="package-desc">Virtualization daemon for managing VMs with KVM/QEMU.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETWORKING -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🌐</span>
+      <h2>Network Tools</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">tailscale</div>
+        <p class="package-desc">Zero-config VPN built on WireGuard for secure device connectivity.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">wireguard-tools</div>
+        <p class="package-desc">Fast, modern VPN protocol tools for secure networking.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">nebula</div>
+        <p class="package-desc">Scalable overlay networking tool for connecting devices anywhere.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">iperf3</div>
+        <p class="package-desc">Network bandwidth testing tool.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">nmap</div>
+        <p class="package-desc">Network exploration and security auditing tool.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILESYSTEM SUPPORT -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">💾</span>
+      <h2>File System Support</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">exfatprogs</div>
+        <p class="package-desc">ExFAT filesystem utilities for USB drives and SD cards.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">ntfs-3g</div>
+        <p class="package-desc">Read/write support for Windows NTFS filesystems.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">btrfs-progs</div>
+        <p class="package-desc">Tools for managing Btrfs filesystems.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">udisks2</div>
+        <p class="package-desc">Disk management service for mounting and managing storage devices.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">udiskie</div>
+        <p class="package-desc">Automatic disk mounting utility for removable media.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GVFS & NETWORK STORAGE -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🗂️</span>
+      <h2>GVFS & Network Storage</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">gvfs</div>
+        <p class="package-desc">Virtual filesystem for accessing network shares, phones, and archives.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gvfs-smb</div>
+        <p class="package-desc">Access Windows network shares (SMB/CIFS) in file manager.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gvfs-mtp</div>
+        <p class="package-desc">Android device file transfer via MTP protocol.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gvfs-gphoto2</div>
+        <p class="package-desc">Digital camera access via gPhoto2.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gvfs-archive</div>
+        <p class="package-desc">Browse archives (ZIP, TAR) as folders.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gvfs-afp</div>
+        <p class="package-desc">Apple Filing Protocol for macOS network shares.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gvfs-nfs</div>
+        <p class="package-desc">Network File System (NFS) support.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">samba-client</div>
+        <p class="package-desc">Command-line tools for accessing SMB/CIFS shares.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">cifs-utils</div>
+        <p class="package-desc">Utilities for mounting CIFS network shares.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIRTUALIZATION -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">💻</span>
+      <h2>Virtualization</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">virt-manager</div>
+        <p class="package-desc">Desktop application for managing virtual machines with KVM/QEMU.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gnome-boxes</div>
+        <p class="package-desc">Simple virtual machine manager with automatic OS detection.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">guestmount</div>
+        <p class="package-desc">Mount virtual machine disk images for direct file access.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">libguestfs-tools</div>
+        <p class="package-desc">Tools for accessing and modifying VM disk images.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THEMES & APPEARANCE -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🎨</span>
+      <h2>Themes & Icons</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">papirus-icon-theme</div>
+        <p class="package-desc">Modern, colorful icon theme with thousands of application icons.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">materia-gtk-theme</div>
+        <p class="package-desc">Material Design-inspired GTK theme.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">kvantum</div>
+        <p class="package-desc">SVG-based theme engine for Qt applications.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">qt5-qtgraphicaleffects</div>
+        <p class="package-desc">Qt5 graphical effects for better UI rendering.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UTILITIES -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🛠️</span>
+      <h2>System Utilities</h2>
+    </div>
+    <div class="package-grid">
+      <div class="package-item">
+        <div class="package-name">fwupd</div>
+        <p class="package-desc">Firmware update daemon supporting UEFI, Thunderbolt, and many devices.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">deja-dup</div>
+        <p class="package-desc">Simple backup tool with encryption and cloud storage support.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gnome-tweaks</div>
+        <p class="package-desc">Advanced GNOME configuration tool for themes, extensions, and fonts.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">gimp</div>
+        <p class="package-desc">GNU Image Manipulation Program for advanced photo editing.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">dbus-tools</div>
+        <p class="package-desc">Command-line tools for interacting with D-Bus.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">syslinux</div>
+        <p class="package-desc">Boot loader for creating bootable USB drives.</p>
+      </div>
+      <div class="package-item">
+        <div class="package-name">linux-firmware</div>
+        <p class="package-desc">Comprehensive firmware collection for hardware compatibility.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <h2>Want to suggest a package?</h2>
+    <p>
+      We're always looking to improve SoltrOS. If you think a package should be included in the base system, 
+      submit an issue request on our GitHub repository with your reasoning.
+    </p>
+    <a href="https://github.com/soltros/issues" class="btn">Submit Package Request</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> SoltrOS • <a href="index.html">Home</a> • <a href="flatpak-apps.html">Applications</a> • <a href="getting-started.html">Documentation</a> • <a href="https://github.com/soltros">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notable Features - SoltrOS</title>
+  <meta name="description" content="Discover what makes SoltrOS unique. From integrated Nix package management to comprehensive gaming support, explore the features that set us apart.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    .hero{text-align:center;padding:16px 0 6px}
+    .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
+    .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
+    
+    .feature-grid{
+      max-width:var(--w);
+      margin:40px auto;
+      padding:0 20px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+      gap:20px
+    }
+    
+    .feature-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:28px;
+      transition:all .3s
+    }
+    .feature-card:hover{
+      border-color:var(--accent);
+      transform:translateY(-4px);
+      box-shadow:var(--shadow)
+    }
+    
+    .standout-feature{
+      background:linear-gradient(135deg,var(--card),var(--surface));
+      border:2px solid var(--ok);
+      grid-column:1/-1
+    }
+    .standout-feature .feature-icon{color:var(--ok)}
+    .standout-feature h2{color:var(--ok)}
+    
+    .feature-icon{
+      font-size:3rem;
+      margin-bottom:16px;
+      display:block
+    }
+    
+    .feature-card h2{
+      margin:0 0 12px;
+      font-size:1.5rem;
+      color:var(--text)
+    }
+    .feature-card h3{
+      margin:20px 0 12px;
+      font-size:1.15rem;
+      color:var(--accent)
+    }
+    .feature-card p{
+      color:var(--muted);
+      line-height:1.7;
+      margin:12px 0
+    }
+    .feature-card ul{
+      color:var(--muted);
+      line-height:1.7;
+      padding-left:20px;
+      margin:12px 0
+    }
+    .feature-card li{margin:8px 0}
+    
+    .code-snippet{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:12px;
+      margin:12px 0;
+      font-family:ui-monospace,monospace;
+      font-size:.9rem;
+      color:var(--ok);
+      overflow-x:auto
+    }
+    
+    .highlight-badge{
+      display:inline-block;
+      background:var(--ok);
+      color:var(--bg);
+      padding:4px 12px;
+      border-radius:999px;
+      font-size:.85rem;
+      font-weight:700;
+      margin-bottom:12px
+    }
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .hero h1{font-size:32px}
+      .feature-grid{grid-template-columns:1fr}
+      .standout-feature{grid-column:1}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="soltros-logo.png" alt="SoltrOS Logo">
+      <div class="name">SoltrOS</div>
+    </header>
+  </div>
+
+  <section class="hero wrap">
+    <h1>Notable Features</h1>
+    <p>
+      SoltrOS combines the best of immutable Linux with powerful package management, 
+      comprehensive gaming support, and thoughtful system design.
+    </p>
+  </section>
+
+  <div class="feature-grid">
+    
+    <!-- STANDOUT FEATURE: Nix Integration -->
+    <div class="feature-card standout-feature">
+      <span class="highlight-badge">⭐ STANDOUT FEATURE</span>
+      <span class="feature-icon">❄️</span>
+      <h2>Integrated Nix Package Manager</h2>
+      <p>
+        Getting Nix working properly on immutable distributions usually requires following guides, 
+        editing configuration files, and hoping everything works correctly. SoltrOS eliminates this complexity 
+        with a pre-configured Nix setup.
+      </p>
+
+      <h3>Ready to Use</h3>
+      <p>
+        SoltrOS includes everything needed for Nix:
+      </p>
+      <ul>
+        <li><strong>/nix directory built into the image</strong> - Proper directory structure from the start</li>
+        <li><strong>Determinate Nix installer included</strong> - Already downloaded and ready to run</li>
+        <li><strong>RPM-OSTree compatible configuration</strong> - Works correctly with bootc without manual intervention</li>
+        <li><strong>Flake configured with unfree packages enabled</strong> - Install proprietary software without permission errors</li>
+      </ul>
+
+      <h3>Single Command Installation</h3>
+      <div class="code-snippet">helper install-nix</div>
+      <p>
+        One command installs Determinate Nix in RPM-OSTree compatible mode, configures the flake 
+        for unfree packages, and prepares the system for Nix package management.
+      </p>
+
+      <h3>nixmanager.sh - Simplified Interface</h3>
+      <p>
+        Nix commands can be complex. nixmanager.sh provides a straightforward interface:
+      </p>
+
+      <div class="code-snippet">helper setup-nixmanager    # Install nixmanager to ~/scripts/
+helper add-nixmanager      # Add nixmanager alias for Bash
+
+# Usage:
+nixmanager install firefox # Install packages
+nixmanager remove firefox  # Remove packages
+nixmanager search vim      # Search nixpkgs
+nixmanager list            # View installed packages
+nixmanager upgrade         # Update all packages</div>
+
+      <h3>Access to 80,000+ Packages</h3>
+      <p>
+        Nix provides the largest package repository in Linux. With SoltrOS's configuration:
+      </p>
+      <ul>
+        <li>Install development tools and applications directly from nixpkgs</li>
+        <li>Use proprietary software without manual configuration</li>
+        <li>Create reproducible development environments</li>
+        <li>Fill gaps where Flatpak packages aren't available</li>
+        <li>Dependencies are handled automatically</li>
+      </ul>
+
+      <h3>Desktop Integration</h3>
+      <p>
+        nixmanager.sh handles desktop environment integration automatically:
+      </p>
+      <ul>
+        <li>Creates and updates desktop shortcuts</li>
+        <li>Registers MIME types for file associations</li>
+        <li>Updates icon caches</li>
+        <li>Includes KDE Plasma and GNOME specific handling</li>
+        <li>Applications appear in menus immediately after installation</li>
+      </ul>
+
+      <h3>What This Means</h3>
+      <p>
+        Most immutable distributions require users to configure Nix themselves. SoltrOS provides a working 
+        setup with a simple management tool, giving access to the largest package repository without the 
+        usual configuration overhead.
+      </p>
+    </div>
+
+    <!-- Comprehensive Gaming Support -->
+    <div class="feature-card">
+      <span class="feature-icon">🎮</span>
+      <h2>Gaming Configuration</h2>
+      <p>
+        SoltrOS includes gaming tools and launchers pre-installed, eliminating the need to manually 
+        set up your gaming environment.
+      </p>
+
+      <h3>Performance Tools</h3>
+      <ul>
+        <li><strong>GameMode</strong> - Automatic CPU/GPU optimization when launching games</li>
+        <li><strong>MangoHud</strong> - In-game performance overlay for FPS, temperatures, and system stats</li>
+        <li><strong>GOverlay</strong> - Graphical configuration tool for MangoHud</li>
+        <li><strong>CoreCtrl</strong> - GPU overclocking and fan control for AMD and NVIDIA cards</li>
+        <li><strong>Gamescope</strong> - SteamOS compositor for improved performance and upscaling</li>
+        <li><strong>Steam device udev rules</strong> - Automatic controller support</li>
+      </ul>
+
+      <h3>Game Launchers</h3>
+      <ul>
+        <li><strong>Steam</strong> - Native and Proton compatibility for Windows games</li>
+        <li><strong>Heroic Games Launcher</strong> - Epic Games Store and GOG support</li>
+        <li><strong>Lutris</strong> - Universal game launcher with Wine integration</li>
+        <li><strong>ProtonPlus</strong> - Proton version management</li>
+        <li><strong>RetroArch</strong> - Multi-system emulation</li>
+        <li><strong>Prism Launcher</strong> - Minecraft launcher with mod support</li>
+      </ul>
+
+      <h3>Installation Approach</h3>
+      <p>
+        Rather than requiring users to research and install gaming tools individually, SoltrOS includes 
+        them by default. This covers AAA titles, indie games, emulation, and modding without additional setup.
+      </p>
+    </div>
+
+    <!-- Immutable with Flexibility -->
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <h2>Immutable Architecture with Multiple Package Managers</h2>
+      <p>
+        SoltrOS uses bootc for atomic image-based updates while supporting multiple package management systems.
+      </p>
+
+      <h3>Atomic Updates</h3>
+      <ul>
+        <li>Updates apply completely or not at all - no partial system states</li>
+        <li>Previous system versions remain bootable for rollback</li>
+        <li>Updates occur in the background without interrupting work</li>
+        <li>Reboot timing is user-controlled</li>
+      </ul>
+
+      <h3>Package Manager Support</h3>
+      <p>
+        SoltrOS officially supports multiple package management approaches:
+      </p>
+      <ul>
+        <li><strong>Flatpak</strong> - 47 pre-installed applications with sandboxing</li>
+        <li><strong>Nix</strong> - 80,000+ packages with unfree support pre-configured</li>
+        <li><strong>Homebrew</strong> - Available via <code>helper install-homebrew</code></li>
+        <li><strong>Distrobox/Toolbox</strong> - Containerized Linux distributions</li>
+      </ul>
+
+      <h3>Software Availability</h3>
+      <p>
+        The combination of these package managers means virtually any Linux software can run on SoltrOS. 
+        The immutable base provides system stability while the layered package managers provide flexibility.
+      </p>
+    </div>
+
+    <!-- Three Desktop Environments -->
+    <div class="feature-card">
+      <span class="feature-icon">🖥️</span>
+      <h2>Three Desktop Environments</h2>
+      <p>
+        SoltrOS is available with three desktop environments, each built from the same core system.
+      </p>
+
+      <h3>KDE Plasma</h3>
+      <p>
+        The default desktop. Highly customizable with extensive features and good theme support.
+      </p>
+
+      <h3>COSMIC Desktop</h3>
+      <p>
+        System76's Rust-based desktop environment. Includes tiling window management and modern design.
+      </p>
+
+      <h3>GNOME</h3>
+      <p>
+        Minimal interface focused on reducing visual clutter and workflow interruption.
+      </p>
+
+      <h3>Switching Desktops</h3>
+      <div class="code-snippet">helper change-to-stable cosmic  # Switch to COSMIC LTS
+helper change-to-unstable gnome # Switch to GNOME Unstable</div>
+      <p>
+        Desktop environment changes are atomic. User data is preserved, and rollback is always available.
+      </p>
+    </div>
+
+    <!-- LTS and Unstable Options -->
+    <div class="feature-card">
+      <span class="feature-icon">🚀</span>
+      <h2>Two Release Tracks</h2>
+      <p>
+        SoltrOS offers stable and testing release tracks.
+      </p>
+
+      <h3>Long-Term Support (LTS)</h3>
+      <p>
+        Based on the current stable Fedora release. Updates are tested and reliable. Appropriate for 
+        daily drivers and work machines.
+      </p>
+
+      <h3>Rolling Rocket (Unstable)</h3>
+      <p>
+        Based on the next Fedora version in development (Fedora Next). Newer packages being prepared 
+        for the next stable release. Think Debian Testing - newer than stable but more controlled than 
+        Rawhide. For enthusiasts who want newer features without the chaos.
+      </p>
+
+      <h3>Track Switching</h3>
+      <div class="code-snippet">helper change-to-stable    # Switch to LTS
+helper change-to-unstable # Switch to Unstable</div>
+      <p>
+        Release track changes are atomic with rollback capability.
+      </p>
+    </div>
+
+    <!-- Pre-Configured Shells -->
+    <div class="feature-card">
+      <span class="feature-icon">🐚</span>
+      <h2>Configured Shells</h2>
+      <p>
+        SoltrOS includes three shells with pre-applied configurations.
+      </p>
+
+      <h3>Zsh (Default)</h3>
+      <ul>
+        <li>Oh My Zsh installed and configured</li>
+        <li>terminalparty theme applied</li>
+        <li>Autocompletion plugins enabled</li>
+        <li>Functional from first login</li>
+      </ul>
+
+      <h3>Fish Shell</h3>
+      <ul>
+        <li>Autosuggestion system enabled</li>
+        <li>Syntax highlighting configured</li>
+        <li>SoltrOS-specific settings applied</li>
+      </ul>
+
+      <h3>Bash</h3>
+      <ul>
+        <li>Useful aliases configured</li>
+        <li>SoltrOS settings applied</li>
+        <li>Helper tool integration</li>
+      </ul>
+
+      <h3>Shell Switching</h3>
+      <div class="code-snippet">helper change-to-fish  # Switch to Fish
+helper change-to-bash  # Switch to Bash
+helper change-to-zsh   # Return to Zsh</div>
+      <p>
+        Shell changes automatically download and apply the appropriate SoltrOS configuration.
+      </p>
+    </div>
+
+    <!-- Privacy-First Browser -->
+    <div class="feature-card">
+      <span class="feature-icon">🦊</span>
+      <h2>Waterfox Browser</h2>
+      <p>
+        SoltrOS ships Waterfox instead of Firefox for privacy reasons.
+      </p>
+
+      <h3>Privacy Focus</h3>
+      <p>
+        Waterfox removes Mozilla telemetry and data collection systems. Browsing activity remains local.
+      </p>
+
+      <h3>Clean Interface</h3>
+      <p>
+        Pocket integration, sponsored shortcuts, and monetization features are removed. The browser 
+        focuses on core functionality.
+      </p>
+
+      <h3>Firefox Compatibility</h3>
+      <p>
+        Firefox extensions work in Waterfox. Users get privacy improvements without losing extension support.
+      </p>
+
+      <h3>Update Process</h3>
+      <p>
+        Waterfox is built into each SoltrOS image directly from waterfox.net, ensuring current security 
+        patches are included in new installations.
+      </p>
+
+      <h3>System Integration</h3>
+      <p>
+        As a system package rather than a Flatpak, Waterfox has full access to the filesystem and 
+        system resources without sandbox restrictions.
+      </p>
+    </div>
+
+    <!-- Helper Tool -->
+    <div class="feature-card">
+      <span class="feature-icon">🛠️</span>
+      <h2>Powerful Helper Tool</h2>
+      <p>
+        <strong>helper.sh</strong> is your interface to SoltrOS, providing simple commands for complex operations.
+      </p>
+
+      <h3>One Tool for Everything</h3>
+      <ul>
+        <li>Install software and package managers</li>
+        <li>Switch desktop environments and releases</li>
+        <li>Configure hardware features (GPU overclocking, thermal management)</li>
+        <li>Set up development environments</li>
+        <li>Manage system updates and cleanup</li>
+        <li>Switch shells and apply themes</li>
+      </ul>
+
+      <h3>GUI Frontend Coming</h3>
+      <p>
+        A graphical frontend written in Go/Fyne is in active development, providing all helper.sh 
+        functionality through a beautiful, modern interface.
+      </p>
+
+      <p>
+        <a href="helper.html" style="color:var(--accent);font-weight:600">Learn more about Helper →</a>
+      </p>
+    </div>
+
+    <!-- Hardware Support -->
+    <div class="feature-card">
+      <span class="feature-icon">⚙️</span>
+      <h2>Hardware Support</h2>
+      <p>
+        SoltrOS includes specialized support for various hardware configurations.
+      </p>
+
+      <h3>MacBook Support</h3>
+      <ul>
+        <li><strong>mbpfan</strong> - Fan control daemon for MacBook hardware</li>
+        <li><strong>thermald</strong> - Intel thermal management</li>
+        <li>Proper keyboard and trackpad support</li>
+      </ul>
+
+      <h3>GPU Support</h3>
+      <ul>
+        <li><strong>AMD</strong> - Mesa drivers with optional overclocking via <code>helper enable-amdgpu-oc</code></li>
+        <li><strong>Intel</strong> - Full integrated graphics support</li>
+        <li><strong>NVIDIA</strong> - Open-source Nouveau drivers included (proprietary drivers can be layered if needed)</li>
+      </ul>
+
+      <h3>Display Support</h3>
+      <ul>
+        <li>Wayland and X11 support</li>
+        <li>VRR/Freesync/G-Sync support on compatible hardware</li>
+        <li>Modern display protocols</li>
+      </ul>
+    </div>
+
+    <!-- Developer Friendly -->
+    <div class="feature-card">
+      <span class="feature-icon">💻</span>
+      <h2>Developer Friendly</h2>
+      <p>
+        SoltrOS includes everything developers need for productive work.
+      </p>
+
+      <h3>Container Tools Built-In</h3>
+      <ul>
+        <li><strong>Podman</strong> - Daemonless container engine</li>
+        <li><strong>Buildah</strong> - Build OCI images without Docker</li>
+        <li><strong>Skopeo</strong> - Work with container registries</li>
+        <li><strong>Podman Compose</strong> - Docker Compose compatibility</li>
+        <li><strong>Distrobox</strong> - Full Linux distributions in containers</li>
+      </ul>
+
+      <h3>Modern CLI Tools</h3>
+      <ul>
+        <li><strong>btop</strong> - Beautiful system monitor</li>
+        <li><strong>ripgrep</strong> - Fast grep alternative</li>
+        <li><strong>fd-find</strong> - Better find command</li>
+        <li><strong>git-delta</strong> - Syntax-highlighted diffs</li>
+      </ul>
+
+      <h3>Pre-Installed IDEs</h3>
+      <ul>
+        <li><strong>VSCodium</strong> - VS Code without Microsoft telemetry</li>
+        <li><strong>Zed</strong> - Modern, fast code editor</li>
+        <li>Install more via Nix or Flatpak</li>
+      </ul>
+
+      <h3>Quick Setup</h3>
+      <div class="code-snippet">helper setup-git        # Configure Git with SSH signing
+helper setup-distrobox  # Create Ubuntu and Arch containers</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> SoltrOS • <a href="index.html">Home</a> • <a href="apps.html">Applications</a> • <a href="packages.html">System Packages</a> • <a href="helper.html">Helper Tool</a> • <a href="docs.html">Documentation</a> • <a href="https://github.com/soltros">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -1,0 +1,2281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Included Applications - SoltrOS</title>
+  <meta name="description" content="Explore the complete collection of applications included with SoltrOS. Every app is carefully selected for stability, performance, and user experience.">
+  <style>
+    /* ============================================
+       DESIGN SYSTEM VARIABLES
+       ============================================ */
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    
+    /* ============================================
+       LAYOUT COMPONENTS
+       ============================================ */
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    
+    .hero{text-align:center;padding:16px 0 6px}
+    .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
+    .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
+    
+    /* ============================================
+       APP-SPECIFIC STYLES
+       ============================================ */
+    
+    /* Category Section */
+    .category-section{
+      max-width:var(--w);
+      margin:40px auto 20px;
+      padding:0 20px
+    }
+    .category-header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:20px;
+      padding-bottom:12px;
+      border-bottom:2px solid var(--border)
+    }
+    .category-header h2{
+      margin:0;
+      font-size:1.75rem;
+      color:var(--text)
+    }
+    .category-icon{font-size:1.75rem}
+    
+    /* App Grid */
+    .app-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+      gap:16px;
+      margin-bottom:40px
+    }
+    
+    /* App Card */
+    .app-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:20px;
+      cursor:pointer;
+      transition:all .2s;
+      display:flex;
+      flex-direction:column;
+      gap:12px
+    }
+    .app-card:hover{
+      border-color:var(--accent);
+      transform:translateY(-2px);
+      box-shadow:var(--shadow)
+    }
+    
+    .app-header{
+      display:flex;
+      align-items:flex-start;
+      gap:14px
+    }
+    .app-icon{
+      font-size:2.5rem;
+      flex-shrink:0;
+      width:48px;
+      height:48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--surface);
+      border-radius:10px
+    }
+    .app-title-block{flex:1}
+    .app-title{
+      margin:0 0 4px;
+      font-size:1.15rem;
+      font-weight:700;
+      color:var(--text)
+    }
+    .app-package{
+      font-size:.82rem;
+      color:var(--low);
+      font-family:ui-monospace,monospace
+    }
+    
+    .app-description{
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.6;
+      margin:0
+    }
+    
+    .app-features{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:4px
+    }
+    .feature-tag{
+      font-size:.82rem;
+      padding:4px 8px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:6px;
+      color:var(--low)
+    }
+    
+    /* ============================================
+       MODAL
+       ============================================ */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,.85);
+      z-index:1000;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      backdrop-filter:blur(4px)
+    }
+    .modal.active{display:flex}
+    
+    .modal-content{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:32px;
+      max-width:700px;
+      width:100%;
+      max-height:90vh;
+      overflow-y:auto;
+      box-shadow:0 20px 60px rgba(0,0,0,.6);
+      position:relative;
+      animation:modalSlide .3s ease
+    }
+    
+    .modal-close{
+      position:absolute;
+      top:16px;
+      right:16px;
+      background:none;
+      border:none;
+      color:var(--muted);
+      font-size:28px;
+      cursor:pointer;
+      padding:0;
+      width:32px;
+      height:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      transition:background .2s
+    }
+    .modal-close:hover{background:var(--surface);color:var(--text)}
+    
+    .modal-header{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:20px
+    }
+    .modal-icon{
+      font-size:3rem;
+      width:64px;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--surface);
+      border-radius:12px;
+      flex-shrink:0
+    }
+    .modal-title-block h2{
+      margin:0 0 6px;
+      font-size:1.75rem;
+      color:var(--text)
+    }
+    .modal-package{
+      font-size:.9rem;
+      color:var(--low);
+      font-family:ui-monospace,monospace;
+      background:var(--surface);
+      padding:4px 8px;
+      border-radius:6px;
+      display:inline-block
+    }
+    
+    .modal-description{
+      color:var(--muted);
+      line-height:1.7;
+      margin:0 0 24px;
+      font-size:1.05rem
+    }
+    
+    .modal-section{margin-bottom:24px}
+    .modal-section h3{
+      margin:0 0 12px;
+      color:var(--accent);
+      font-size:1.15rem
+    }
+    .modal-section ul{
+      margin:0;
+      padding-left:20px;
+      color:var(--muted)
+    }
+    .modal-section li{margin:6px 0;line-height:1.6}
+    
+    .install-command{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:12px 16px;
+      font-family:ui-monospace,monospace;
+      font-size:.9rem;
+      color:var(--ok);
+      margin:12px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px
+    }
+    .copy-btn{
+      background:var(--card);
+      border:1px solid var(--border);
+      color:var(--text);
+      padding:6px 12px;
+      border-radius:6px;
+      cursor:pointer;
+      font-size:.85rem;
+      transition:all .2s;
+      flex-shrink:0
+    }
+    .copy-btn:hover{background:var(--surface);border-color:var(--accent)}
+    
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    /* ============================================
+       ANIMATIONS & RESPONSIVE
+       ============================================ */
+    @keyframes modalSlide{
+      from{opacity:0;transform:translateY(-20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    
+    @media (max-width:980px){
+      .hero h1{font-size:32px}
+      .app-grid{grid-template-columns:1fr}
+      .modal-content{padding:24px;max-width:calc(100% - 40px)}
+      .category-header h2{font-size:1.5rem}
+    }
+  </style>
+</head>
+<body>
+  <!-- ============================================
+       HEADER
+       ============================================ -->
+  <div class="wrap">
+    <header>
+      <img src="soltros-logo.png" alt="SoltrOS Logo">
+      <div class="name">SoltrOS</div>
+    </header>
+  </div>
+
+  <!-- ============================================
+       HERO SECTION
+       ============================================ -->
+  <section class="hero wrap">
+    <h1>Included Applications</h1>
+    <p>
+      SoltrOS comes with 47 carefully selected Flatpak applications plus Waterfox browser pre-installed. 
+      Every app is chosen for stability, performance, and seamless integration with your immutable system.
+    </p>
+    <p style="margin-top:12px">
+      <a href="packages.html" style="color:var(--accent);font-weight:600">View System Packages →</a>
+    </p>
+  </section>
+
+  <!-- ============================================
+       WATERFOX - SYSTEM BROWSER
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🌊</span>
+      <h2>System Web Browser</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('waterfox')" style="grid-column: 1/-1;">
+        <div class="app-header">
+          <div class="app-icon">🦊</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Waterfox Browser</h3>
+            <div class="app-package">Shipped directly from waterfox.net (System Package)</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Privacy-focused Firefox fork with classic customization and no telemetry. Built fresh with each SoltrOS image from the official Waterfox repository to ensure you always have the latest security updates and features.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Privacy First</span>
+          <span class="feature-tag">Firefox Compatible</span>
+          <span class="feature-tag">Always Current</span>
+          <span class="feature-tag">System Integration</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       PRODUCTIVITY & OFFICE
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">📝</span>
+      <h2>Productivity & Office</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('libreoffice')">
+        <div class="app-header">
+          <div class="app-icon">📄</div>
+          <div class="app-title-block">
+            <h3 class="app-title">LibreOffice</h3>
+            <div class="app-package">org.libreoffice.LibreOffice</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Complete office suite with word processing, spreadsheets, presentations, and more. Full Microsoft Office compatibility.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Writer</span>
+          <span class="feature-tag">Calc</span>
+          <span class="feature-tag">Impress</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('thunderbird')">
+        <div class="app-header">
+          <div class="app-icon">📧</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Thunderbird</h3>
+            <div class="app-package">org.mozilla.Thunderbird</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Full-featured email client with calendar, contacts, and RSS support. Privacy-focused and highly customizable.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Email</span>
+          <span class="feature-tag">Calendar</span>
+          <span class="feature-tag">RSS</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('slack')">
+        <div class="app-header">
+          <div class="app-icon">💼</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Slack</h3>
+            <div class="app-package">com.slack.Slack</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Team collaboration platform for messaging, file sharing, and integrations. Keep your workspace organized.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Team Chat</span>
+          <span class="feature-tag">Collaboration</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       DEVELOPMENT TOOLS
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">💻</span>
+      <h2>Development Tools</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('vscodium')">
+        <div class="app-header">
+          <div class="app-icon">🔷</div>
+          <div class="app-title-block">
+            <h3 class="app-title">VSCodium</h3>
+            <div class="app-package">com.vscodium.codium</div>
+          </div>
+        </div>
+        <p class="app-description">
+          VS Code without Microsoft telemetry. Full-featured code editor with extensions, debugging, and Git integration.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Code Editor</span>
+          <span class="feature-tag">Git</span>
+          <span class="feature-tag">Extensions</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('zed')">
+        <div class="app-header">
+          <div class="app-icon">⚡</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Zed</h3>
+            <div class="app-package">dev.zed.Zed</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Lightning-fast multiplayer code editor. Built in Rust for maximum performance with collaborative editing features.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Fast</span>
+          <span class="feature-tag">Multiplayer</span>
+          <span class="feature-tag">Modern</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('github-desktop')">
+        <div class="app-header">
+          <div class="app-icon">🐙</div>
+          <div class="app-title-block">
+            <h3 class="app-title">GitHub Desktop</h3>
+            <div class="app-package">io.github.shiftey.Desktop</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Simplify your Git workflow with a beautiful GUI. Manage branches, commits, and pull requests visually.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Git GUI</span>
+          <span class="feature-tag">GitHub</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('podman-desktop')">
+        <div class="app-header">
+          <div class="app-icon">🐳</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Podman Desktop</h3>
+            <div class="app-package">io.podman_desktop.PodmanDesktop</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Manage containers, pods, and images with a graphical interface. Perfect for Docker-compatible containerization.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Containers</span>
+          <span class="feature-tag">Podman</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('devpod')">
+        <div class="app-header">
+          <div class="app-icon">🛠️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">DevPod</h3>
+            <div class="app-package">sh.loft.devpod</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Create reproducible development environments in containers. Spin up consistent dev environments instantly.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Dev Environments</span>
+          <span class="feature-tag">Containers</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       CREATIVE & MEDIA
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🎨</span>
+      <h2>Creative & Media Production</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('blender')">
+        <div class="app-header">
+          <div class="app-icon">🎬</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Blender</h3>
+            <div class="app-package">org.blender.Blender</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Professional 3D creation suite for modeling, animation, rendering, compositing, and motion tracking.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">3D Modeling</span>
+          <span class="feature-tag">Animation</span>
+          <span class="feature-tag">Rendering</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('inkscape')">
+        <div class="app-header">
+          <div class="app-icon">✏️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Inkscape</h3>
+            <div class="app-package">org.inkscape.Inkscape</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Professional vector graphics editor for illustrations, diagrams, logos, and complex paintings. SVG native support.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Vector</span>
+          <span class="feature-tag">SVG</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('kdenlive')">
+        <div class="app-header">
+          <div class="app-icon">🎥</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Kdenlive</h3>
+            <div class="app-package">org.kde.kdenlive</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Powerful video editor with multi-track editing, effects, transitions, and professional-grade features.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Video Editing</span>
+          <span class="feature-tag">Multi-track</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('audacity')">
+        <div class="app-header">
+          <div class="app-icon">🎵</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Audacity</h3>
+            <div class="app-package">org.audacityteam.Audacity</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Multi-track audio editor and recorder. Perfect for podcasts, music production, and audio restoration.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Audio Editor</span>
+          <span class="feature-tag">Recording</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       MEDIA PLAYERS & ENTERTAINMENT
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🎮</span>
+      <h2>Media & Entertainment</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('vlc')">
+        <div class="app-header">
+          <div class="app-icon">🎬</div>
+          <div class="app-title-block">
+            <h3 class="app-title">VLC Media Player</h3>
+            <div class="app-package">org.videolan.VLC</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Plays virtually any video or audio format without additional codecs. Fast, lightweight, and feature-rich.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Video</span>
+          <span class="feature-tag">Audio</span>
+          <span class="feature-tag">Streaming</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('jellyfin')">
+        <div class="app-header">
+          <div class="app-icon">📺</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Jellyfin Media Player</h3>
+            <div class="app-package">com.github.iwalton3.jellyfin-media-player</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Desktop client for Jellyfin media server. Stream your personal media collection with a beautiful interface.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Media Streaming</span>
+          <span class="feature-tag">Self-hosted</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('supersonic')">
+        <div class="app-header">
+          <div class="app-icon">🎧</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Supersonic</h3>
+            <div class="app-package">io.github.dweymouth.supersonic</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Lightweight desktop client for Subsonic-compatible music servers. Stream your music collection anywhere.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Music</span>
+          <span class="feature-tag">Subsonic</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('nicotine')">
+        <div class="app-header">
+          <div class="app-icon">🎼</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Nicotine+</h3>
+            <div class="app-package">org.nicotine_plus.Nicotine</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Modern Soulseek client for peer-to-peer file sharing. Discover and share music with a global community.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">P2P</span>
+          <span class="feature-tag">Music Sharing</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       GAMING
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🎮</span>
+      <h2>Gaming</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('steam')">
+        <div class="app-header">
+          <div class="app-icon">🎮</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Steam</h3>
+            <div class="app-package">com.valvesoftware.Steam</div>
+          </div>
+        </div>
+        <p class="app-description">
+          World's largest gaming platform with thousands of games, Proton compatibility layer, and Steam Deck support.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Gaming</span>
+          <span class="feature-tag">Proton</span>
+          <span class="feature-tag">Store</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('lutris')">
+        <div class="app-header">
+          <div class="app-icon">🕹️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Lutris</h3>
+            <div class="app-package">net.lutris.Lutris</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Universal game launcher supporting Windows games, emulators, and native Linux games through a unified interface.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Game Manager</span>
+          <span class="feature-tag">Wine</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('heroic')">
+        <div class="app-header">
+          <div class="app-icon">🦸</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Heroic Games Launcher</h3>
+            <div class="app-package">com.heroicgameslauncher.hgl</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Native launcher for Epic Games Store and GOG. Play your games without Windows with full Proton integration.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Epic</span>
+          <span class="feature-tag">GOG</span>
+          <span class="feature-tag">Proton</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('retroarch')">
+        <div class="app-header">
+          <div class="app-icon">👾</div>
+          <div class="app-title-block">
+            <h3 class="app-title">RetroArch</h3>
+            <div class="app-package">org.libretro.RetroArch</div>
+          </div>
+        </div>
+        <p class="app-description">
+          All-in-one emulation platform supporting dozens of classic gaming systems. Unified interface for retro gaming.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Emulation</span>
+          <span class="feature-tag">Retro Gaming</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('prismlauncher')">
+        <div class="app-header">
+          <div class="app-icon">⛏️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Prism Launcher</h3>
+            <div class="app-package">org.prismlauncher.PrismLauncher</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Powerful Minecraft launcher with mod support, multiple instances, and version management. Easy modpack installation.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Minecraft</span>
+          <span class="feature-tag">Mods</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('protonplus')">
+        <div class="app-header">
+          <div class="app-icon">🍷</div>
+          <div class="app-title-block">
+            <h3 class="app-title">ProtonPlus</h3>
+            <div class="app-package">com.vysp3r.ProtonPlus</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Manage and install different Proton versions for Steam. Optimize Windows game compatibility on Linux.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Proton</span>
+          <span class="feature-tag">Steam</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       COMMUNICATION
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">💬</span>
+      <h2>Communication</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('discord')">
+        <div class="app-header">
+          <div class="app-icon">💬</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Discord</h3>
+            <div class="app-package">com.discordapp.Discord</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Voice, video, and text chat platform for communities. Perfect for gaming, projects, and staying connected.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Chat</span>
+          <span class="feature-tag">Voice</span>
+          <span class="feature-tag">Video</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('telegram')">
+        <div class="app-header">
+          <div class="app-icon">✈️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Telegram Desktop</h3>
+            <div class="app-package">org.telegram.desktop</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Fast, secure messaging with cloud storage. Powerful groups, channels, bots, and file sharing up to 2GB.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Messaging</span>
+          <span class="feature-tag">Cloud</span>
+          <span class="feature-tag">Groups</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       UTILITIES & SYSTEM TOOLS
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🛠️</span>
+      <h2>Utilities & System Tools</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('flatseal')">
+        <div class="app-header">
+          <div class="app-icon">🔐</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Flatseal</h3>
+            <div class="app-package">com.github.tchx84.Flatseal</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Manage Flatpak permissions with an intuitive GUI. Fine-tune filesystem access, network, and device permissions.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Permissions</span>
+          <span class="feature-tag">Security</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('warehouse')">
+        <div class="app-header">
+          <div class="app-icon">📦</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Warehouse</h3>
+            <div class="app-package">io.github.flattool.Warehouse</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Manage Flatpak applications and runtimes. View installed apps, manage remotes, and clean up unused data.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Flatpak</span>
+          <span class="feature-tag">Management</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('gearlever')">
+        <div class="app-header">
+          <div class="app-icon">⚙️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Gear Lever</h3>
+            <div class="app-package">it.mijorus.gearlever</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Manage and install AppImages with ease. Integration with your system menu and automatic updates.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">AppImage</span>
+          <span class="feature-tag">Manager</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('ignition')">
+        <div class="app-header">
+          <div class="app-icon">🔥</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Ignition</h3>
+            <div class="app-package">io.github.flattool.Ignition</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Install and manage Flatpak overrides. Customize application behavior with user-friendly override management.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Flatpak</span>
+          <span class="feature-tag">Overrides</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('boxbuddy')">
+        <div class="app-header">
+          <div class="app-icon">📦</div>
+          <div class="app-title-block">
+            <h3 class="app-title">BoxBuddy</h3>
+            <div class="app-package">io.github.dvlv.boxbuddyrs</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Manage Distrobox containers with a graphical interface. Create and manage containerized Linux environments.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Distrobox</span>
+          <span class="feature-tag">Containers</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('pikabackup')">
+        <div class="app-header">
+          <div class="app-icon">💾</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Pika Backup</h3>
+            <div class="app-package">org.gnome.World.PikaBackup</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Simple backups based on BorgBackup. Encrypted, deduplicated, and efficient backup solution for your data.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Backup</span>
+          <span class="feature-tag">Encryption</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('missioncenter')">
+        <div class="app-header">
+          <div class="app-icon">📊</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Mission Center</h3>
+            <div class="app-package">io.missioncenter.MissionCenter</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Monitor system resources with a beautiful interface. Track CPU, memory, disk, network, and GPU usage.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Monitoring</span>
+          <span class="feature-tag">System Info</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('easyeffects')">
+        <div class="app-header">
+          <div class="app-icon">🎚️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">EasyEffects</h3>
+            <div class="app-package">com.github.wwmm.easyeffects</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Audio effects for PipeWire. Apply equalizers, compressors, reverb, and more to any audio stream.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Audio</span>
+          <span class="feature-tag">Effects</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('bitwarden')">
+        <div class="app-header">
+          <div class="app-icon">🔑</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Bitwarden</h3>
+            <div class="app-package">com.bitwarden.desktop</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Open-source password manager. Securely store and sync passwords, notes, and cards across all your devices.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Password Manager</span>
+          <span class="feature-tag">Security</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('filezilla')">
+        <div class="app-header">
+          <div class="app-icon">📁</div>
+          <div class="app-title-block">
+            <h3 class="app-title">FileZilla</h3>
+            <div class="app-package">org.filezillaproject.Filezilla</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Fast and reliable FTP, FTPS, and SFTP client. Manage remote files with drag-and-drop interface.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">FTP</span>
+          <span class="feature-tag">File Transfer</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('clapgrep')">
+        <div class="app-header">
+          <div class="app-icon">🔍</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Clapgrep</h3>
+            <div class="app-package">de.leopoldluley.Clapgrep</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Search for text patterns in files. Powerful GUI for grep with regex support and file filtering.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Search</span>
+          <span class="feature-tag">Grep</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       KDE APPLICATIONS
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🔷</span>
+      <h2>KDE Applications</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('okular')">
+        <div class="app-header">
+          <div class="app-icon">📖</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Okular</h3>
+            <div class="app-package">org.kde.okular</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Universal document viewer supporting PDFs, ePubs, images, and more. Annotations, forms, and signatures included.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">PDF</span>
+          <span class="feature-tag">Documents</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('ark')">
+        <div class="app-header">
+          <div class="app-icon">📦</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Ark</h3>
+            <div class="app-package">org.kde.ark</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Archive manager for compressed files. Extract, create, and manage ZIP, TAR, RAR, and many other formats.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Archives</span>
+          <span class="feature-tag">Compression</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('kcalc')">
+        <div class="app-header">
+          <div class="app-icon">🔢</div>
+          <div class="app-title-block">
+            <h3 class="app-title">KCalc</h3>
+            <div class="app-package">org.kde.kcalc</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Scientific calculator with multiple modes. Supports trigonometry, statistics, and programmable functions.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Calculator</span>
+          <span class="feature-tag">Scientific</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('filelight')">
+        <div class="app-header">
+          <div class="app-icon">💿</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Filelight</h3>
+            <div class="app-package">org.kde.filelight</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Visualize disk usage with interactive sunburst charts. Quickly identify large files and folders.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Disk Usage</span>
+          <span class="feature-tag">Visualization</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       GNOME APPLICATIONS
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🐾</span>
+      <h2>GNOME Applications</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('foliate')">
+        <div class="app-header">
+          <div class="app-icon">📚</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Foliate</h3>
+            <div class="app-package">com.github.johnfactotum.Foliate</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Modern eBook reader for EPUB, MOBI, and other formats. Beautiful interface with customizable reading experience.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">eBooks</span>
+          <span class="feature-tag">EPUB</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('wike')">
+        <div class="app-header">
+          <div class="app-icon">📖</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Wike</h3>
+            <div class="app-package">com.github.hugolabe.Wike</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Wikipedia reader for GNOME. Browse Wikipedia with a clean, distraction-free interface and offline support.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Wikipedia</span>
+          <span class="feature-tag">Knowledge</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('fontdownloader')">
+        <div class="app-header">
+          <div class="app-icon">🔤</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Font Downloader</h3>
+            <div class="app-package">org.gustavoperedo.FontDownloader</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Download and install fonts from Google Fonts. Browse thousands of free fonts and install with one click.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Fonts</span>
+          <span class="feature-tag">Google Fonts</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       THEMES & CUSTOMIZATION
+       ============================================ -->
+  <section class="category-section">
+    <div class="category-header">
+      <span class="category-icon">🎨</span>
+      <h2>Themes & Appearance</h2>
+    </div>
+    <div class="app-grid">
+      
+      <div class="app-card" onclick="openAppModal('breeze')">
+        <div class="app-header">
+          <div class="app-icon">❄️</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Breeze GTK Theme</h3>
+            <div class="app-package">org.gtk.Gtk3theme.Breeze</div>
+          </div>
+        </div>
+        <p class="app-description">
+          KDE's Breeze theme for GTK3 applications. Provides consistent theming across KDE and GTK apps.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Theme</span>
+          <span class="feature-tag">GTK3</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('adw-gtk3')">
+        <div class="app-header">
+          <div class="app-icon">🌊</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Adwaita GTK3 Theme</h3>
+            <div class="app-package">org.gtk.Gtk3theme.adw-gtk3</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Modern Adwaita theme for GTK3. Match GNOME's libadwaita design in legacy GTK3 applications.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Theme</span>
+          <span class="feature-tag">Adwaita</span>
+        </div>
+      </div>
+
+      <div class="app-card" onclick="openAppModal('adw-gtk3-dark')">
+        <div class="app-header">
+          <div class="app-icon">🌙</div>
+          <div class="app-title-block">
+            <h3 class="app-title">Adwaita GTK3 Dark</h3>
+            <div class="app-package">org.gtk.Gtk3theme.adw-gtk3-dark</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Dark variant of the Adwaita GTK3 theme. Perfect for consistent dark mode across all applications.
+        </p>
+        <div class="app-features">
+          <span class="feature-tag">Theme</span>
+          <span class="feature-tag">Dark Mode</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> SoltrOS • <a href="index.html">Home</a> • <a href="docs.html">Documentation</a> • <a href="https://github.com/soltros">GitHub</a>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       MODAL
+       ============================================ -->
+  <div class="modal" id="appModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Comprehensive app data with detailed information
+    const appData = {
+      // WATERFOX - SYSTEM BROWSER
+      waterfox: {
+        icon: '🦊',
+        name: 'Waterfox Browser',
+        package: 'System Package (waterfox.net)',
+        description: 'Waterfox is a privacy-focused web browser based on Firefox. Built fresh with each SoltrOS image directly from the official Waterfox repository, ensuring you always have the latest security patches and features without delay.',
+        features: [
+          'No telemetry or data collection - Complete privacy',
+          'No sponsored content or monetization',
+          'Full Firefox extension compatibility',
+          'User control without experimental features',
+          'Always current - Updated with each SoltrOS image build',
+          'System-integrated - Not sandboxed for full productivity',
+          'Classic Firefox customization with about:config access',
+          'Built-in tracking protection',
+          'Independent from Mozilla corporate decisions',
+          'Optimized builds for better performance'
+        ],
+        useCases: [
+          'Daily web browsing with maximum privacy',
+          'Using Firefox extensions without Firefox telemetry',
+          'Professional work requiring browser reliability',
+          'Managing multiple profiles and customizations',
+          'Accessing web applications with full system integration',
+          'Development and testing with developer tools'
+        ],
+        why: 'SoltrOS ships with Waterfox instead of Firefox for privacy reasons: no telemetry or data collection, no sponsored content or monetization, full Firefox extension compatibility, and user control without experimental features. Waterfox is built directly into each system image from waterfox.net, ensuring you always have the latest security updates from the moment you install SoltrOS. You can still install Firefox via Flatpak if preferred.'
+      },
+
+      // PRODUCTIVITY & OFFICE
+      libreoffice: {
+        icon: '📄',
+        name: 'LibreOffice',
+        package: 'org.libreoffice.LibreOffice',
+        description: 'LibreOffice is a powerful office suite providing everything needed for document creation, data analysis, and presentations. With excellent Microsoft Office compatibility, it remains the gold standard for open-source productivity software.',
+        features: [
+          'Writer - Full-featured word processor with advanced formatting and styles',
+          'Calc - Spreadsheet with pivot tables, charts, and macro support',
+          'Impress - Create professional presentations with animations and transitions',
+          'Draw - Vector graphics and flowcharting capabilities',
+          'Base - Database management with built-in SQL support',
+          'Math - Formula editor for scientific and mathematical equations',
+          'Native support for ODF (Open Document Format)',
+          'Excellent compatibility with Microsoft Office formats (DOCX, XLSX, PPTX)'
+        ],
+        useCases: [
+          'Creating professional documents, reports, and letters',
+          'Building complex spreadsheets with formulas and data analysis',
+          'Designing presentations for business or education',
+          'Managing databases and creating forms',
+          'Collaborative document editing with track changes'
+        ],
+        why: 'LibreOffice is included in SoltrOS because it provides a complete, professional office suite that respects user freedom and privacy. Unlike proprietary alternatives, your documents remain under your control with open format standards that ensure long-term accessibility.'
+      },
+      thunderbird: {
+        icon: '📧',
+        name: 'Thunderbird',
+        package: 'org.mozilla.Thunderbird',
+        description: 'Mozilla Thunderbird is a full-featured email client that puts you in control of your communications. With integrated calendar, contacts, and RSS support, it serves as your complete personal information manager.',
+        features: [
+          'Support for multiple email accounts (IMAP, POP3, Exchange)',
+          'Integrated Lightning calendar with meeting invitations',
+          'Contact management with CardDAV support',
+          'Built-in RSS/Atom feed reader',
+          'Advanced spam filtering and junk mail controls',
+          'Powerful search across all messages and accounts',
+          'End-to-end encryption with OpenPGP/GPG support',
+          'Customizable with add-ons and themes',
+          'Message filtering and automated organization'
+        ],
+        useCases: [
+          'Managing multiple email accounts in one unified interface',
+          'Scheduling meetings and tracking calendar events',
+          'Organizing contacts and distribution lists',
+          'Following blogs and news feeds via RSS',
+          'Archiving important emails locally for offline access',
+          'Encrypted communication with PGP/GPG'
+        ],
+        why: 'Thunderbird provides a privacy-respecting alternative to webmail that keeps your data local and under your control. It\'s mature, actively maintained by Mozilla, and offers enterprise-level features without compromising on usability.'
+      },
+      slack: {
+        icon: '💼',
+        name: 'Slack',
+        package: 'com.slack.Slack',
+        description: 'Slack brings team communication together in one place. With channels, direct messages, file sharing, and countless integrations, it keeps your entire workspace organized and connected.',
+        features: [
+          'Organized channels for team discussions and projects',
+          'Direct messaging and group conversations',
+          'File sharing with preview and search',
+          'Voice and video calling capabilities',
+          'App integrations with popular development tools',
+          'Searchable message history',
+          'Custom emoji and reactions',
+          'Thread conversations for organized discussions'
+        ],
+        useCases: [
+          'Team collaboration and project coordination',
+          'Remote team communication',
+          'Integration with development workflows (GitHub, Jira, etc.)',
+          'Quick questions and asynchronous communication',
+          'File sharing and collaboration'
+        ],
+        why: 'Slack is the industry standard for team communication. Its integration capabilities and organized channel system make it essential for modern collaborative work environments.'
+      },
+
+      // DEVELOPMENT TOOLS
+      vscodium: {
+        icon: '🔷',
+        name: 'VSCodium',
+        package: 'com.vscodium.codium',
+        description: 'VSCodium is Visual Studio Code without Microsoft telemetry and tracking. It provides the same powerful editing experience while respecting your privacy and giving you complete control over your development environment.',
+        features: [
+          'IntelliSense code completion for multiple languages',
+          'Integrated Git version control',
+          'Built-in debugging for Node.js, Python, and more',
+          'Terminal integration for command-line access',
+          'Extensions marketplace for limitless customization',
+          'Multi-cursor editing and powerful find/replace',
+          'Split view editing and editor groups',
+          'Remote development via SSH and containers',
+          'No Microsoft telemetry or tracking'
+        ],
+        useCases: [
+          'Full-stack web development (HTML, CSS, JavaScript, TypeScript)',
+          'Backend development (Python, Java, C++, Go, Rust)',
+          'DevOps and infrastructure as code',
+          'Data science and Jupyter notebook editing',
+          'Configuration file management',
+          'Git-based workflows with visual diff tools'
+        ],
+        why: 'VSCodium provides all the power of VS Code while respecting your privacy. It\'s perfect for developers who want a modern, extensible editor without telemetry or data collection.'
+      },
+      zed: {
+        icon: '⚡',
+        name: 'Zed',
+        package: 'dev.zed.Zed',
+        description: 'Zed is a next-generation code editor built for performance and collaboration. Written in Rust, it offers lightning-fast editing with built-in multiplayer collaboration features.',
+        features: [
+          'Extremely fast startup and editing performance',
+          'Built-in multiplayer collaboration in real-time',
+          'Modern UI with minimal distractions',
+          'Language Server Protocol (LSP) support',
+          'GPU-accelerated rendering',
+          'Vim keybindings support',
+          'Project-wide search and navigation',
+          'Built-in terminal',
+          'Native performance with Rust foundation'
+        ],
+        useCases: [
+          'Pair programming and collaborative coding',
+          'High-performance editing on large codebases',
+          'Modern web development workflows',
+          'Remote collaboration without screen sharing',
+          'Fast editing for developers who value speed'
+        ],
+        why: 'Zed represents the future of code editing with its focus on performance and native collaboration. It\'s perfect for developers who want cutting-edge features and blazing-fast performance.'
+      },
+      'github-desktop': {
+        icon: '🐙',
+        name: 'GitHub Desktop',
+        package: 'io.github.shiftey.Desktop',
+        description: 'GitHub Desktop simplifies your Git workflow with a beautiful visual interface. Manage branches, review changes, and collaborate on projects without memorizing complex command-line syntax.',
+        features: [
+          'Visual diff viewer showing all code changes',
+          'Branch management with easy creation and switching',
+          'Commit history with graphical timeline',
+          'Pull request integration',
+          'Conflict resolution tools',
+          'Multi-platform repository management',
+          'Syntax highlighting in diffs',
+          'Stash changes temporarily',
+          'Co-authoring support'
+        ],
+        useCases: [
+          'Managing Git repositories visually',
+          'Reviewing code changes before committing',
+          'Working with multiple branches',
+          'Collaborating on GitHub projects',
+          'Learning Git without command-line complexity'
+        ],
+        why: 'GitHub Desktop makes Git accessible to developers of all skill levels while maintaining power user features. It\'s the most polished Git GUI available and integrates seamlessly with GitHub workflows.'
+      },
+      'podman-desktop': {
+        icon: '🐳',
+        name: 'Podman Desktop',
+        package: 'io.podman_desktop.PodmanDesktop',
+        description: 'Podman Desktop brings container management to your desktop with a beautiful interface. It\'s Docker-compatible, daemonless, and perfect for secure containerization workflows.',
+        features: [
+          'Manage containers, pods, and images graphically',
+          'Docker-compatible command-line interface',
+          'Kubernetes YAML support',
+          'Built-in container terminal access',
+          'Image building with Containerfile/Dockerfile',
+          'Volume and network management',
+          'Registry integration for pulling images',
+          'Pod creation for multi-container applications',
+          'Rootless containers for enhanced security'
+        ],
+        useCases: [
+          'Local development with containers',
+          'Testing containerized applications',
+          'Managing microservices locally',
+          'Building and testing container images',
+          'Kubernetes development workflows'
+        ],
+        why: 'Podman Desktop provides Docker-compatible containerization without requiring a daemon, making it more secure and resource-efficient. It\'s perfect for SoltrOS\'s immutable architecture.'
+      },
+      devpod: {
+        icon: '🛠️',
+        name: 'DevPod',
+        package: 'sh.loft.devpod',
+        description: 'DevPod creates reproducible development environments in containers. Define your dev environment as code and spin up consistent workspaces instantly, anywhere.',
+        features: [
+          'Reproducible development environments',
+          'Support for multiple providers (Docker, Kubernetes, SSH)',
+          'IDE integration (VS Code, JetBrains)',
+          'Automatic dependency installation',
+          'Environment definition as code',
+          'Resource management and limits',
+          'Multi-architecture support',
+          'Quick workspace creation and disposal'
+        ],
+        useCases: [
+          'Onboarding new developers with ready-to-code environments',
+          'Testing on different OS/architecture combinations',
+          'Isolating project dependencies',
+          'Reproducible bug investigation',
+          'Teaching and training with consistent environments'
+        ],
+        why: 'DevPod solves the "works on my machine" problem by providing reproducible, containerized development environments that work the same for everyone on your team.'
+      },
+
+      // CREATIVE & MEDIA
+      blender: {
+        icon: '🎬',
+        name: 'Blender',
+        package: 'org.blender.Blender',
+        description: 'Blender is the free and open-source 3D creation suite. It supports the entire 3D pipeline: modeling, rigging, animation, simulation, rendering, compositing, motion tracking, and even video editing.',
+        features: [
+          'Advanced 3D modeling tools (polygonal, sculpting, procedural)',
+          'Rigging and character animation',
+          'Physics simulation (cloth, fluid, particles, rigid body)',
+          'Cycles and Eevee rendering engines',
+          'Compositing and post-processing',
+          'Motion tracking and camera solving',
+          'Video editing with the Video Sequence Editor',
+          'Grease Pencil for 2D animation in 3D space',
+          'Python scripting for automation'
+        ],
+        useCases: [
+          'Creating 3D models for games and movies',
+          'Character animation and rigging',
+          'Architectural visualization',
+          'Product rendering and visualization',
+          'VFX and motion graphics',
+          'Video editing and post-production'
+        ],
+        why: 'Blender is the most powerful open-source 3D suite available. It rivals commercial software while remaining completely free, making professional 3D creation accessible to everyone.'
+      },
+      inkscape: {
+        icon: '✏️',
+        name: 'Inkscape',
+        package: 'org.inkscape.Inkscape',
+        description: 'Inkscape is a professional vector graphics editor perfect for illustrations, diagrams, logos, and complex paintings. With native SVG support and powerful tools, it\'s the open-source alternative to Adobe Illustrator.',
+        features: [
+          'Full SVG standard support',
+          'Bezier and spiro curve tools',
+          'Text tool with full typography support',
+          'Clones and pattern fills',
+          'Bitmap tracing for vectorization',
+          'Path operations (union, difference, intersection)',
+          'Layers and object grouping',
+          'Export to PNG, PDF, EPS, and more',
+          'Extensions for additional functionality'
+        ],
+        useCases: [
+          'Logo design and branding',
+          'Vector illustrations and artwork',
+          'Technical diagrams and flowcharts',
+          'Web design mockups',
+          'Icon creation',
+          'Print design (posters, flyers, business cards)'
+        ],
+        why: 'Inkscape provides professional vector editing capabilities using open standards. SVG files ensure your work remains accessible and editable forever without proprietary lock-in.'
+      },
+      kdenlive: {
+        icon: '🎥',
+        name: 'Kdenlive',
+        package: 'org.kde.kdenlive',
+        description: 'Kdenlive is a powerful video editor built on the MLT framework. With multi-track editing, effects, transitions, and professional features, it handles everything from simple cuts to complex productions.',
+        features: [
+          'Multi-track video and audio editing',
+          'Hundreds of effects and transitions',
+          'Keyframe animation for effects',
+          'Proxy editing for smooth playback',
+          'Audio waveform visualization',
+          'Color correction and grading',
+          'Green screen (chroma key) compositing',
+          'Speed changes and time remapping',
+          'Export to any FFmpeg-supported format'
+        ],
+        useCases: [
+          'YouTube video production',
+          'Short films and documentaries',
+          'Educational video content',
+          'Social media content creation',
+          'Wedding and event videos',
+          'Screen recording editing'
+        ],
+        why: 'Kdenlive offers professional video editing without the professional price tag. It\'s stable, feature-rich, and handles 4K footage with ease, making it perfect for content creators.'
+      },
+      audacity: {
+        icon: '🎵',
+        name: 'Audacity',
+        package: 'org.audacityteam.Audacity',
+        description: 'Audacity is the world\'s most popular open-source audio editor. With multi-track recording, effects, and analysis tools, it\'s perfect for podcasts, music production, and audio restoration.',
+        features: [
+          'Multi-track recording and editing',
+          'Extensive effects library (EQ, compression, reverb)',
+          'Noise reduction and audio restoration',
+          'Spectral analysis and editing',
+          'Support for VST, LV2, and AU plugins',
+          'Batch processing with macros',
+          'Label tracks for organization',
+          'Support for many audio formats',
+          'Real-time preview of effects'
+        ],
+        useCases: [
+          'Podcast recording and editing',
+          'Music recording and mixing',
+          'Audio restoration and cleanup',
+          'Converting audio formats',
+          'Creating ringtones and audio clips',
+          'Voice-over recording'
+        ],
+        why: 'Audacity has been the gold standard for audio editing for decades. It\'s reliable, well-documented, and handles professional audio tasks with ease.'
+      },
+
+      // MEDIA PLAYERS & ENTERTAINMENT
+      vlc: {
+        icon: '🎬',
+        name: 'VLC Media Player',
+        package: 'org.videolan.VLC',
+        description: 'VLC is the ultimate media player that plays virtually anything you throw at it. With built-in codecs, streaming support, and advanced playback features, it\'s the only media player you\'ll ever need.',
+        features: [
+          'Plays all video and audio formats without codec packs',
+          'Network streaming (HTTP, RTSP, MMS)',
+          'Subtitle support with synchronization',
+          'Audio and video filters',
+          'Playlist management',
+          'Recording of streams',
+          'Frame-by-frame playback',
+          'Speed control and A-B repeat',
+          'Video capture from webcams'
+        ],
+        useCases: [
+          'Playing downloaded movies and TV shows',
+          'Streaming network content',
+          'Converting video formats',
+          'Recording streams',
+          'Playing damaged or incomplete files'
+        ],
+        why: 'VLC is legendary for its compatibility and reliability. It plays everything, runs everywhere, and never asks you to install additional codecs or pay for upgrades.'
+      },
+      jellyfin: {
+        icon: '📺',
+        name: 'Jellyfin Media Player',
+        package: 'com.github.iwalton3.jellyfin-media-player',
+        description: 'Jellyfin Media Player is the official desktop client for Jellyfin media servers. Stream your personal media collection with a beautiful, responsive interface optimized for TV and desktop use.',
+        features: [
+          'Native desktop client for optimal performance',
+          'Hardware acceleration support',
+          'Direct play for compatible formats',
+          'Transcoding when needed',
+          'Library browsing and management',
+          'Resume playback across devices',
+          'Subtitle support with customization',
+          'Remote control capabilities',
+          'Offline downloads (with server support)'
+        ],
+        useCases: [
+          'Streaming your personal media server',
+          'Watching movies and TV shows from your collection',
+          'Accessing shared family media libraries',
+          'Self-hosted Netflix alternative',
+          'Music streaming from your server'
+        ],
+        why: 'Jellyfin Media Player provides the best experience for accessing your Jellyfin server, with native performance and hardware acceleration that web browsers can\'t match.'
+      },
+      supersonic: {
+        icon: '🎧',
+        name: 'Supersonic',
+        package: 'io.github.dweymouth.supersonic',
+        description: 'Supersonic is a lightweight, modern desktop client for Subsonic-compatible music servers. Stream your music collection with a clean interface and offline support.',
+        features: [
+          'Fast, native GTK4 interface',
+          'Album art and metadata display',
+          'Playlist management',
+          'Offline caching for mobile listening',
+          'Search across your entire library',
+          'Queue management',
+          'Scrobbling support',
+          'Multiple server support',
+          'Gapless playback'
+        ],
+        useCases: [
+          'Streaming music from Subsonic/Navidrome servers',
+          'Accessing your personal music collection',
+          'Offline music listening',
+          'Managing playlists',
+          'Discovering music in your library'
+        ],
+        why: 'Supersonic provides a modern, efficient interface for Subsonic servers. It\'s lightweight, fast, and designed specifically for Linux desktop environments.'
+      },
+      nicotine: {
+        icon: '🎼',
+        name: 'Nicotine+',
+        package: 'org.nicotine_plus.Nicotine',
+        description: 'Nicotine+ is a modern client for the Soulseek peer-to-peer file sharing network. Discover rare music, live recordings, and connect with a global community of music enthusiasts.',
+        features: [
+          'Search across the Soulseek network',
+          'Browse user file collections',
+          'Private messaging and chat rooms',
+          'Queue management with priorities',
+          'User lists and wish lists',
+          'Upload bandwidth limiting',
+          'File filtering and organization',
+          'GTK4 modern interface',
+          'Privacy features and user blocking'
+        ],
+        useCases: [
+          'Finding rare and obscure music',
+          'Discovering live recordings and bootlegs',
+          'Connecting with music collectors',
+          'Sharing your music collection',
+          'Exploring different music cultures'
+        ],
+        why: 'Nicotine+ connects you to the Soulseek network, one of the best places to find rare and obscure music. It\'s perfect for music enthusiasts and collectors.'
+      },
+
+      // GAMING
+      steam: {
+        icon: '🎮',
+        name: 'Steam',
+        package: 'com.valvesoftware.Steam',
+        description: 'Steam is the world\'s largest gaming platform with thousands of games. Thanks to Proton, most Windows games run seamlessly on Linux, making SoltrOS a true gaming powerhouse.',
+        features: [
+          'Access to 50,000+ games',
+          'Proton compatibility layer for Windows games',
+          'Steam Play for cross-platform saves',
+          'Workshop for mods and user content',
+          'Steam Input for controller support',
+          'Built-in screenshot and video capture',
+          'Friends and community features',
+          'Cloud saves across devices',
+          'Steam Deck compatibility'
+        ],
+        useCases: [
+          'Playing AAA and indie games',
+          'Windows game compatibility via Proton',
+          'Game streaming to other devices',
+          'Managing game library',
+          'Multiplayer gaming',
+          'Installing mods from Workshop'
+        ],
+        why: 'Steam and Proton have made Linux gaming viable. With Steam Deck pushing Linux gaming forward, SoltrOS provides an excellent gaming platform out of the box.'
+      },
+      lutris: {
+        icon: '🕹️',
+        name: 'Lutris',
+        package: 'net.lutris.Lutris',
+        description: 'Lutris is the ultimate game launcher for Linux, supporting Windows games, emulators, and native Linux games through a unified interface with automatic configuration.',
+        features: [
+          'One-click installers for popular games',
+          'Wine version management',
+          'DXVK and VKD3D support',
+          'RetroArch core integration',
+          'Game-specific optimizations',
+          'Save location management',
+          'Controller configuration',
+          'Community-driven game scripts',
+          'Integration with multiple stores'
+        ],
+        useCases: [
+          'Playing non-Steam Windows games',
+          'Managing emulated games',
+          'Running GOG and Epic games',
+          'Organizing entire game library',
+          'Retro gaming with emulators'
+        ],
+        why: 'Lutris solves the complexity of Wine configuration with community scripts. It\'s essential for gaming beyond Steam and makes Windows games accessible.'
+      },
+      heroic: {
+        icon: '🦸',
+        name: 'Heroic Games Launcher',
+        package: 'com.heroicgameslauncher.hgl',
+        description: 'Heroic is a native launcher for Epic Games Store and GOG, bringing these platforms to Linux with full Proton support and a beautiful interface.',
+        features: [
+          'Epic Games Store integration',
+          'GOG Galaxy integration',
+          'Amazon Prime Gaming support',
+          'Proton and Wine-GE support',
+          'Cloud save synchronization',
+          'Game import from other launchers',
+          'Per-game settings',
+          'Download management',
+          'Library organization'
+        ],
+        useCases: [
+          'Playing Epic Games Store exclusives',
+          'Accessing GOG library on Linux',
+          'Claiming free Epic games',
+          'Managing multiple game stores',
+          'Windows game compatibility'
+        ],
+        why: 'Heroic brings Epic and GOG to Linux officially, with better Linux integration than their official (Windows-only) launchers.'
+      },
+      retroarch: {
+        icon: '👾',
+        name: 'RetroArch',
+        package: 'org.libretro.RetroArch',
+        description: 'RetroArch is the ultimate all-in-one emulation platform. With cores for dozens of systems, it provides a unified interface for retro gaming with advanced features.',
+        features: [
+          'Cores for 50+ gaming systems',
+          'Save states and rewind',
+          'Shaders and visual enhancements',
+          'Netplay for online multiplayer',
+          'Achievement support',
+          'Game controller support with remapping',
+          'Fast-forward and slow motion',
+          'Recording and streaming',
+          'Playlists and favorites'
+        ],
+        useCases: [
+          'Playing NES, SNES, Genesis, PlayStation games',
+          'Arcade game emulation',
+          'Handheld console emulation',
+          'Online multiplayer retro gaming',
+          'Speedrunning with save states',
+          'Video game preservation'
+        ],
+        why: 'RetroArch unifies emulation with consistent controls and features across all systems. It\'s the most comprehensive emulation solution available.'
+      },
+      prismlauncher: {
+        icon: '⛏️',
+        name: 'Prism Launcher',
+        package: 'org.prismlauncher.PrismLauncher',
+        description: 'Prism Launcher is a powerful Minecraft launcher with full mod support, multiple instances, and easy modpack installation. The community favorite for Minecraft on Linux.',
+        features: [
+          'Multiple Minecraft instances',
+          'Mod loader support (Forge, Fabric, Quilt)',
+          'One-click modpack installation',
+          'Version management',
+          'Java version management',
+          'Resource pack and shader support',
+          'Account management',
+          'Custom instance groups',
+          'Export and share instances'
+        ],
+        useCases: [
+          'Playing modded Minecraft',
+          'Testing mod compatibility',
+          'Installing popular modpacks',
+          'Managing multiple Minecraft versions',
+          'Creating custom modpack configurations'
+        ],
+        why: 'Prism Launcher makes modded Minecraft easy on Linux. It\'s actively maintained, respects your privacy, and handles complex mod setups effortlessly.'
+      },
+      protonplus: {
+        icon: '🍷',
+        name: 'ProtonPlus',
+        package: 'com.vysp3r.ProtonPlus',
+        description: 'ProtonPlus manages Proton and Wine versions for Steam, making it easy to optimize Windows game compatibility with the latest compatibility layers.',
+        features: [
+          'Install custom Proton versions (GE, TKG, etc.)',
+          'Per-game Proton version management',
+          'Automatic update checking',
+          'Clean interface for version switching',
+          'Compatibility tool management',
+          'Download progress tracking',
+          'Version comparison',
+          'Easy installation path'
+        ],
+        useCases: [
+          'Fixing game compatibility issues',
+          'Using latest Proton features before Steam',
+          'Testing different Proton versions',
+          'Optimizing game performance',
+          'Getting bleeding-edge Windows game support'
+        ],
+        why: 'ProtonPlus gives you access to community Proton builds that often fix games before official releases. Essential for serious Linux gamers.'
+      },
+
+      // COMMUNICATION
+      discord: {
+        icon: '💬',
+        name: 'Discord',
+        package: 'com.discordapp.Discord',
+        description: 'Discord is the leading voice, video, and text chat platform. Built for communities, it\'s become essential for gaming, development teams, and friend groups worldwide.',
+        features: [
+          'Voice channels with low latency',
+          'Video calling and screen sharing',
+          'Text channels with threads',
+          'Direct messaging and group DMs',
+          'Bot integration and automation',
+          'File sharing up to 500MB (Nitro)',
+          'Rich presence for gaming',
+          'Server organization with roles',
+          'Stage channels for events'
+        ],
+        useCases: [
+          'Gaming communication',
+          'Community building and management',
+          'Development team coordination',
+          'Friend group hangouts',
+          'Content creator communities',
+          'Event hosting and stage channels'
+        ],
+        why: 'Discord has become the standard for online communities. Its combination of voice, video, and text with powerful moderation tools makes it essential for modern communication.'
+      },
+      telegram: {
+        icon: '✈️',
+        name: 'Telegram Desktop',
+        package: 'org.telegram.desktop',
+        description: 'Telegram is fast, secure cloud-based messaging with powerful features. With unlimited storage, massive groups, and extensive bot ecosystem, it\'s messaging evolved.',
+        features: [
+          'Cloud-based synchronization across all devices',
+          'End-to-end encrypted Secret Chats',
+          'Groups up to 200,000 members',
+          'Public channels for broadcasting',
+          'Bot platform for automation',
+          'File sharing up to 2GB per file',
+          'Voice and video calls',
+          'Stickers and custom themes',
+          'Powerful search across all chats'
+        ],
+        useCases: [
+          'Personal and group messaging',
+          'Large community management',
+          'File and document sharing',
+          'News channels and broadcasts',
+          'Bot automation and workflows',
+          'Secure communication with Secret Chats'
+        ],
+        why: 'Telegram offers unique features like unlimited cloud storage, massive groups, and powerful bots that other platforms don\'t match. It\'s perfect for power users.'
+      },
+
+      // UTILITIES & SYSTEM TOOLS
+      flatseal: {
+        icon: '🔐',
+        name: 'Flatseal',
+        package: 'com.github.tchx84.Flatseal',
+        description: 'Flatseal is the essential tool for managing Flatpak permissions. With an intuitive GUI, you can fine-tune exactly what each application can access on your system.',
+        features: [
+          'View all Flatpak applications and their permissions',
+          'Grant or revoke filesystem access',
+          'Control network permissions',
+          'Manage device access (webcam, microphone, etc.)',
+          'Control environment variables',
+          'Session bus access management',
+          'X11 and Wayland permissions',
+          'Reset to default permissions',
+          'Per-application customization'
+        ],
+        useCases: [
+          'Restricting application filesystem access',
+          'Allowing specific folders for apps',
+          'Troubleshooting application permissions',
+          'Enhancing security by limiting access',
+          'Managing sandbox permissions'
+        ],
+        why: 'Flatseal is essential for SoltrOS\'s security model. It makes Flatpak\'s powerful sandboxing accessible, letting you control exactly what each app can do.'
+      },
+      warehouse: {
+        icon: '📦',
+        name: 'Warehouse',
+        package: 'io.github.flattool.Warehouse',
+        description: 'Warehouse provides comprehensive Flatpak management beyond basic installation. Manage remotes, clean up data, batch operations, and detailed application information.',
+        features: [
+          'Manage installed Flatpaks',
+          'Add and remove Flathub remotes',
+          'View application details and metadata',
+          'Clean up unused runtimes',
+          'Batch uninstall operations',
+          'Leftover data management',
+          'User vs system installation management',
+          'Flatpak size information',
+          'Runtime dependency viewing'
+        ],
+        useCases: [
+          'Cleaning up disk space from unused Flatpaks',
+          'Managing Flatpak remotes',
+          'Viewing detailed app information',
+          'Batch operations on multiple apps',
+          'Understanding Flatpak installation structure'
+        ],
+        why: 'Warehouse gives you comprehensive control over your Flatpak installation, helping keep your system clean and organized.'
+      },
+      gearlever: {
+        icon: '⚙️',
+        name: 'Gear Lever',
+        package: 'it.mijorus.gearlever',
+        description: 'Gear Lever makes AppImages first-class citizens on your system. Install, manage, and integrate AppImages seamlessly into your application menu.',
+        features: [
+          'One-click AppImage installation',
+          'Desktop integration (menu entries)',
+          'Automatic update checking',
+          'AppImage sandboxing',
+          'Organize AppImages in library',
+          'Uninstall cleanly',
+          'Application icon extraction',
+          'Quick launch from tray'
+        ],
+        useCases: [
+          'Installing AppImage applications',
+          'Managing portable applications',
+          'Trying software without full installation',
+          'Using applications not available as Flatpak',
+          'Testing beta software'
+        ],
+        why: 'Gear Lever solves AppImage integration issues, making them work like native applications while maintaining their portability benefits.'
+      },
+      ignition: {
+        icon: '🔥',
+        name: 'Ignition',
+        package: 'io.github.flattool.Ignition',
+        description: 'Ignition manages Flatpak overrides with an easy interface. Create, edit, and manage application-specific configurations without command-line complexity.',
+        features: [
+          'Browse and edit Flatpak overrides',
+          'Template system for common configurations',
+          'Override import and export',
+          'Validation of override syntax',
+          'Quick enable/disable overrides',
+          'Per-application or global overrides',
+          'Backup and restore configurations',
+          'Search and filter overrides'
+        ],
+        useCases: [
+          'Customizing Flatpak application behavior',
+          'Sharing override configurations',
+          'Troubleshooting application issues',
+          'Advanced Flatpak customization',
+          'Managing complex permission sets'
+        ],
+        why: 'Ignition makes advanced Flatpak configuration accessible without editing files manually, perfect for power users who want control.'
+      },
+      boxbuddy: {
+        icon: '📦',
+        name: 'BoxBuddy',
+        package: 'io.github.dvlv.boxbuddyrs',
+        description: 'BoxBuddy brings Distrobox to everyone with a beautiful graphical interface. Create and manage containerized Linux distributions for development and testing.',
+        features: [
+          'Create containers from various distributions',
+          'Graphical container management',
+          'Application export to host',
+          'Terminal access to containers',
+          'Resource monitoring',
+          'Easy container duplication',
+          'Volume management',
+          'Container templates'
+        ],
+        useCases: [
+          'Development environments for different distros',
+          'Testing software without affecting host system',
+          'Running distribution-specific software',
+          'Learning different Linux distributions',
+          'Isolating experimental setups'
+        ],
+        why: 'BoxBuddy makes Distrobox accessible to non-terminal users, perfect for SoltrOS\'s immutable system where containers supplement the base.'
+      },
+      pikabackup: {
+        icon: '💾',
+        name: 'Pika Backup',
+        package: 'org.gnome.World.PikaBackup',
+        description: 'Pika Backup provides simple, secure backups based on BorgBackup. With encryption, deduplication, and scheduling, your data stays safe automatically.',
+        features: [
+          'Encrypted backups with strong algorithms',
+          'Deduplication saves storage space',
+          'Incremental backups (only changes)',
+          'Scheduled automatic backups',
+          'Remote backup support (SSH)',
+          'Simple restore interface',
+          'Backup verification',
+          'Compression for efficiency',
+          'Easy backup management'
+        ],
+        useCases: [
+          'Backing up home directory',
+          'Protecting important documents',
+          'Remote backup to NAS or server',
+          'Scheduled daily/weekly backups',
+          'Disaster recovery preparation'
+        ],
+        why: 'Pika Backup makes enterprise-grade backup technology accessible. On an immutable system like SoltrOS, protecting your user data is crucial.'
+      },
+      missioncenter: {
+        icon: '📊',
+        name: 'Mission Center',
+        package: 'io.missioncenter.MissionCenter',
+        description: 'Mission Center is a beautiful system monitor inspired by Windows Task Manager. Track CPU, memory, disk, network, and GPU usage in real-time with detailed statistics.',
+        features: [
+          'Real-time CPU usage per core',
+          'Memory usage with detailed breakdown',
+          'Disk I/O monitoring',
+          'Network bandwidth tracking',
+          'GPU monitoring (NVIDIA, AMD, Intel)',
+          'Process management and sorting',
+          'Historical graphs',
+          'System information overview',
+          'Process termination'
+        ],
+        useCases: [
+          'Monitoring system performance',
+          'Identifying resource-hungry processes',
+          'Troubleshooting performance issues',
+          'Tracking GPU usage for gaming/rendering',
+          'Network usage monitoring'
+        ],
+        why: 'Mission Center provides the most comprehensive and beautiful system monitoring on Linux, perfect for understanding system behavior.'
+      },
+      easyeffects: {
+        icon: '🎚️',
+        name: 'EasyEffects',
+        package: 'com.github.wwmm.easyeffects',
+        description: 'EasyEffects brings professional audio processing to your desktop. Apply equalizers, compressors, limiters, and more to any audio stream in real-time.',
+        features: [
+          'Parametric equalizer',
+          'Bass enhancement',
+          'Loudness compensation',
+          'Compressor and limiter',
+          'Reverb and echo effects',
+          'Stereo widening',
+          'Noise reduction',
+          'Presets for different scenarios',
+          'Per-application effects'
+        ],
+        useCases: [
+          'Improving headphone sound quality',
+          'Enhancing microphone audio for streaming',
+          'Fixing poor speaker output',
+          'Professional audio processing',
+          'Gaming audio enhancement',
+          'Music production monitoring'
+        ],
+        why: 'EasyEffects turns your audio system into a professional setup. Perfect for content creators, audiophiles, and anyone wanting better sound.'
+      },
+      bitwarden: {
+        icon: '🔑',
+        name: 'Bitwarden',
+        package: 'com.bitwarden.desktop',
+        description: 'Bitwarden is the leading open-source password manager. Securely store passwords, notes, cards, and identities with end-to-end encryption across all devices.',
+        features: [
+          'End-to-end encrypted vault',
+          'Unlimited passwords and items',
+          'Cross-platform synchronization',
+          'Password generator',
+          'Secure notes and card storage',
+          'Two-factor authentication',
+          'Biometric unlock support',
+          'Secure password sharing',
+          'Emergency access feature',
+          'Self-hosting option'
+        ],
+        useCases: [
+          'Storing all passwords securely',
+          'Generating strong unique passwords',
+          'Sharing family passwords safely',
+          'Managing work credentials',
+          'Storing credit card information',
+          'Secure note keeping'
+        ],
+        why: 'Bitwarden combines security, usability, and open-source transparency. It\'s essential for modern digital security and works seamlessly across all platforms.'
+      },
+      filezilla: {
+        icon: '📁',
+        name: 'FileZilla',
+        package: 'org.filezillaproject.Filezilla',
+        description: 'FileZilla is the most popular FTP client, supporting FTP, FTPS, and SFTP. With a powerful interface and reliable transfers, it\'s perfect for web developers and server administrators.',
+        features: [
+          'Drag-and-drop file transfers',
+          'Directory comparison',
+          'Configurable transfer speed limits',
+          'Bookmarked connections',
+          'Site manager for frequent servers',
+          'Queue management',
+          'Transfer resume and auto-retry',
+          'Remote file editing',
+          'IPv6 support'
+        ],
+        useCases: [
+          'Website file management',
+          'Server administration',
+          'Backing up remote files',
+          'Uploading large files',
+          'Managing cloud storage via SFTP'
+        ],
+        why: 'FileZilla is the gold standard for FTP transfers, reliable and feature-rich. Essential for web developers and anyone managing remote files.'
+      },
+      clapgrep: {
+        icon: '🔍',
+        name: 'Clapgrep',
+        package: 'de.leopoldluley.Clapgrep',
+        description: 'Clapgrep is a modern GUI for searching text in files using grep. With regex support, file filtering, and a clean interface, finding code is effortless.',
+        features: [
+          'Fast text search across files',
+          'Regular expression support',
+          'File type filtering',
+          'Case-sensitive/insensitive search',
+          'Replace functionality',
+          'Search history',
+          'Preview results in context',
+          'Multi-threaded searching',
+          'Export results'
+        ],
+        useCases: [
+          'Finding code in large codebases',
+          'Searching configuration files',
+          'Text mining in documents',
+          'Finding specific log entries',
+          'Code refactoring research'
+        ],
+        why: 'Clapgrep makes powerful command-line grep accessible through a GUI, perfect for developers who prefer visual tools.'
+      },
+
+      // KDE APPLICATIONS
+      okular: {
+        icon: '📖',
+        name: 'Okular',
+        package: 'org.kde.okular',
+        description: 'Okular is KDE\'s universal document viewer supporting PDFs, ePubs, images, and more. With annotations, forms, and digital signatures, it\'s the most capable document viewer on Linux.',
+        features: [
+          'Multi-format support (PDF, ePub, DjVu, XPS, etc.)',
+          'PDF form filling and saving',
+          'Annotations and markup tools',
+          'Digital signature support',
+          'Text-to-speech',
+          'Presentation mode',
+          'Bookmarks and document navigation',
+          'Powerful search within documents',
+          'Accessibility features'
+        ],
+        useCases: [
+          'Reading PDFs and eBooks',
+          'Filling PDF forms',
+          'Annotating documents for review',
+          'Signing documents digitally',
+          'Presenting PDFs in fullscreen',
+          'Accessibility with text-to-speech'
+        ],
+        why: 'Okular is the most feature-complete document viewer on Linux. It handles everything from simple reading to professional document workflows.'
+      },
+      ark: {
+        icon: '📦',
+        name: 'Ark',
+        package: 'org.kde.ark',
+        description: 'Ark is KDE\'s archive manager supporting dozens of formats. Extract, create, and manage compressed files with preview, encryption, and batch operations.',
+        features: [
+          'Support for ZIP, TAR, 7Z, RAR, and 30+ formats',
+          'File preview without extraction',
+          'Drag-and-drop operations',
+          'Password-protected archives',
+          'Multi-volume archive support',
+          'Archive verification',
+          'Batch extraction',
+          'Integration with file managers',
+          'Command-line interface'
+        ],
+        useCases: [
+          'Extracting downloaded archives',
+          'Creating backups',
+          'Compressing files for transfer',
+          'Managing password-protected archives',
+          'Viewing archive contents'
+        ],
+        why: 'Ark handles every archive format you\'ll encounter, with a clean interface and powerful features like preview and batch operations.'
+      },
+      kcalc: {
+        icon: '🔢',
+        name: 'KCalc',
+        package: 'org.kde.kcalc',
+        description: 'KCalc is KDE\'s powerful scientific calculator with multiple modes, constants, and a comprehensive function library.',
+        features: [
+          'Scientific and statistical modes',
+          'Trigonometric functions',
+          'Logarithms and exponentials',
+          'Binary

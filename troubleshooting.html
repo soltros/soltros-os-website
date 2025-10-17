@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Troubleshooting - SoltrOS</title>
+  <meta name="description" content="Common issues and solutions for SoltrOS. Fix boot problems, package manager issues, gaming problems, and more.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    .hero{text-align:center;padding:16px 0 6px}
+    .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
+    .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
+    
+    .content{max-width:900px;margin:40px auto;padding:0 20px}
+    .content h2{
+      color:var(--text);
+      font-size:1.75rem;
+      margin:48px 0 24px;
+      padding-bottom:12px;
+      border-bottom:2px solid var(--border)
+    }
+    .content h3{
+      color:var(--accent);
+      font-size:1.25rem;
+      margin:32px 0 16px
+    }
+    .content p{color:var(--muted);line-height:1.7;margin:12px 0}
+    .content ul, .content ol{color:var(--muted);line-height:1.7;padding-left:24px}
+    .content li{margin:10px 0}
+    
+    .problem-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:24px;
+      margin:24px 0
+    }
+    .problem-symptom{
+      color:var(--text);
+      font-weight:700;
+      font-size:1.1rem;
+      margin:0 0 12px
+    }
+    .problem-symptom::before{
+      content:"⚠️ ";
+      margin-right:8px
+    }
+    .problem-solution{
+      color:var(--ok);
+      font-weight:700;
+      font-size:1rem;
+      margin:16px 0 8px
+    }
+    .problem-solution::before{
+      content:"✓ ";
+      margin-right:6px
+    }
+    
+    .code-block{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:14px;
+      margin:12px 0;
+      overflow-x:auto
+    }
+    .code-block code{
+      color:var(--ok);
+      font-family:ui-monospace,monospace;
+      font-size:.88rem;
+      line-height:1.6
+    }
+    
+    .info-box{
+      background:var(--surface);
+      border-left:3px solid var(--accent);
+      border-radius:8px;
+      padding:16px 20px;
+      margin:24px 0
+    }
+    .info-box h4{margin:0 0 8px;color:var(--accent)}
+    .info-box p{margin:8px 0;color:var(--muted)}
+    .info-box ul{margin:8px 0;padding-left:20px}
+    
+    .quick-nav{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:20px;
+      margin:24px 0
+    }
+    .quick-nav h3{margin:0 0 16px;color:var(--text)}
+    .quick-nav ul{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:12px
+    }
+    .quick-nav li a{
+      display:block;
+      padding:8px 12px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:8px;
+      transition:border-color .2s
+    }
+    .quick-nav li a:hover{border-color:var(--accent)}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .hero h1{font-size:32px}
+      .content h2{font-size:1.5rem}
+      .quick-nav ul{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="soltros-logo.png" alt="SoltrOS Logo">
+      <div class="name">SoltrOS</div>
+    </header>
+  </div>
+
+  <section class="hero wrap">
+    <h1>Troubleshooting</h1>
+    <p>
+      Common issues and solutions for SoltrOS. Find fixes for boot problems, package managers, 
+      gaming issues, and system configuration.
+    </p>
+  </section>
+
+  <section class="content">
+    
+    <div class="quick-nav">
+      <h3>Quick Navigation</h3>
+      <ul>
+        <li><a href="#boot">Boot Issues</a></li>
+        <li><a href="#disk">Disk Space</a></li>
+        <li><a href="#package">Package Managers</a></li>
+        <li><a href="#flatpak">Flatpak Issues</a></li>
+        <li><a href="#gaming">Gaming Problems</a></li>
+        <li><a href="#network">Network Issues</a></li>
+        <li><a href="#display">Display Problems</a></li>
+        <li><a href="#audio">Audio Issues</a></li>
+        <li><a href="#containers">Container Issues</a></li>
+        <li><a href="#performance">Performance</a></li>
+        <li><a href="#logs">System Logs</a></li>
+        <li><a href="#reporting">Reporting Bugs</a></li>
+      </ul>
+    </div>
+
+    <h2 id="boot">Boot and Update Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">System fails to boot after update</div>
+      <div class="problem-solution">Boot into previous deployment</div>
+      <ol>
+        <li>At the GRUB menu, select the previous deployment</li>
+        <li>Once booted, run the rollback command:</li>
+      </ol>
+      <div class="code-block">
+        <code>sudo bootc rollback
+sudo systemctl reboot</code>
+      </div>
+      <p>The rollback makes the previous version permanent until the next update.</p>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Bootc fails with signature verification errors</div>
+      <div class="problem-solution">Install the correct signing keys</div>
+      <div class="code-block">
+        <code># Download the public key
+sudo mkdir -p /etc/pki/containers
+sudo curl -L https://github.com/soltros/Soltros-OS/raw/main/soltros.pub \
+  -o /etc/pki/containers/soltros.pub
+
+# Download the secure policy
+sudo mkdir -p /etc/containers
+sudo curl -L https://github.com/soltros/Soltros-OS/raw/main/resources/policy.json \
+  -o /etc/containers/policy.json
+
+# Verify permissions
+sudo chmod 644 /etc/pki/containers/soltros.pub
+sudo chmod 644 /etc/containers/policy.json</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">System update hangs indefinitely</div>
+      <div class="problem-solution">Cancel and retry with helper</div>
+      <ol>
+        <li>Press Ctrl+C to cancel the operation</li>
+        <li>Try updating again:</li>
+      </ol>
+      <div class="code-block">
+        <code>helper update</code>
+      </div>
+      <p>If still stuck, check your internet connection:</p>
+      <div class="code-block">
+        <code>ping -c 4 8.8.8.8</code>
+      </div>
+    </div>
+
+    <h2 id="disk">Disk Space Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Disk full errors, can't install updates</div>
+      <div class="problem-solution">Clean up old deployments and cached files</div>
+      <div class="code-block">
+        <code># Clean old bootc deployments
+helper clean
+
+# Clean Flatpak unused runtimes
+flatpak uninstall --unused
+
+# Clean Podman/Docker
+podman system prune -a
+
+# Clean Nix
+nix-collect-garbage -d
+
+# Clean Homebrew
+brew cleanup --prune=all</code>
+      </div>
+    </div>
+
+    <h2 id="package">Package Manager Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Flatpak install fails or apps won't start</div>
+      <div class="problem-solution">Update and repair Flatpak</div>
+      <div class="code-block">
+        <code># Update Flatpak
+flatpak update
+
+# Repair Flatpak installation
+flatpak repair --user
+
+# Re-add Flathub repository
+flatpak remote-add --if-not-exists flathub \
+  https://flathub.org/repo/flathub.flatpakrepo</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Nix commands fail or nixmanager not found</div>
+      <div class="problem-solution">Update Nix and verify installation</div>
+      <div class="code-block">
+        <code># Update Nix channels
+nix-channel --update
+
+# Repair Nix store
+nix-store --verify --check-contents
+
+# If nixmanager not found (Bash users)
+helper add-nixmanager
+
+# Reinstall Nix if completely broken
+sudo rm -rf /nix
+helper install-nix
+helper setup-nixmanager</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Brew commands fail or packages won't install</div>
+      <div class="problem-solution">Diagnose and update Homebrew</div>
+      <div class="code-block">
+        <code># Diagnose issues
+brew doctor
+
+# Update Homebrew
+brew update</code>
+      </div>
+      <p>If completely broken, reinstall:</p>
+      <div class="code-block">
+        <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+helper install-homebrew</code>
+      </div>
+    </div>
+
+    <h2 id="flatpak">Flatpak-Specific Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Desktop application fails to launch</div>
+      <div class="problem-solution">Run with verbose output to diagnose</div>
+      <div class="code-block">
+        <code># Run with verbose output
+flatpak run --verbose org.app.Name
+
+# Check logs
+journalctl --user -xe | grep flatpak
+
+# Reinstall the application
+flatpak uninstall org.app.Name
+flatpak install flathub org.app.Name</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Application can't access files or directories</div>
+      <div class="problem-solution">Grant filesystem access</div>
+      <div class="code-block">
+        <code># Grant home directory access
+flatpak override --user --filesystem=home org.app.Name
+
+# Or for specific directory
+flatpak override --user --filesystem=/path/to/dir org.app.Name</code>
+      </div>
+      <p>Or use Flatseal (pre-installed) for GUI management:</p>
+      <ol>
+        <li>Open Flatseal from your application menu</li>
+        <li>Select the application</li>
+        <li>Adjust filesystem permissions as needed</li>
+      </ol>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Flatpak apps don't match system theme</div>
+      <div class="problem-solution">Install Flatpak themes</div>
+      <div class="code-block">
+        <code># Install GTK themes
+flatpak install flathub org.gtk.Gtk3theme.Breeze
+
+# For Qt apps
+flatpak install flathub org.kde.PlatformTheme.QGnomePlatform</code>
+      </div>
+    </div>
+
+    <h2 id="gaming">Gaming Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Steam fails to start or crashes on launch</div>
+      <div class="problem-solution">Clear Steam cache and reinstall</div>
+      <div class="code-block">
+        <code># Clear Steam cache
+rm -rf ~/.var/app/com.valvesoftware.Steam/.local/share/Steam
+
+# Reinstall Steam
+flatpak uninstall com.valvesoftware.Steam
+flatpak install flathub com.valvesoftware.Steam</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Games run slowly or stutter</div>
+      <div class="problem-solution">Check drivers and enable optimizations</div>
+      <div class="code-block">
+        <code># Check GPU drivers
+lspci -k | grep -EA3 'VGA|3D|Display'
+
+# For AMD GPUs, enable overclocking
+helper enable-amdgpu-oc</code>
+      </div>
+      <p>Make sure GameMode is installed (it's pre-installed on SoltrOS). It automatically optimizes performance when launching games.</p>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Gaming controller not recognized</div>
+      <div class="problem-solution">Check device and restart udev</div>
+      <div class="code-block">
+        <code># Check if controller is detected
+lsusb
+
+# Restart udev
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+# Verify controller appears
+ls /dev/input/js*</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Windows game won't launch via Proton</div>
+      <div class="problem-solution">Try different Proton versions</div>
+      <ul>
+        <li>In Steam, right-click the game → Properties → Compatibility</li>
+        <li>Try different Proton versions</li>
+        <li>Install ProtonPlus for Proton-GE (pre-installed)</li>
+        <li>Check <a href="https://www.protondb.com/" target="_blank">ProtonDB</a> for game-specific fixes</li>
+        <li>Verify game files in Steam</li>
+      </ul>
+    </div>
+
+    <h2 id="network">Network Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Can't connect to the internet</div>
+      <div class="problem-solution">Check connection and restart NetworkManager</div>
+      <div class="code-block">
+        <code># Check connection status
+nmcli device status
+
+# Restart NetworkManager
+sudo systemctl restart NetworkManager
+
+# Test connectivity
+ping -c 4 8.8.8.8
+ping -c 4 google.com</code>
+      </div>
+      <p>If DNS is the issue, set DNS manually:</p>
+      <div class="code-block">
+        <code>sudo nmcli con mod "System eth0" ipv4.dns "8.8.8.8 8.8.4.4"
+sudo nmcli con up "System eth0"</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">WiFi adapter not detected or won't connect</div>
+      <div class="problem-solution">Restart WiFi and check firmware</div>
+      <div class="code-block">
+        <code># Check WiFi device
+nmcli device wifi list
+
+# Restart WiFi
+nmcli radio wifi off
+nmcli radio wifi on
+
+# Check firmware
+dmesg | grep firmware</code>
+      </div>
+      <p>If firmware is missing, it should already be installed. Check logs for specific errors.</p>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Network is slow or unstable</div>
+      <div class="problem-solution">Check for packet loss and try disabling IPv6</div>
+      <div class="code-block">
+        <code># Check for packet loss
+ping -c 100 8.8.8.8
+
+# Disable IPv6 if causing issues
+sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+
+# Make permanent
+echo "net.ipv6.conf.all.disable_ipv6 = 1" | sudo tee /etc/sysctl.d/99-disable-ipv6.conf</code>
+      </div>
+    </div>
+
+    <h2 id="display">Display Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Display resolution is incorrect</div>
+      <div class="problem-solution">Set resolution via system settings or xrandr</div>
+      <p>Via GUI:</p>
+      <ul>
+        <li><strong>KDE:</strong> System Settings → Display Configuration</li>
+        <li><strong>GNOME:</strong> Settings → Displays</li>
+      </ul>
+      <p>Via command line:</p>
+      <div class="code-block">
+        <code># List available resolutions
+xrandr
+
+# Set resolution
+xrandr --output HDMI-1 --mode 1920x1080</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Multiple monitors not working correctly</div>
+      <div class="problem-solution">Configure displays via system settings or xrandr</div>
+      <div class="code-block">
+        <code># List displays
+xrandr
+
+# Position monitors
+xrandr --output HDMI-1 --right-of eDP-1</code>
+      </div>
+      <p>Use the GUI display settings for easier configuration.</p>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Visible tearing during video playback or gaming</div>
+      <div class="problem-solution">Check compositor settings</div>
+      <ul>
+        <li><strong>AMD:</strong> Usually works out of the box, check compositor settings in your DE</li>
+        <li><strong>Intel:</strong> Enable TearFree in compositor settings</li>
+        <li><strong>NVIDIA:</strong> Nouveau drivers may have tearing, consider adding proprietary drivers</li>
+      </ul>
+    </div>
+
+    <h2 id="audio">Audio Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Audio not working</div>
+      <div class="problem-solution">Check audio system and restart PipeWire</div>
+      <div class="code-block">
+        <code># Check if sound card detected
+lspci | grep -i audio
+
+# Check PipeWire status
+systemctl --user status pipewire pipewire-pulse
+
+# Restart audio
+systemctl --user restart pipewire pipewire-pulse
+
+# Check volume levels
+alsamixer</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Audio playing through wrong device</div>
+      <div class="problem-solution">Select correct output device</div>
+      <p>Via GUI:</p>
+      <ul>
+        <li><strong>KDE:</strong> System Settings → Audio → Playback Devices</li>
+        <li><strong>GNOME:</strong> Settings → Sound</li>
+      </ul>
+      <p>Via command line:</p>
+      <div class="code-block">
+        <code># List audio sinks
+pactl list sinks short
+
+# Set default sink
+pactl set-default-sink &lt;sink-name&gt;</code>
+      </div>
+    </div>
+
+    <h2 id="containers">Container Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">distrobox enter fails</div>
+      <div class="problem-solution">Check container status and recreate if needed</div>
+      <div class="code-block">
+        <code># Check Podman status
+podman ps -a
+
+# View container logs
+podman logs distrobox-&lt;container-name&gt;
+
+# Recreate container
+distrobox rm &lt;container-name&gt;
+distrobox create --name &lt;container-name&gt; --image &lt;image&gt;</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">Permission denied when running Podman commands</div>
+      <div class="problem-solution">Ensure user namespaces are configured</div>
+      <div class="code-block">
+        <code># Check subuid/subgid
+cat /etc/subuid
+cat /etc/subgid
+
+# If empty, add entries
+echo "$USER:100000:65536" | sudo tee -a /etc/subuid
+echo "$USER:100000:65536" | sudo tee -a /etc/subgid</code>
+      </div>
+      <p>Log out and back in after making these changes.</p>
+    </div>
+
+    <h2 id="performance">Performance Issues</h2>
+
+    <div class="problem-card">
+      <div class="problem-symptom">System running slow, high CPU usage</div>
+      <div class="problem-solution">Identify resource-heavy processes</div>
+      <div class="code-block">
+        <code># Check CPU usage
+btop
+
+# Check systemd services
+systemctl list-units --type=service --state=running
+
+# Find CPU-intensive processes
+ps aux --sort=-%cpu | head -10</code>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-symptom">System using too much RAM</div>
+      <div class="problem-solution">Check memory usage and clear cache</div>
+      <div class="code-block">
+        <code># Check memory usage
+free -h
+
+# Find memory-intensive processes
+ps aux --sort=-%mem | head -10
+
+# Clear cache (safe)
+sudo sync
+echo 3 | sudo tee /proc/sys/vm/drop_caches</code>
+      </div>
+    </div>
+
+    <h2 id="logs">Viewing System Logs</h2>
+
+    <div class="info-box">
+      <h4>Useful Log Commands</h4>
+      <div class="code-block">
+        <code># View recent system logs
+journalctl -xe
+
+# View kernel logs
+dmesg | tail -50
+
+# View boot logs
+journalctl -b
+
+# View specific service logs
+journalctl -u &lt;service-name&gt;
+
+# Follow logs in real-time
+journalctl -f</code>
+      </div>
+    </div>
+
+    <h3>Checking System Status</h3>
+    <div class="code-block">
+      <code># Check bootc status
+sudo bootc status
+
+# Check failed services
+systemctl --failed
+
+# Check disk usage
+df -h
+
+# Check memory
+free -h</code>
+    </div>
+
+    <h2 id="reporting">Reporting Bugs</h2>
+
+    <div class="info-box">
+      <h4>Collecting Information for Bug Reports</h4>
+      <p>When reporting issues, collect this information:</p>
+      <div class="code-block">
+        <code># System information
+cat /etc/os-release
+uname -a
+sudo bootc status
+
+# Hardware information
+lscpu
+lspci
+lsusb
+
+# Save logs
+journalctl -b > system-logs.txt
+dmesg > kernel-logs.txt</code>
+      </div>
+    </div>
+
+    <h3>Where to Get Help</h3>
+    <ol>
+      <li><strong>Search GitHub Issues:</strong> Check <a href="https://github.com/soltros/Soltros-OS/issues" target="_blank">existing issues</a> for similar problems</li>
+      <li><strong>Report a Bug:</strong> Create a new issue with:
+        <ul>
+          <li>Clear description of the problem</li>
+          <li>Steps to reproduce</li>
+          <li>System information (bootc status)</li>
+          <li>Relevant logs</li>
+          <li>What you've already tried</li>
+        </ul>
+      </li>
+      <li><strong>Check the Wiki:</strong> Visit the <a href="https://github.com/soltros/Soltros-OS/wiki" target="_blank">SoltrOS Wiki</a> for additional documentation</li>
+    </ol>
+
+    <div class="info-box">
+      <h4>💡 Can't Find a Solution?</h4>
+      <p>
+        If your issue isn't covered here, the <a href="getting-started.html">Getting Started guide</a> 
+        has additional information about common tasks. For persistent problems, 
+        <a href="https://github.com/soltros/Soltros-OS/issues" target="_blank">open an issue on GitHub</a> 
+        with detailed information about your problem.
+      </p>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> SoltrOS • <a href="index.html">Home</a> • <a href="apps.html">Applications</a> • <a href="packages.html">System Packages</a> • <a href="helper.html">Helper Tool</a> • <a href="features.html">Features</a> • <a href="comparisons.html">Comparisons</a> • <a href="getting-started.html">Getting Started</a> • <a href="https://github.com/soltros">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

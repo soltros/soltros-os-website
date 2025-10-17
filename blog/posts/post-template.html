@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Post Title - Your Site Name</title>
+  <meta name="description" content="Post description">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    
+    /* Post-specific styles */
+    .back-link{
+      display:inline-block;
+      color:var(--muted);
+      margin:20px 0 10px;
+      font-size:.95rem
+    }
+    .back-link:hover{color:var(--accent)}
+    
+    article{max-width:720px;margin:0 auto;padding:20px}
+    .post-header{margin-bottom:32px}
+    .post-header h1{font-size:2.5rem;line-height:1.2;margin:0 0 16px}
+    .post-meta{
+      color:var(--low);
+      font-size:.95rem;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:20px
+    }
+    .tag{
+      display:inline-block;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:4px 10px;
+      background:#0e141b;
+      color:#cfe6ff;
+      font-size:.85rem;
+      margin-right:6px
+    }
+    
+    .post-content{color:var(--text);line-height:1.8}
+    .post-content h2{margin:40px 0 16px;color:var(--text);font-size:1.75rem}
+    .post-content h3{margin:32px 0 12px;color:var(--text);font-size:1.35rem}
+    .post-content p{margin:16px 0;color:var(--muted)}
+    .post-content ul, .post-content ol{margin:16px 0;padding-left:24px;color:var(--muted)}
+    .post-content li{margin:8px 0}
+    .post-content code{
+      background:var(--surface);
+      padding:3px 8px;
+      border-radius:4px;
+      font-size:.9em;
+      color:var(--ok)
+    }
+    .post-content pre{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      overflow-x:auto;
+      margin:20px 0
+    }
+    .post-content pre code{
+      background:none;
+      padding:0;
+      color:var(--text)
+    }
+    .post-content blockquote{
+      border-left:3px solid var(--accent);
+      padding-left:20px;
+      margin:24px 0;
+      color:var(--muted);
+      font-style:italic
+    }
+    .post-content img{
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+      margin:24px 0
+    }
+    .post-content a{color:var(--accent);text-decoration:underline}
+    .post-content a:hover{color:#5bb8ff}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .post-header h1{font-size:2rem}
+      article{padding:20px 10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="../your-logo.png" alt="Logo">
+      <div class="name">Your Site Name</div>
+    </header>
+  </div>
+
+  <div class="wrap">
+    <a href="../index.html" class="back-link">← Back to all posts</a>
+  </div>
+
+  <article>
+    <div class="post-header">
+      <h1>Your Post Title Goes Here</h1>
+      <div class="post-meta">
+        <span>January 15, 2025</span>
+        <span>•</span>
+        <span>5 min read</span>
+      </div>
+      <div>
+        <span class="tag">Tutorial</span>
+        <span class="tag">Web Development</span>
+      </div>
+    </div>
+
+    <div class="post-content">
+      <p>
+        Your introduction paragraph goes here. Make it engaging and let readers 
+        know what they'll learn or discover in this post.
+      </p>
+
+      <h2>Main Section Heading</h2>
+      <p>
+        Your content continues here. You can write naturally in HTML, and the 
+        styling will handle everything beautifully.
+      </p>
+
+      <h3>Subsection</h3>
+      <p>Break down your content into digestible sections.</p>
+
+      <ul>
+        <li>You can use bullet points</li>
+        <li>To make lists easier to read</li>
+        <li>And organize information clearly</li>
+      </ul>
+
+      <h3>Code Examples</h3>
+      <p>Inline code looks like this: <code>const greeting = "Hello";</code></p>
+
+      <p>For longer code blocks, use pre tags:</p>
+      <pre><code>function example() {
+  console.log("This is a code block");
+  return "with syntax preserved";
+}</code></pre>
+
+      <h3>Quotes</h3>
+      <blockquote>
+        You can add inspiring quotes or highlight important points using blockquotes.
+      </blockquote>
+
+      <h2>Another Section</h2>
+      <p>
+        Keep writing your content. You can add as many sections as you need.
+        The styling adapts automatically.
+      </p>
+
+      <ol>
+        <li>Numbered lists work too</li>
+        <li>For step-by-step guides</li>
+        <li>Or ordered information</li>
+      </ol>
+
+      <h2>Conclusion</h2>
+      <p>
+        Wrap up your post with a conclusion. Maybe include a call to action or 
+        invite readers to share their thoughts.
+      </p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> Your Name • <a href="../index.html">Blog</a> • <a href="mailto:your@email.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

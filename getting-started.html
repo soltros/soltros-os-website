@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Getting Started - SoltrOS</title>
+  <meta name="description" content="Quick start guide for SoltrOS. Post-installation steps, system configuration, and essential commands to get you up and running.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    .hero{text-align:center;padding:16px 0 6px}
+    .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
+    .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
+    
+    .content{max-width:800px;margin:40px auto;padding:0 20px}
+    .content h2{
+      color:var(--text);
+      font-size:1.75rem;
+      margin:48px 0 20px;
+      padding-bottom:12px;
+      border-bottom:2px solid var(--border)
+    }
+    .content h3{
+      color:var(--accent);
+      font-size:1.25rem;
+      margin:32px 0 16px
+    }
+    .content p{color:var(--muted);line-height:1.7;margin:12px 0}
+    .content ul, .content ol{color:var(--muted);line-height:1.7;padding-left:24px}
+    .content li{margin:10px 0}
+    
+    .checklist{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:24px;
+      margin:24px 0
+    }
+    .checklist-item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      padding:16px 0;
+      border-bottom:1px solid var(--border)
+    }
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-checkbox{
+      width:24px;
+      height:24px;
+      border:2px solid var(--border);
+      border-radius:6px;
+      flex-shrink:0;
+      margin-top:2px;
+      background:var(--surface)
+    }
+    .checklist-content h4{
+      margin:0 0 8px;
+      color:var(--text);
+      font-size:1.05rem
+    }
+    .checklist-content p{margin:0;font-size:.95rem}
+    
+    .code-block{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      margin:16px 0;
+      overflow-x:auto
+    }
+    .code-block code{
+      color:var(--ok);
+      font-family:ui-monospace,monospace;
+      font-size:.9rem;
+      line-height:1.6
+    }
+    
+    .info-box{
+      background:var(--card);
+      border-left:3px solid var(--accent);
+      border-radius:8px;
+      padding:16px 20px;
+      margin:24px 0
+    }
+    .info-box h4{margin:0 0 8px;color:var(--accent)}
+    .info-box p{margin:8px 0;color:var(--muted)}
+    
+    .warning-box{
+      background:var(--surface);
+      border-left:3px solid #ff6b6b;
+      border-radius:8px;
+      padding:16px 20px;
+      margin:24px 0
+    }
+    .warning-box h4{margin:0 0 8px;color:#ff6b6b}
+    .warning-box p{margin:8px 0;color:var(--muted)}
+    
+    .success-box{
+      background:var(--surface);
+      border-left:3px solid var(--ok);
+      border-radius:8px;
+      padding:16px 20px;
+      margin:24px 0
+    }
+    .success-box h4{margin:0 0 8px;color:var(--ok)}
+    .success-box p{margin:8px 0;color:var(--muted)}
+    
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:16px;
+      margin:24px 0
+    }
+    .quick-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:20px;
+      transition:border-color .2s
+    }
+    .quick-card:hover{border-color:var(--accent)}
+    .quick-card h4{
+      margin:0 0 12px;
+      color:var(--text);
+      font-size:1.1rem
+    }
+    .quick-card p{margin:0;font-size:.9rem}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .hero h1{font-size:32px}
+      .content h2{font-size:1.5rem}
+      .card-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="soltros-logo.png" alt="SoltrOS Logo">
+      <div class="name">SoltrOS</div>
+    </header>
+  </div>
+
+  <section class="hero wrap">
+    <h1>Getting Started with SoltrOS</h1>
+    <p>
+      Welcome to SoltrOS! This guide will help you configure your system after installation 
+      and get familiar with essential commands and workflows.
+    </p>
+  </section>
+
+  <section class="content">
+    
+    <h2>First Boot Checklist</h2>
+    <p>
+      Complete these steps after your first boot to get your system configured properly.
+    </p>
+
+    <div class="checklist">
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>1. Complete Initial Setup</h4>
+          <p>Follow the GNOME/KDE initial setup wizard to configure your language, timezone, and user account.</p>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>2. Run Your First Update</h4>
+          <p>Open a terminal and update your system to the latest image.</p>
+          <div class="code-block">
+            <code>helper update</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>3. Add Helper Alias (Optional - Bash Users)</h4>
+          <p>Make the helper command easier to access from Bash.</p>
+          <div class="code-block">
+            <code>helper add-helper</code>
+          </div>
+          <p>Zsh users already have helper available by default.</p>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>4. Configure Git (If You're a Developer)</h4>
+          <p>Set up Git with your username, email, and SSH signing.</p>
+          <div class="code-block">
+            <code>helper setup-git</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>5. Install Nix (Optional but Recommended)</h4>
+          <p>Get access to 80,000+ packages with pre-configured Nix.</p>
+          <div class="code-block">
+            <code>helper install-nix
+helper setup-nixmanager
+helper add-nixmanager  # Bash users only</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>6. Install Additional Software</h4>
+          <p>Install gaming tools, development tools, or multimedia applications as needed.</p>
+          <div class="code-block">
+            <code>helper install-gaming      # Steam, Heroic, Lutris, etc.
+helper install-multimedia  # Audacity, Blender, GIMP, etc.</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>7. Apply SoltrOS Theme (Optional)</h4>
+          <p>Apply the official SoltrOS theme to your desktop environment.</p>
+          <div class="code-block">
+            <code># For KDE Plasma:
+helper apply-soltros-look_plasma
+
+# For COSMIC:
+helper apply-soltros-look_cosmic</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="checklist-checkbox"></div>
+        <div class="checklist-content">
+          <h4>8. Reboot</h4>
+          <p>After updates and installations, reboot to apply all changes.</p>
+          <div class="code-block">
+            <code>systemctl reboot</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Understanding SoltrOS</h2>
+
+    <h3>What Makes SoltrOS Different</h3>
+    <p>
+      SoltrOS is an immutable Linux distribution, which means:
+    </p>
+    <ul>
+      <li><strong>Your base system is read-only</strong> - System files cannot be accidentally modified or corrupted</li>
+      <li><strong>Updates are atomic</strong> - Either the entire update succeeds or nothing changes</li>
+      <li><strong>Rollback is instant</strong> - Boot the previous version from GRUB if something goes wrong</li>
+      <li><strong>Software installs differently</strong> - Use Flatpak, Nix, Homebrew, or containers instead of system packages</li>
+    </ul>
+
+    <div class="info-box">
+      <h4>💡 Coming From Traditional Linux?</h4>
+      <p>
+        You can't use DNF or modify /usr directly. Instead, install applications via Flatpak (GUI apps), 
+        Nix (everything), or Distrobox (full Linux distros in containers). System packages are part of 
+        the image and updated atomically.
+      </p>
+    </div>
+
+    <h3>The Helper Tool</h3>
+    <p>
+      <strong>helper.sh</strong> is your main interface for managing SoltrOS. It handles system updates, 
+      software installation, configuration, and more.
+    </p>
+
+    <div class="code-block">
+      <code>helper              # Show all available commands
+helper update        # Update system and all software
+helper clean         # Clean up system cache
+helper install-nix   # Install Nix package manager</code>
+    </div>
+
+    <p>
+      <a href="helper.html" style="color:var(--accent);font-weight:600">Learn more about Helper →</a>
+    </p>
+
+    <h2>Package Management</h2>
+
+    <h3>Which Package Manager Should I Use?</h3>
+
+    <div class="card-grid">
+      <div class="quick-card">
+        <h4>Flatpak</h4>
+        <p>For GUI applications. Sandboxed and secure. 47 apps pre-installed.</p>
+        <div class="code-block" style="margin-top:12px">
+          <code>flatpak install flathub firefox</code>
+        </div>
+      </div>
+
+      <div class="quick-card">
+        <h4>Nix</h4>
+        <p>For everything else. 80,000+ packages. Requires one-time setup.</p>
+        <div class="code-block" style="margin-top:12px">
+          <code>nixmanager install firefox</code>
+        </div>
+      </div>
+
+      <div class="quick-card">
+        <h4>Homebrew</h4>
+        <p>For CLI tools and development packages. Familiar to macOS users.</p>
+        <div class="code-block" style="margin-top:12px">
+          <code>brew install htop</code>
+        </div>
+      </div>
+
+      <div class="quick-card">
+        <h4>Distrobox</h4>
+        <p>Full Linux distributions in containers. For packages not available elsewhere.</p>
+        <div class="code-block" style="margin-top:12px">
+          <code>helper setup-distrobox</code>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <a href="packages.html" style="color:var(--accent);font-weight:600">View all system packages →</a>
+    </p>
+
+    <h2>Common Tasks</h2>
+
+    <h3>Updating Your System</h3>
+    <p>
+      Run updates regularly to get the latest system image, Flatpak apps, and container updates.
+    </p>
+    <div class="code-block">
+      <code>helper update</code>
+    </div>
+    <p>
+      This updates your system image with bootc, all Flatpaks, and any Distrobox/Toolbox containers.
+    </p>
+
+    <h3>Installing Software</h3>
+    <p>
+      Use the appropriate package manager for what you need:
+    </p>
+    <div class="code-block">
+      <code># GUI applications via Flatpak
+flatpak install flathub org.gimp.GIMP
+
+# Development tools via Nix
+nixmanager install nodejs
+
+# System utilities via Homebrew
+brew install ripgrep
+
+# AppImages via Gear Lever (pre-installed Flatpak)</code>
+    </div>
+
+    <h3>Managing Flatpak Permissions</h3>
+    <p>
+      Flatpak apps are sandboxed. Use Flatseal (pre-installed) to manage permissions.
+    </p>
+    <ol>
+      <li>Open Flatseal from your application menu</li>
+      <li>Select the application you want to configure</li>
+      <li>Adjust filesystem access, network, and device permissions</li>
+    </ol>
+
+    <h3>Switching Desktop Environments</h3>
+    <p>
+      SoltrOS makes it easy to try different desktop environments.
+    </p>
+    <div class="code-block">
+      <code># Switch to COSMIC (LTS)
+helper change-to-stable cosmic
+
+# Switch to GNOME (Unstable)
+helper change-to-unstable gnome
+
+# Return to KDE Plasma (LTS)
+helper change-to-stable kde</code>
+    </div>
+    <p>
+      Your data is preserved during the switch, and you can always roll back if needed.
+    </p>
+
+    <h3>Switching Release Tracks</h3>
+    <p>
+      Choose between stable (LTS) and testing (Unstable) releases.
+    </p>
+    <div class="code-block">
+      <code># Switch to LTS (stable, current Fedora release)
+helper change-to-stable
+
+# Switch to Unstable (next Fedora version in testing)
+helper change-to-unstable</code>
+    </div>
+
+    <div class="warning-box">
+      <h4>⚠️ About Unstable</h4>
+      <p>
+        The Unstable track uses the next Fedora version currently in development (like Fedora 43 
+        while 42 is the stable release). Think Debian Testing rather than Sid - it's newer packages 
+        but not the bleeding-edge chaos of Rawhide. Still, expect occasional issues.
+      </p>
+    </div>
+
+    <h3>Switching Shells</h3>
+    <p>
+      SoltrOS includes Zsh (default with Oh My Zsh), Fish, and Bash.
+    </p>
+    <div class="code-block">
+      <code>helper change-to-fish  # Switch to Fish
+helper change-to-bash  # Switch to Bash
+helper change-to-zsh   # Return to Zsh</code>
+    </div>
+    <p>
+      The appropriate configuration is downloaded and applied automatically.
+    </p>
+
+    <h2>Gaming on SoltrOS</h2>
+
+    <h3>Pre-Installed Gaming Tools</h3>
+    <p>
+      SoltrOS includes everything you need for gaming:
+    </p>
+    <ul>
+      <li><strong>Steam</strong> - Already installed with Proton for Windows games</li>
+      <li><strong>Heroic Games Launcher</strong> - Epic and GOG support</li>
+      <li><strong>Lutris</strong> - Universal game launcher</li>
+      <li><strong>GameMode</strong> - Automatic performance optimization</li>
+      <li><strong>MangoHud</strong> - In-game performance overlay</li>
+      <li><strong>CoreCtrl</strong> - GPU overclocking and fan control</li>
+    </ul>
+
+    <h3>Enabling AMD GPU Overclocking</h3>
+    <p>
+      If you have an AMD GPU and want to overclock:
+    </p>
+    <div class="code-block">
+      <code>helper enable-amdgpu-oc</code>
+    </div>
+    <p>
+      Reboot after running this command. Then use CoreCtrl to adjust clocks and fan curves.
+    </p>
+
+    <h3>Installing More Games</h3>
+    <p>
+      Install additional game launchers and emulators:
+    </p>
+    <div class="code-block">
+      <code>helper install-gaming  # Installs Steam, Heroic, Lutris, etc.</code>
+    </div>
+
+    <h2>Development on SoltrOS</h2>
+
+    <h3>Setting Up Git</h3>
+    <p>
+      Configure Git with SSH signing for secure commits:
+    </p>
+    <div class="code-block">
+      <code>helper setup-git</code>
+    </div>
+    <p>
+      This sets up your username, email, SSH key, and configures Git to sign commits with SSH.
+    </p>
+
+    <h3>Using Distrobox for Development</h3>
+    <p>
+      Distrobox lets you run full Linux distributions in containers:
+    </p>
+    <div class="code-block">
+      <code># Create Ubuntu and Arch containers
+helper setup-distrobox
+
+# Enter Ubuntu container
+distrobox enter ubuntu-dev
+
+# Install packages inside container
+sudo apt install build-essential</code>
+    </div>
+    <p>
+      Containers have access to your home directory, so your files are accessible inside.
+    </p>
+
+    <h3>Container Tools</h3>
+    <p>
+      SoltrOS includes comprehensive container tools:
+    </p>
+    <ul>
+      <li><strong>Podman</strong> - Docker-compatible container engine (pre-installed)</li>
+      <li><strong>Podman Desktop</strong> - GUI for managing containers (pre-installed Flatpak)</li>
+      <li><strong>Buildah</strong> - Build OCI images</li>
+      <li><strong>Skopeo</strong> - Work with container registries</li>
+    </ul>
+
+    <h3>Unblocking Docker Hub</h3>
+    <p>
+      SoltrOS blocks unapproved container registries by default for security. To use Docker Hub:
+    </p>
+    <div class="code-block">
+      <code>helper unblock-docker</code>
+    </div>
+
+    <div class="warning-box">
+      <h4>⚠️ Security Note</h4>
+      <p>
+        This allows containers from any registry, including potentially untrusted sources. 
+        Only enable this if you understand the security implications.
+      </p>
+    </div>
+
+    <h2>Troubleshooting</h2>
+
+    <h3>System Won't Boot After Update</h3>
+    <ol>
+      <li>At the GRUB bootloader, select the previous system version</li>
+      <li>Once booted, report the issue on GitHub</li>
+      <li>The previous version will work until the issue is fixed</li>
+    </ol>
+
+    <h3>Application Won't Launch</h3>
+    <p>
+      If a Flatpak app won't launch, check permissions:
+    </p>
+    <ol>
+      <li>Open Flatseal</li>
+      <li>Find the application</li>
+      <li>Enable necessary filesystem access or permissions</li>
+    </ol>
+
+    <h3>Nix Packages Not Showing in Menu</h3>
+    <p>
+      After installing GUI apps with Nix, desktop shortcuts should appear automatically. 
+      If they don't, log out and back in.
+    </p>
+
+    <h3>Running Out of Disk Space</h3>
+    <p>
+      Clean up old system versions and unused Flatpaks:
+    </p>
+    <div class="code-block">
+      <code>helper clean</code>
+    </div>
+
+    <h3>Need More Help?</h3>
+    <p>
+      Visit the <a href="https://github.com/soltros/Soltros-OS/wiki">SoltrOS Wiki</a> for detailed 
+      documentation, or open an issue on <a href="https://github.com/soltros/Soltros-OS/issues">GitHub</a>.
+    </p>
+
+    <div class="success-box">
+      <h4>✓ You're Ready!</h4>
+      <p>
+        You've completed the getting started guide. Explore the system, install your favorite 
+        applications, and enjoy your immutable SoltrOS experience!
+      </p>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> SoltrOS • <a href="index.html">Home</a> • <a href="apps.html">Applications</a> • <a href="packages.html">System Packages</a> • <a href="helper.html">Helper Tool</a> • <a href="features.html">Features</a> • <a href="comparisons.html">Comparisons</a> • <a href="https://github.com/soltros">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

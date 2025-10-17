@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Helper Tool - SoltrOS</title>
+  <meta name="description" content="Learn about helper.sh, the comprehensive system management tool for SoltrOS. A powerful command-line interface for managing your immutable operating system.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    .hero{text-align:center;padding:16px 0 6px}
+    .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
+    .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
+    
+    .content-section{max-width:800px;margin:40px auto;padding:0 20px}
+    .content-section h2{color:var(--text);margin:32px 0 16px;font-size:1.75rem}
+    .content-section h3{color:var(--accent);margin:24px 0 12px;font-size:1.25rem}
+    .content-section p{color:var(--muted);line-height:1.7;margin:12px 0}
+    .content-section ul{color:var(--muted);line-height:1.7;padding-left:24px}
+    .content-section li{margin:8px 0}
+    
+    .code-block{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      margin:20px 0;
+      overflow-x:auto
+    }
+    .code-block code{
+      color:var(--ok);
+      font-family:ui-monospace,monospace;
+      font-size:.9rem;
+      line-height:1.6
+    }
+    
+    .info-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-left:3px solid var(--accent);
+      border-radius:var(--radius);
+      padding:20px;
+      margin:24px 0
+    }
+    .info-card h3{margin:0 0 12px;color:var(--accent);font-size:1.15rem}
+    .info-card p{color:var(--muted);line-height:1.7;margin:8px 0}
+    
+    .command-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+      gap:16px;
+      margin:24px 0
+    }
+    .command-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      transition:border-color .2s
+    }
+    .command-card:hover{border-color:var(--accent)}
+    .command-name{
+      font-family:ui-monospace,monospace;
+      color:var(--accent);
+      font-size:.95rem;
+      font-weight:600;
+      margin-bottom:8px
+    }
+    .command-desc{
+      color:var(--muted);
+      font-size:.9rem;
+      line-height:1.5;
+      margin:0
+    }
+    
+    .highlight-box{
+      background:var(--surface);
+      border:2px solid var(--ok);
+      border-radius:12px;
+      padding:20px;
+      margin:24px 0
+    }
+    .highlight-box h3{margin:0 0 12px;color:var(--ok)}
+    .highlight-box p{color:var(--muted);margin:8px 0}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .hero h1{font-size:32px}
+      .command-grid{grid-template-columns:1fr}
+      .content-section h2{font-size:1.5rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="soltros-logo.png" alt="SoltrOS Logo">
+      <div class="name">SoltrOS</div>
+    </header>
+  </div>
+
+  <section class="hero wrap">
+    <h1>Helper Tool</h1>
+    <p>
+      The comprehensive command-line tool for managing SoltrOS. Written in Bash for simplicity, 
+      reliability, and deep system integration.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>What is helper.sh?</h2>
+    <p>
+      <strong>helper.sh</strong> is the primary interface for managing your SoltrOS system. It's a comprehensive 
+      Bash script that simplifies common tasks like installing software, switching between releases, 
+      configuring services, and maintaining your immutable operating system.
+    </p>
+    
+    <p>
+      Unlike configuration management tools like Just, helper.sh is designed specifically for SoltrOS with 
+      a focus on user-friendliness and direct system integration. It's shipped from the component repository 
+      and maintained alongside the operating system itself.
+    </p>
+
+    <div class="info-card">
+      <h3>🚀 Coming Soon: GUI Frontend</h3>
+      <p>
+        A graphical frontend for helper.sh is currently in development, written in Go using the Fyne toolkit. 
+        This will provide the same powerful functionality with a beautiful, modern interface for users who 
+        prefer graphical tools.
+      </p>
+    </div>
+
+    <h2>Why Not Just or Other Tools?</h2>
+    <p>
+      While tools like Just are popular in the immutable Linux space, helper.sh was created for several reasons:
+    </p>
+    <ul>
+      <li><strong>Personal preference</strong> - As the creator of SoltrOS, I prefer writing in Bash for system tooling</li>
+      <li><strong>Zero dependencies</strong> - Bash is already on your system; no need to install additional tools</li>
+      <li><strong>Direct integration</strong> - Written specifically for SoltrOS architecture and workflows</li>
+      <li><strong>Simplicity</strong> - Easy to read, modify, and understand for anyone comfortable with shell scripts</li>
+      <li><strong>Immediate execution</strong> - No compilation or interpretation overhead</li>
+      <li><strong>Complete control</strong> - Full access to system commands without abstraction layers</li>
+    </ul>
+
+    <h2>Getting Started</h2>
+    <p>
+      Helper is pre-installed on SoltrOS and available system-wide. Simply open your terminal and type:
+    </p>
+
+    <div class="code-block">
+      <code>helper</code>
+    </div>
+
+    <p>
+      This displays all available commands. To run a specific command:
+    </p>
+
+    <div class="code-block">
+      <code>helper [COMMAND]</code>
+    </div>
+
+    <p>
+      For Bash users who want quick access, you can add the helper alias:
+    </p>
+
+    <div class="code-block">
+      <code>helper add-helper</code>
+    </div>
+
+    <h2>Core Features</h2>
+
+    <h3>🎯 Installation Commands</h3>
+    <p>
+      Quickly install software and configure your system with one-line commands.
+    </p>
+
+    <div class="command-grid">
+      <div class="command-card">
+        <div class="command-name">install-flatpaks</div>
+        <p class="command-desc">Install all Flatpak applications from the official SoltrOS list</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">install-gaming</div>
+        <p class="command-desc">Install Steam, Heroic, Lutris, and gaming essentials</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">install-multimedia</div>
+        <p class="command-desc">Install Blender, GIMP, Kdenlive, and creative tools</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">install-homebrew</div>
+        <p class="command-desc">Install the Homebrew package manager</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">install-nix</div>
+        <p class="command-desc">Install Nix package manager with SoltrOS configuration</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">download-appimages</div>
+        <p class="command-desc">Download Feishin and Ryujinx AppImages</p>
+      </div>
+    </div>
+
+    <h3>⚙️ Configuration Commands</h3>
+    <p>
+      Manage system settings and configure hardware features.
+    </p>
+
+    <div class="command-grid">
+      <div class="command-card">
+        <div class="command-name">setup-git</div>
+        <p class="command-desc">Configure Git with username, email, and SSH signing</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">setup-distrobox</div>
+        <p class="command-desc">Create Ubuntu and Arch development containers</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">enable-amdgpu-oc</div>
+        <p class="command-desc">Enable AMD GPU overclocking support</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">unblock-docker</div>
+        <p class="command-desc">Allow containers from unapproved registries like Docker Hub</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">toggle-session</div>
+        <p class="command-desc">Switch between X11 and Wayland sessions</p>
+      </div>
+    </div>
+
+    <h3>🔄 Release Management</h3>
+    <p>
+      Switch between SoltrOS releases seamlessly with atomic updates.
+    </p>
+
+    <div class="command-grid">
+      <div class="command-card">
+        <div class="command-name">change-to-stable</div>
+        <p class="command-desc">Switch to SoltrOS LTS (Long-Term Support) rolling release</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">change-to-unstable</div>
+        <p class="command-desc">Switch to SoltrOS Unstable (Rolling Rocket) release</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <h3>🎨 Desktop Environment Variants</h3>
+      <p>
+        When switching releases, you can choose between KDE Plasma, COSMIC, or GNOME desktop environments. 
+        The release switcher will prompt you to select your preferred variant.
+      </p>
+    </div>
+
+    <h3>🐚 Shell Management</h3>
+    <p>
+      Switch between shells with configurations automatically applied.
+    </p>
+
+    <div class="command-grid">
+      <div class="command-card">
+        <div class="command-name">change-to-zsh</div>
+        <p class="command-desc">Switch to Zsh (default shell with Oh My Zsh pre-configured)</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">change-to-fish</div>
+        <p class="command-desc">Switch to Fish shell with SoltrOS configuration</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">change-to-bash</div>
+        <p class="command-desc">Switch to Bash shell with SoltrOS configuration</p>
+      </div>
+    </div>
+
+    <h3>🎨 Theme Application</h3>
+    <p>
+      Apply the official SoltrOS theme to your desktop environment.
+    </p>
+
+    <div class="command-grid">
+      <div class="command-card">
+        <div class="command-name">apply-soltros-look_plasma</div>
+        <p class="command-desc">Apply SoltrOS theme to KDE Plasma</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">apply-soltros-look_cosmic</div>
+        <p class="command-desc">Apply SoltrOS theme to COSMIC desktop</p>
+      </div>
+    </div>
+
+    <h3>🔧 System Maintenance</h3>
+    <p>
+      Keep your system updated and clean with automated maintenance commands.
+    </p>
+
+    <div class="command-grid">
+      <div class="command-card">
+        <div class="command-name">update</div>
+        <p class="command-desc">Update system (bootc), Flatpaks, and all containers</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">clean</div>
+        <p class="command-desc">Clean up system cache, unused Flatpaks, and old deployments</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">distrobox</div>
+        <p class="command-desc">List and manage distrobox containers</p>
+      </div>
+      <div class="command-card">
+        <div class="command-name">toolbox</div>
+        <p class="command-desc">List and manage toolbox containers</p>
+      </div>
+    </div>
+
+    <h2>Advanced Features</h2>
+
+    <h3>Nix Package Manager Integration</h3>
+    <p>
+      Helper includes special support for the Nix package manager with the nixmanager.sh companion script:
+    </p>
+
+    <div class="code-block">
+      <code>helper install-nix          # Install Nix with Determinate installer
+helper setup-nixmanager    # Setup nixmanager script in ~/scripts/
+helper add-nixmanager      # Add nixmanager alias to Bash</code>
+    </div>
+
+    <p>
+      The nixmanager.sh script provides a user-friendly interface for working with Nix on SoltrOS, 
+      making it easy to install and manage Nix packages without learning complex Nix commands.
+    </p>
+
+    <h3>Smart Docker Registry Handling</h3>
+    <p>
+      SoltrOS blocks unapproved container registries by default for security. Helper intelligently 
+      manages this during updates:
+    </p>
+    <ul>
+      <li>If you've used <code>unblock-docker</code>, helper temporarily enables secure mode during system updates</li>
+      <li>After updates complete, it restores your insecure mode setting automatically</li>
+      <li>This ensures system updates work while preserving your Docker Hub access</li>
+    </ul>
+
+    <h3>Comprehensive Update Process</h3>
+    <p>
+      The <code>helper update</code> command is comprehensive, updating:
+    </p>
+    <ul>
+      <li><strong>System</strong> - bootc upgrade for the latest SoltrOS image</li>
+      <li><strong>Flatpaks</strong> - All installed Flatpak applications</li>
+      <li><strong>Distrobox containers</strong> - Upgrades all distrobox environments</li>
+      <li><strong>Toolbox containers</strong> - Updates packages in all toolbox containers</li>
+    </ul>
+
+    <h3>Safe Shell Switching</h3>
+    <p>
+      When you switch shells using helper, it:
+    </p>
+    <ul>
+      <li>Changes your default shell with <code>chsh</code></li>
+      <li>Downloads the latest SoltrOS configuration for that shell</li>
+      <li>Applies the configuration automatically</li>
+      <li>Ensures a consistent SoltrOS experience</li>
+    </ul>
+
+    <h2>How It Works</h2>
+    <p>
+      Helper.sh is installed to <code>/usr/share/soltros/bin/helper.sh</code> as part of the base system image. 
+      It's shipped from the SoltrOS component repository and updated with each system release.
+    </p>
+
+    <div class="info-card">
+      <h3>Immutable by Design</h3>
+      <p>
+        Because SoltrOS is immutable, helper.sh itself cannot be modified on your running system. 
+        Any updates to helper come through official system updates, ensuring consistency and reliability. 
+        If you want to experiment with modifications, you can copy it to your home directory.
+      </p>
+    </div>
+
+    <h2>Best Practices</h2>
+    <ul>
+      <li><strong>Run updates regularly</strong> - Use <code>helper update</code> to keep everything current</li>
+      <li><strong>Clean periodically</strong> - Run <code>helper clean</code> to free up disk space</li>
+      <li><strong>Use helper for system changes</strong> - It handles immutable system complexities for you</li>
+      <li><strong>Check available commands</strong> - New features are added regularly via system updates</li>
+      <li><strong>Reboot after kernel changes</strong> - Commands like <code>enable-amdgpu-oc</code> require a reboot</li>
+    </ul>
+
+    <h2>Getting Help</h2>
+    <p>
+      If you need help with any command:
+    </p>
+
+    <div class="code-block">
+      <code>helper help            # Show all available commands
+helper list            # List commands in compact format</code>
+    </div>
+
+    <p>
+      For issues or feature requests, visit our GitHub repository and open an issue with details about 
+      what you'd like to see added or improved.
+    </p>
+
+    <div class="highlight-box">
+      <h3>💡 Pro Tip: Helper Off</h3>
+      <p>
+        If you're comfortable with SoltrOS and don't need the helper reminder in your Zsh prompt, run:
+      </p>
+      <div class="code-block" style="margin-top:12px">
+        <code>helper helper-off</code>
+      </div>
+      <p style="margin-top:12px">
+        To re-enable the reminder, simply delete <code>~/.no-helper-reminder</code>
+      </p>
+    </div>
+
+    <h2>The Future: GUI Frontend</h2>
+    <p>
+      While helper.sh provides powerful command-line functionality, we understand not everyone prefers terminals. 
+      A graphical frontend is in active development using Go and the Fyne toolkit. This GUI will:
+    </p>
+    <ul>
+      <li>Provide all helper.sh functionality through an intuitive interface</li>
+      <li>Show real-time progress for long-running operations</li>
+      <li>Include visual system information and status displays</li>
+      <li>Offer guided wizards for complex operations</li>
+      <li>Maintain the same reliability and system integration</li>
+    </ul>
+
+    <p>
+      The GUI frontend will complement helper.sh, not replace it. Command-line users will always have 
+      the full-featured Bash script available, while those who prefer graphical interfaces will have 
+      an equally powerful option.
+    </p>
+  </section>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> SoltrOS • <a href="index.html">Home</a> • <a href="apps.html">Applications</a> • <a href="packages.html">System Packages</a> • <a href="docs.html">Documentation</a> • <a href="https://github.com/soltros">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
