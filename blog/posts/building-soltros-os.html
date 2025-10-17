@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Building Soltros OS - Immutable Linux for Gaming and Development</title>
+  <meta name="description" content="How I built Soltros OS, a general-purpose immutable Linux distribution based on Fedora CoreOS and Bootc">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    
+    /* Post-specific styles */
+    .back-link{
+      display:inline-block;
+      color:var(--muted);
+      margin:20px 0 10px;
+      font-size:.95rem
+    }
+    .back-link:hover{color:var(--accent)}
+    
+    article{max-width:720px;margin:0 auto;padding:20px}
+    .post-header{margin-bottom:32px}
+    .post-header h1{font-size:2.5rem;line-height:1.2;margin:0 0 16px}
+    .post-meta{
+      color:var(--low);
+      font-size:.95rem;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:20px
+    }
+    .tag{
+      display:inline-block;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:4px 10px;
+      background:#0e141b;
+      color:#cfe6ff;
+      font-size:.85rem;
+      margin-right:6px
+    }
+    
+    .post-content{color:var(--text);line-height:1.8}
+    .post-content h2{margin:40px 0 16px;color:var(--text);font-size:1.75rem}
+    .post-content h3{margin:32px 0 12px;color:var(--text);font-size:1.35rem}
+    .post-content p{margin:16px 0;color:var(--muted)}
+    .post-content ul, .post-content ol{margin:16px 0;padding-left:24px;color:var(--muted)}
+    .post-content li{margin:8px 0}
+    .post-content code{
+      background:var(--surface);
+      padding:3px 8px;
+      border-radius:4px;
+      font-size:.9em;
+      color:var(--ok)
+    }
+    .post-content pre{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      overflow-x:auto;
+      margin:20px 0
+    }
+    .post-content pre code{
+      background:none;
+      padding:0;
+      color:var(--text)
+    }
+    .post-content blockquote{
+      border-left:3px solid var(--accent);
+      padding-left:20px;
+      margin:24px 0;
+      color:var(--muted);
+      font-style:italic
+    }
+    .post-content img{
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+      margin:24px 0
+    }
+    .post-content a{color:var(--accent);text-decoration:underline}
+    .post-content a:hover{color:#5bb8ff}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .post-header h1{font-size:2rem}
+      article{padding:20px 10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="../your-logo.png" alt="Logo">
+      <div class="name">Your Site Name</div>
+    </header>
+  </div>
+
+  <div class="wrap">
+    <a href="../index.html" class="back-link">← Back to all posts</a>
+  </div>
+
+  <article>
+    <div class="post-header">
+      <h1>Building Soltros OS: Immutable Linux for Gaming and Development</h1>
+      <div class="post-meta">
+        <span>October 16, 2025</span>
+        <span>•</span>
+        <span>6 min read</span>
+      </div>
+      <div>
+        <span class="tag">Linux</span>
+        <span class="tag">Fedora</span>
+        <span class="tag">Immutable OS</span>
+      </div>
+    </div>
+
+    <div class="post-content">
+      <p>
+        I got hooked on Bootc and cloud-native Linux and realized I could build an immutable OS that wasn't laser-focused on one specific use case. 
+        So I made Soltros OS—an attempt at a more general-purpose take on immutable computing.
+      </p>
+
+      <h2>Why Gaming and Development?</h2>
+      <p>
+        Most immutable Linux distributions optimize for servers or IoT devices. A few target desktop users, but with limitations. I wanted something that could handle both gaming and development workflows without compromise—two use cases that traditionally demand a lot from an operating system.
+      </p>
+      <p>
+        Built on Fedora CoreOS and Bootc, Soltros delivers atomic updates weekly. No major version upgrades to plan for. No compatibility issues between releases. The system just rolls forward, tracking Fedora's release cycle seamlessly.
+      </p>
+
+      <h2>How It Works</h2>
+      <p>
+        Soltros treats the entire OS as a container image. Updates are atomic—they either succeed completely or roll back automatically. This gives you the reliability of immutable infrastructure with the flexibility of a desktop Linux system.
+      </p>
+
+      <h3>Release Tracks</h3>
+      <p>You can choose between two tracks depending on your needs:</p>
+      <ul>
+        <li><strong>LTS</strong> - Follows Fedora's stable releases for production reliability</li>
+        <li><strong>Unstable</strong> - Tracks alpha and beta channels for early access to new features, with safety guardrails</li>
+      </ul>
+
+      <h3>What's Included</h3>
+      <p>
+        Rather than forcing you to build everything from scratch, Soltros ships with tools that gamers and developers actually use:
+      </p>
+      <ul>
+        <li>Gaming: Steam, Lutris, RetroArch</li>
+        <li>Development: Podman Desktop, Docker CE, tailored kernel optimizations</li>
+        <li>Daily drivers: LibreOffice, Bitwarden, VLC, Jellyfin</li>
+        <li>System tools: thermald, lm_sensors, Tailscale</li>
+      </ul>
+      <p>
+        There's also a helper script to quickly install Flatpaks, development tools, and containers without the usual setup friction.
+      </p>
+
+      <h3>Server Variant</h3>
+      <p>
+        Soltros isn't just for desktops. The server variant is a container-native system built on Fedora BootC with Docker CE, Podman, and enterprise management tools. Same atomic update model, but optimized for server workloads.
+      </p>
+
+      <h2>The Bootc Advantage</h2>
+      <p>Using Bootc means OS images are OCI containers. This gives you:</p>
+      <ul>
+        <li>Reproducible builds you can version control</li>
+        <li>Easy rollbacks if something breaks</li>
+        <li>The full container ecosystem's tooling</li>
+      </ul>
+
+      <pre><code># Updating is simple
+bootc upgrade
+
+# Automatic rollback on failure
+# No manual intervention needed</code></pre>
+
+      <h2>Still Early, Still Learning</h2>
+      <p>
+        Soltros OS is a passion project. It's not trying to replace Fedora Silverblue or compete with established immutable distributions. Instead, it's exploring whether an immutable OS can serve gaming and development workflows as well as traditional mutable systems—maybe even better.
+      </p>
+      <p>
+        If you're curious about immutable computing or want a Linux system that updates reliably without breaking your workflow, check out <a href="https://soltros.dev">soltros.dev</a>. I'm still figuring things out, but I think there's something worth building here.
+      </p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> Your Name • <a href="../index.html">Blog</a> • <a href="mailto:your@email.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
