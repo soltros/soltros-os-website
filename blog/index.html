@@ -87,7 +87,11 @@
 <body>
   <div class="wrap">
     <header>
+<<<<<<< Updated upstream
       <img src="../server-desktop_combined.png" alt="Logo">
+=======
+      <img src="server-desktop_combined.png" alt="Logo">
+>>>>>>> Stashed changes
       <div class="name">Soltros OS</div>
     </header>
   </div>
@@ -98,31 +102,47 @@
   </section>
 
   <section class="blog-list">
-    <!-- Blog Post 1 -->
+    <!-- Blog Post 1 (Most Recent) -->
     <article class="post-card">
       <div class="post-meta">
-        <span>January 15, 2025</span>
+        <span>October 22, 2025</span>
         <span>•</span>
-        <span>5 min read</span>
+        <span>4 min read</span>
+      </div>
+      <h2><a href="posts/fixing-container-policy.html">Fixing Container Policy Issues in Soltros OS</a></h2>
+      <p class="post-excerpt">
+        We recently discovered an issue with container signature verification in Soltros OS. The problem? Our policy.json configuration wasn't keeping up with our growing family of image variants. Here's what went wrong and how we fixed it.
+      </p>
+      <span class="tag">Update</span>
+      <span class="tag">Containers</span>
+      <span class="tag">Security</span>
+      <br><br>
+      <a href="posts/fixing-container-policy.html" class="read-more">Read more →</a>
+    </article>
+
+    <!-- Blog Post 2 -->
+    <article class="post-card">
+      <div class="post-meta">
+        <span>October 16, 2025</span>
+        <span>•</span>
+        <span>6 min read</span>
       </div>
       <h2><a href="posts/building-soltros-os.html">Building Soltros OS</a></h2>
       <p class="post-excerpt">
         I got hooked on Bootc and cloud-native Linux and realized I could build an immutable OS that wasn't laser-focused on one specific use case. 
         So I made Soltros OS—an attempt at a more general-purpose take on immutable computing.
       </p>
-      <span class="tag">Announcement</span>
-      <span class="tag">Meta</span>
+      <span class="tag">Linux</span>
+      <span class="tag">Fedora</span>
+      <span class="tag">Immutable OS</span>
       <br><br>
       <a href="posts/building-soltros-os.html" class="read-more">Read more →</a>
     </article>
-
-    <!-- Blog Post 2 -->
-    <!-- Blog Post 3 -->
   </section>
 
   <footer>
     <div class="foot">
-      © <span id="year"></span> Your Name • <a href="index.html">Home</a> • <a href="mailto:your@email.com">Contact</a>
+      © <span id="year"></span> Derrik • <a href="index.html">Blog</a> • <a href="mailto:soltros@proton.me">Contact</a>
     </div>
   </footer>
 
