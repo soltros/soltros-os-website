@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fixing Container Policy Issues in Soltros OS - Immutable Linux for Gaming and Development</title>
-  <meta name="description" content="How I fixed signature verification issues in Soltros OS and ensured Distrobox compatibility">
+  <meta name="description" content="How I fixed container policy issues in Soltros OS and ensured system stability">
   <style>
     :root{
       --bg:#0b0f14;
@@ -118,7 +118,7 @@
 <body>
   <div class="wrap">
     <header>
-      <img src="../../server-desktop_combined.png" alt="Logo">
+      <img src="../server-desktop_combined.png" alt="Logo">
       <div class="name">Soltros OS</div>
     </header>
   </div>
@@ -131,42 +131,36 @@
     <div class="post-header">
       <h1>Fixing Container Policy Issues in Soltros OS</h1>
       <div class="post-meta">
-        <span>October 22, 2025</span>
+        <span>October 23, 2025</span>
         <span>•</span>
         <span>4 min read</span>
       </div>
       <div>
         <span class="tag">Update</span>
         <span class="tag">Containers</span>
-        <span class="tag">Security</span>
       </div>
     </div>
 
     <div class="post-content">
       <p>
-        I recently discovered an issue with container signature verification in Soltros OS. The problem? My <code>policy.json</code> configuration wasn't keeping up with the growing family of image variants. If you've been hitting issues with rpm-ostree or Distrobox, this is why—and here's how I fixed it.
+        I recently discovered an issue with container policy configuration in Soltros OS. The problem? My <code>policy.json</code> configuration wasn't keeping up with the growing family of image variants. If you've been hitting issues with bootc upgrades or Distrobox, this is why—and here's how I fixed it.
       </p>
 
       <h2>What Went Wrong</h2>
       <p>
-        Soltros started with a single image: <code>soltros-os</code>. My <code>policy.json</code> was configured to verify signatures for that specific image path. Simple enough.
+        Soltros started with a single image: <code>soltros-os</code>. My <code>policy.json</code> was configured for that specific image path. Simple enough.
       </p>
       <p>
         Then I added more variants: <code>soltros-os_lts</code>, <code>soltros-lts_cosmic</code>, <code>soltros-unstable_cosmic</code>, and GNOME editions. Each new variant got its own image path. But the policy file? Still only knew about the original image.
       </p>
       <p>
-        The result: rpm-ostree was pulling images with <code>ostree-unverified-registry</code> in the status output. Signature verification wasn't happening. And for some users, Distrobox was getting blocked by overly strict policies that shouldn't have applied to third-party container images.
+        The result: bootc was pulling images with <code>ostree-unverified-registry</code> in the status output, and for some users, Distrobox was getting blocked by overly strict policies that shouldn't have applied to third-party container images.
       </p>
 
       <h2>The Fix</h2>
       <p>
-        I've updated <code>policy.json</code> to properly handle all Soltros image variants while keeping Distrobox and other container tools working smoothly. The new configuration does three things:
+        I've updated <code>policy.json</code> to properly handle all Soltros image variants while keeping Distrobox and other container tools working smoothly. The new configuration allows all Soltros images and third-party containers to work without friction.
       </p>
-      <ul>
-        <li>Verifies signatures for all Soltros OS images using sigstore</li>
-        <li>Allows unrestricted access to third-party container images (Docker Hub, Quay, etc.)</li>
-        <li>Keeps the docker-daemon transport open for local container operations</li>
-      </ul>
 
       <h3>For Users: Emergency Fix Script</h3>
       <p>
@@ -183,7 +177,7 @@ sudo ./fix-policy.sh</code></pre>
 
       <h3>What Changed in the Build</h3>
       <p>
-        Future Soltros images will ship with the correct <code>policy.json</code> from the start. I've updated my Containerfile to include signature verification policies for all current image variants:
+        Future Soltros images will ship with the correct <code>policy.json</code> from the start. The updated policy covers all current image variants:
       </p>
       <ul>
         <li>soltros-os (base)</li>
@@ -195,20 +189,23 @@ sudo ./fix-policy.sh</code></pre>
       </ul>
 
       <p>
-        Each image gets verified with the Soltros public key at <code>/etc/pki/containers/soltros.pub</code>. Everything else—Fedora base images, Ubuntu containers for Distrobox, whatever you need—works without verification requirements.
+        Everything works now—Soltros OS images, Fedora base images, Ubuntu containers for Distrobox, whatever you need.
       </p>
 
-      <h2>Why This Matters</h2>
+      <h2>About Image Signing</h2>
       <p>
-        Container signature verification isn't just security theater. When it works correctly, it ensures the OS image you're running actually came from me and hasn't been tampered with. But when it's misconfigured, it either fails silently (bad) or blocks legitimate use cases (also bad).
+        Soltros OS images are signed with cosign for supply chain transparency. You can verify signatures manually if you want to confirm image authenticity. However, enforced signature verification at the system level isn't enabled yet.
       </p>
       <p>
-        The balance I'm aiming for: verify what needs verification (Soltros system images), stay out of the way for everything else (your development containers, Distrobox environments, whatever else you're running).
+        Why? The container signature verification ecosystem is still maturing. Tools like cosign and GPG don't integrate seamlessly with bootc/podman policy enforcement yet. Rather than ship a half-working security feature that might break updates, I'm following the approach used by other community immutable distributions: sign images for transparency, but don't enforce verification on user systems.
+      </p>
+      <p>
+        When the tooling matures and proper signature storage infrastructure is in place, I'll revisit enforced signature verification. For now, you're trusting GitHub Container Registry's infrastructure—the same infrastructure that major projects like Universal Blue rely on.
       </p>
 
       <h2>Moving Forward</h2>
       <p>
-        This is part of the learning process with an immutable OS. Policy files need to evolve alongside the distribution. I'm still figuring out the best way to handle this. Maybe there's a better approach than manually listing every image variant.
+        This is part of the learning process with an immutable OS. Policy files need to evolve alongside the distribution. I'm still figuring out the best way to handle this—maybe there's a better approach than manually listing every image variant.
       </p>
       <p>
         If you hit issues after running the fix script, or if you're seeing something I missed, let me know. I'm on <a href="https://github.com/soltros/soltros-os">GitHub</a> and responsive to issues.
