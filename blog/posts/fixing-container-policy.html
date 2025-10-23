@@ -200,12 +200,12 @@ sudo ./fix-policy.sh</code></pre>
         Why? The container signature verification ecosystem is still maturing. Tools like cosign and GPG don't integrate seamlessly with bootc/podman policy enforcement yet. Rather than ship a half-working security feature that might break updates, I'm following the approach used by other community immutable distributions: sign images for transparency, but don't enforce verification on user systems.
       </p>
       <p>
-        When the tooling matures and proper signature storage infrastructure is in place, I'll revisit enforced signature verification. For now, you're trusting GitHub Container Registry's infrastructure—the same infrastructure that major projects like Universal Blue rely on.
+        When the tooling matures and proper signature storage infrastructure is in place, I'll revisit enforced signature verification. For now, you're trusting GitHub Container Registry's infrastructure. This is the same infrastructure that major projects like Universal Blue rely on.
       </p>
 
       <h2>Moving Forward</h2>
       <p>
-        This is part of the learning process with an immutable OS. Policy files need to evolve alongside the distribution. I'm still figuring out the best way to handle this—maybe there's a better approach than manually listing every image variant.
+        This is part of the learning process with an immutable OS. Policy files need to evolve alongside the distribution. I'm still figuring out the best way to handle this. Maybe there's a better approach than manually listing every image variant.
       </p>
       <p>
         If you hit issues after running the fix script, or if you're seeing something I missed, let me know. I'm on <a href="https://github.com/soltros/soltros-os">GitHub</a> and responsive to issues.
