@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Soltros OS Branches Now Track Fedora 43 and Rawhide - Your Site Name</title>
+  <meta name="description" content="All Soltros OS LTS branches are now tracking Fedora 43, while unstable branches track Rawhide until Fedora 44 development begins.">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    
+    /* Post-specific styles */
+    .back-link{
+      display:inline-block;
+      color:var(--muted);
+      margin:20px 0 10px;
+      font-size:.95rem
+    }
+    .back-link:hover{color:var(--accent)}
+    
+    article{max-width:720px;margin:0 auto;padding:20px}
+    .post-header{margin-bottom:32px}
+    .post-header h1{font-size:2.5rem;line-height:1.2;margin:0 0 16px}
+    .post-meta{
+      color:var(--low);
+      font-size:.95rem;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:20px
+    }
+    .tag{
+      display:inline-block;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:4px 10px;
+      background:#0e141b;
+      color:#cfe6ff;
+      font-size:.85rem;
+      margin-right:6px
+    }
+    
+    .post-content{color:var(--text);line-height:1.8}
+    .post-content h2{margin:40px 0 16px;color:var(--text);font-size:1.75rem}
+    .post-content h3{margin:32px 0 12px;color:var(--text);font-size:1.35rem}
+    .post-content p{margin:16px 0;color:var(--muted)}
+    .post-content ul, .post-content ol{margin:16px 0;padding-left:24px;color:var(--muted)}
+    .post-content li{margin:8px 0}
+    .post-content code{
+      background:var(--surface);
+      padding:3px 8px;
+      border-radius:4px;
+      font-size:.9em;
+      color:var(--ok)
+    }
+    .post-content pre{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      overflow-x:auto;
+      margin:20px 0
+    }
+    .post-content pre code{
+      background:none;
+      padding:0;
+      color:var(--text)
+    }
+    .post-content blockquote{
+      border-left:3px solid var(--accent);
+      padding-left:20px;
+      margin:24px 0;
+      color:var(--muted);
+      font-style:italic
+    }
+    .post-content img{
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+      margin:24px 0
+    }
+    .post-content a{color:var(--accent);text-decoration:underline}
+    .post-content a:hover{color:#5bb8ff}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .post-header h1{font-size:2rem}
+      article{padding:20px 10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="../../server-desktop_combined.png" alt="Logo">
+      <div class="name">Your Site Name</div>
+    </header>
+  </div>
+
+  <div class="wrap">
+    <a href="../index.html" class="back-link">← Back to all posts</a>
+  </div>
+
+  <article>
+    <div class="post-header">
+      <h1>Soltros OS Branches Now Track Fedora 43 and Rawhide</h1>
+      <div class="post-meta">
+        <span>October 27, 2025</span>
+        <span>•</span>
+        <span>6 min read</span>
+      </div>
+      <div>
+        <span class="tag">Release Update</span>
+        <span class="tag">Fedora</span>
+        <span class="tag">Soltros OS</span>
+      </div>
+    </div>
+
+    <div class="post-content">
+      <p>
+        All Soltros OS LTS branches have transitioned to tracking Fedora 43, while unstable branches now follow Rawhide until Fedora 44 enters early development. This includes both desktop and server editions, with Soltros OS Server moving from Fedora 42 to Fedora 43. As an immutable Linux operating system that delivers updates as atomic images, Soltros OS continues to provide seamless tracking of Fedora releases without the traditional upgrade cycle or compatibility issues.
+      </p>
+
+      <h2>Core Distribution Updates in Fedora 43</h2>
+      <p>
+        Fedora 43 is built on Linux Kernel 6.17, delivering improved hardware support and performance enhancements. The kernel includes notable improvements to the EXT4 file system with efficient zero-writing on NVMe and SCSI SSDs without additional I/O operations, alongside better scalability for block allocation. Hardware support has expanded with new graphics drivers for Intel Panther Lake laptops, AMD hybrid GPU power management, and compatibility with ARM's Branch Record Buffer Extension and AMD Hardware Feedback Interface.
+      </p>
+
+      <p>
+        The default <code>/boot</code> partition size has been doubled from 1 GiB to 2 GiB. This change addresses the growing size of kernel and initramfs files, ensuring more reliable updates and installations. Static libraries now retain useful debuginfo by default, improving debugging capabilities for developers working on system-level code.
+      </p>
+
+      <h2>Package Management and Installation</h2>
+      <p>
+        RPM has been updated to version 6.0, introducing new features and performance improvements to the package manager. The Anaconda installer now uses DNF5 instead of DNF4 for package installation, streamlining the installation process. The Anaconda WebUI, which became the default installer for Fedora 42 Workstation, now extends to Fedora Spins and Editions in Fedora 43.
+      </p>
+
+      <p>
+        The initial ramdisk (initrd) for all Fedora variants now uses zstd compression by default when built with dracut. This change improves boot performance and efficiency across the distribution.
+      </p>
+
+      <h2>Toolchain and Development Updates</h2>
+      <p>
+        Fedora 43 includes updates to the GNU Toolchain with GCC 15.2, Binutils 2.45, Glibc 2.42, and GDB 17.1. All LLVM sub-projects have been upgraded to version 21, providing performance benefits for developers working with LLVM-based tools.
+      </p>
+
+      <h3>Programming Language Updates</h3>
+      <p>
+        The Python stack has been upgraded to Python 3.14, while Perl has been updated to version 5.42. The default PostgreSQL stream moves from version 16 to 18, continuing Fedora's versioned packaging structure with improved performance and new features. Ruby on Rails 8.0 is now available, and the Dovecot email server has been updated to version 2.4.
+      </p>
+
+      <h3>New Language Support</h3>
+      <p>
+        Fedora 43 introduces support for Idris 2, a dependently typed functional programming language, and updates the Haskell GHC compiler to version 9.8 with Stackage LTS 23. Support for Hare, a systems programming language focused on simplicity and robustness, has also been added.
+      </p>
+
+      <h2>Desktop Environment Updates</h2>
+      <p>
+        Soltros OS supports three desktop environments, all of which receive updates in this Fedora 43 tracking cycle.
+      </p>
+
+      <h3>GNOME 49</h3>
+      <p>
+        GNOME 49 includes a new video player and improvements to Web and Calendar applications. A significant change in this release is the removal of GNOME X11 packages, transitioning all users to the Wayland session. This completes the migration to a Wayland-only GNOME environment, improving security and performance.
+      </p>
+
+      <h3>KDE Plasma 6.4</h3>
+      <p>
+        KDE Plasma has been updated to version 6.4, bringing refinements to the desktop environment and continued development of the Plasma 6 series.
+      </p>
+
+      <h3>COSMIC 1.0 Alpha</h3>
+      <p>
+        COSMIC receives its 1.0 alpha release with hybrid tiling support, representing a major milestone for System76's Rust-based desktop environment.
+      </p>
+
+      <h2>Implications for Soltros OS</h2>
+      <p>
+        With all LTS branches now tracking Fedora 43, Soltros OS users benefit from these core updates through atomic image delivery. The immutable architecture means updates roll forward seamlessly without major version upgrades or compatibility management. Users receive weekly atomic images that incorporate the latest improvements while maintaining system stability and reliability.
+      </p>
+
+      <p>
+        Soltros OS Server transitions from Fedora 42 to Fedora 43, bringing the same core distribution improvements to container-native server deployments. The updated toolchain, RPM 6.0, and DNF5 enhance server management capabilities while maintaining the immutable foundation built on Fedora BootC.
+      </p>
+
+      <p>
+        The LTS track follows Fedora 43 stable releases for production reliability, while unstable branches tracking Rawhide provide access to upcoming features with safety guardrails in place. This dual-branch approach serves both users requiring stability for gaming and development workloads and those who prefer to test bleeding-edge updates.
+      </p>
+
+      <h2>Looking Forward</h2>
+      <p>
+        Fedora 43 is scheduled for release on October 28, 2025, with a contingency date of November 11, 2025. As Soltros OS tracks these releases through atomic images, users continue to receive updates without traditional upgrade cycles. The immutable system design ensures that each update maintains consistency and reliability across gaming and development workloads.
+      </p>
+
+      <p>
+        The unstable branches will continue following Rawhide until Fedora 44 begins early development, providing early access to upcoming features while maintaining the safety and rollback capabilities inherent to the atomic update model. The combination of RPM 6.0, DNF5, Python 3.14, and the transition to Wayland-only GNOME represents a significant step forward, delivered seamlessly through the immutable architecture that defines Soltros OS.
+      </p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> Your Name • <a href="../index.html">Blog</a> • <a href="mailto:your@email.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
