@@ -345,6 +345,16 @@ Both tracks deliver a clean, performant system that evolves continuously without
         </div>
         <h4>Tailscale</h4>
       </div>
+
+      <div class="tool-card" onclick="openModal('tailscale')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/nebula.png" alt="Nebula">
+        </div>
+        <h4>Nebula</h4>
+      </div>
       
       <div class="tool-card" onclick="openModal('buildah')">
         <div class="hover-badge server-badge">
@@ -510,6 +520,17 @@ Both tracks deliver a clean, performant system that evolves continuously without
             <li><strong>Zero-config VPN:</strong> Connect devices without port forwarding</li>
             <li><strong>WireGuard based:</strong> Modern, fast, and secure encryption</li>
             <li><strong>Easy access:</strong> Reach your server from anywhere securely</li>
+          </ul>
+        `
+      },
+     nebula: {
+        title: 'Nebula',
+        content: `
+          <p>Nebula creates a fully decentralized overlay network using certificate-based mesh connectivity, making secure peer-to-peer networking simple without central coordination servers.</p>
+          <ul>
+            <li><strong>True peer-to-peer:</strong> Direct encrypted connections between hosts</li>
+            <li><strong>Lighthouse discovery:</strong> Decentralized routing without central control</li>
+            <li><strong>Built for scale:</strong> Proven in production with thousands of nodes</li>
           </ul>
         `
       },
