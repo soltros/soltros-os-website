@@ -142,7 +142,7 @@
 
     <div class="post-content">
       <p>
-        Starting now, all LTS releases of Soltros OS will ship with long-term support kernels instead of the standard Fedora kernels. We're kicking this off with the 6.12 LTS kernel from kwizart's COPR repository.
+        Starting now, all LTS releases of Soltros OS will ship with long-term support kernels instead of the standard Fedora kernels. I'm kicking this off with the 6.12 LTS kernel from kwizart's COPR repository.
       </p>
 
       <h2>Why the Change?</h2>
@@ -186,7 +186,7 @@
 
       <h2>The Technical Details</h2>
       <p>
-        For those curious about implementation, we're removing the default Fedora kernel packages and installing kernel-longterm directly during the container build process. Here's what that looks like:
+        For those curious about implementation, I'm removing the default Fedora kernel packages and installing kernel-longterm directly during the container build process. Here's what that looks like:
       </p>
 
       <pre><code># Remove default kernel packages and install kernel-longterm
@@ -203,7 +203,7 @@ RUN dnf5 -y remove --no-autoremove kernel kernel-core kernel-modules \
     fi</code></pre>
 
       <p>
-        Why not use <code>rpm-ostree override</code>? Simple: we're building container images, not composing ostree commits. The container build process uses standard dnf5 operations to swap out packages. We remove the stock kernel packages first, then install the longterm variants. If something goes wrong with the longterm installation, the build falls back to reinstalling the default kernel so the image doesn't break.
+        Why not use <code>rpm-ostree override</code>? Simple: I'm building container images, not composing ostree commits. The container build process uses standard dnf5 operations to swap out packages. I remove the stock kernel packages first, then install the longterm variants. If something goes wrong with the longterm installation, the build falls back to reinstalling the default kernel so the image doesn't break.
       </p>
 
       <p>
