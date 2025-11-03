@@ -186,11 +186,28 @@
 
       <h2>The Technical Details</h2>
       <p>
-        For those curious about implementation, we're using <code>rpm-ostree override</code> to replace the stock kernel packages with kernel-longterm, kernel-longterm-core, kernel-longterm-modules, and kernel-longterm-modules-extra from the COPR.
+        For those curious about implementation, we're removing the default Fedora kernel packages and installing kernel-longterm directly during the container build process. Here's what that looks like:
+      </p>
+
+      <pre><code># Remove default kernel packages and install kernel-longterm
+RUN dnf5 -y remove --no-autoremove kernel kernel-core kernel-modules \
+    kernel-modules-core kernel-modules-extra || true && \
+    echo "Installing kernel-longterm..." && \
+    if dnf5 -y install kernel-longterm kernel-longterm-core \
+       kernel-longterm-modules kernel-longterm-modules-extra; then \
+        echo "kernel-longterm installed successfully"; \
+    else \
+        echo "Failed to install kernel-longterm"; \
+        echo "Falling back to default kernel installation"; \
+        dnf5 -y install kernel kernel-core kernel-modules || true; \
+    fi</code></pre>
+
+      <p>
+        Why not use <code>rpm-ostree override</code>? Simple: we're building container images, not composing ostree commits. The container build process uses standard dnf5 operations to swap out packages. We remove the stock kernel packages first, then install the longterm variants. If something goes wrong with the longterm installation, the build falls back to reinstalling the default kernel so the image doesn't break.
       </p>
 
       <p>
-        The build process automatically detects and builds initramfs for the longterm kernel, so everything just works out of the box.
+        The build process automatically detects and builds initramfs for whichever kernel gets installed, so everything just works out of the box.
       </p>
 
       <h2>Questions?</h2>
