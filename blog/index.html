@@ -3,30 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog - Soltros OS</title>
-  <meta name="description" content="My personal blog">
+  <title>SoltrOS — Immutable Linux designed for gaming & development</title>
+  <meta name="description" content="SoltrOS is an immutable Linux desktop built on Fedora Core OS. Weekly image updates—no big upgrades. Choose LTS or Unstable. KDE, COSMIC, GNOME.">
   <style>
     :root{
-      --bg:#0b0f14;
-      --card:#11161d;
-      --surface:#0e1319;
-      --text:#e8eef4;
-      --muted:#a7b5c4;
-      --low:#8ea0b4;
-      --accent:#3ea6ff;
-      --border:#1b2633;
-      --ok:#1ad1a5;
-      --radius:16px;
-      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --bg:#0b0f14; --card:#11161d; --surface:#0e1319; --text:#e8eef4; --muted:#a7b5c4; --low:#8ea0b4;
+      --accent:#3ea6ff; --border:#1b2633; --ok:#1ad1a5;
+      --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --w:1160px;
     }
     *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
-      color:var(--text);
-      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
-    }
+    html,body{margin:0;background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);color:var(--text);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial}
     a{color:var(--accent);text-decoration:none}
     .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
     header{display:flex;align-items:center;gap:16px;padding:20px 0}
@@ -35,150 +22,742 @@
     .hero{text-align:center;padding:16px 0 6px}
     .hero h1{font-size:40px;line-height:1.2;margin:6px 0 14px}
     .hero p{color:var(--muted);max-width:900px;margin:0 auto 18px}
+    .cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
+    .btn{display:inline-block;padding:12px 16px;border-radius:12px;background:var(--accent);color:#062338;font-weight:700;cursor:pointer;border:none;font-family:inherit;font-size:inherit}
+    .btn.sec{background:#15202b;color:var(--text);border:1px solid var(--border)}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 0}
+    .tag{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:#0e141b;color:#cfe6ff;font-size:.9rem}
+
+    .showcase{max-width:var(--w);margin:36px auto 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 20px}
+    .desk-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow);text-align:center;position:relative}
+    .desk-card .image-wrapper{position:relative;overflow:hidden;border-radius:12px}
+    .desk-card img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--border);background:#0c1015;cursor:pointer;transition:transform .2s,box-shadow .2s;display:block}
+    .desk-card img:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(62,166,255,.3)}
     
-    /* Blog-specific styles */
-    .blog-list{max-width:800px;margin:28px auto 40px;padding:0 20px}
-    .post-card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:24px;
-      margin-bottom:20px;
-      transition:border-color .2s
-    }
-    .post-card:hover{border-color:var(--accent)}
-    .post-meta{
-      color:var(--low);
-      font-size:.9rem;
-      margin-bottom:10px;
+    /* Hover badge styling */
+    .hover-badge{
+      position:absolute;
+      top:12px;
+      right:12px;
+      width:52px;
+      height:52px;
+      background:var(--accent);
+      border-radius:12px;
       display:flex;
-      gap:12px;
-      align-items:center
-    }
-    .post-card h2{margin:0 0 12px;font-size:1.5rem}
-    .post-card h2 a{color:var(--text);text-decoration:none}
-    .post-card h2 a:hover{color:var(--accent)}
-    .post-excerpt{color:var(--muted);margin:0 0 14px;line-height:1.7}
-    .read-more{
-      color:var(--accent);
-      font-weight:600;
-      display:inline-flex;
       align-items:center;
-      gap:6px
+      justify-content:center;
+      opacity:0;
+      transform:scale(0.8) translateY(-10px);
+      transition:opacity .3s ease, transform .3s ease;
+      box-shadow:0 4px 12px rgba(62,166,255,.4);
+      pointer-events:none;
+      z-index:10;
     }
-    .tag{
-      display:inline-block;
-      border:1px solid var(--border);
-      border-radius:999px;
-      padding:4px 10px;
-      background:#0e141b;
-      color:#cfe6ff;
-      font-size:.85rem;
-      margin-right:6px
+    .hover-badge img{
+      width:34px;
+      height:34px;
+      object-fit:contain;
     }
-    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
-    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    .desk-card:hover .hover-badge{
+      opacity:1;
+      transform:scale(1) translateY(0);
+    }
     
+    /* Coming soon styling */
+    .coming-soon-badge{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      background:rgba(17,22,29,0.95);
+      border:2px solid var(--accent);
+      border-radius:12px;
+      padding:12px 24px;
+      font-weight:700;
+      font-size:1.1rem;
+      color:var(--accent);
+      box-shadow:0 4px 20px rgba(62,166,255,.5);
+      z-index:10;
+    }
+    
+    .desk-card h3{margin:10px 0 2px;font-size:1.1rem}
+    .desk-card p{margin:0;color:var(--low);font-size:.92rem}
+    .desk-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
+
+    .features{max-width:var(--w);margin:28px auto 40px;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    .card h4{margin:4px 0 8px}
+    .card ul{margin:0;padding-left:18px;color:var(--muted)}
+    .full{grid-column:1/-1}
+    .full p{margin:0;color:var(--muted)}
+
+    .logo-divider{max-width:var(--w);margin:56px auto;padding:0 20px}
+    .split-logo-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;box-shadow:var(--shadow)}
+    .split-logo{width:180px;height:180px;margin:0 auto 24px;display:block}
+    .logo-labels{display:flex;align-items:center;justify-content:center;gap:24px;font-size:1.1rem;font-weight:600}
+    .label-item{display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 16px;border-radius:8px;transition:background .2s}
+    .label-item:hover{background:var(--surface)}
+    .color-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border)}
+    .color-dot.blue{background:#49e1f8;box-shadow:0 0 12px rgba(73,225,248,.4)}
+    .color-dot.white{background:#f8f9fa;box-shadow:0 0 12px rgba(248,249,250,.3)}
+    .label-separator{color:var(--border);font-size:1.5rem;font-weight:300}
+
+    .server-section{max-width:var(--w);margin:48px auto 24px;padding:0 20px}
+    .server-header{text-align:center;margin-bottom:32px}
+    .server-header h2{font-size:36px;margin:0 0 12px;color:var(--text)}
+    .server-header p{color:var(--muted);max-width:800px;margin:0 auto 24px}
+    
+    /* Server tool cards grid */
+    .server-tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+    .tool-card{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:16px 24px;text-align:center;position:relative;transition:transform .2s,box-shadow .2s;cursor:pointer;display:flex;align-items:center;gap:12px}
+    .tool-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+    .tool-card .tool-icon{width:48px;height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .tool-card .tool-icon img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+    .tool-card h4{margin:0;font-size:.95rem;color:var(--text);pointer-events:none;text-align:left;flex:1}
+    .tool-card:hover .hover-badge{opacity:1;transform:scale(1) translateY(0)}
+    .server-badge{background:rgba(0,0,0,0.75) !important;box-shadow:0 4px 12px rgba(0,0,0,.5) !important;width:48px;height:48px;backdrop-filter:blur(8px);pointer-events:none !important}
+    .server-badge img{border:none !important;background:transparent !important;width:32px !important;height:32px !important;pointer-events:none !important}
+    
+    .server-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:30px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+
+    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+    .modal.active{display:flex}
+    .modal-content{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.6);position:relative;animation:modalSlide .3s ease}
+    .modal-content h2{margin:0 0 16px;color:var(--accent)}
+    .modal-content h3{margin:20px 0 10px;color:var(--accent);font-size:1.1rem}
+    .modal-content p{color:var(--muted);line-height:1.7;margin:12px 0}
+    .modal-content ul{color:var(--muted);line-height:1.7}
+    .modal-content code{background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.9em}
+    .modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:28px;cursor:pointer;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background .2s}
+    .modal-close:hover{background:var(--surface);color:var(--text)}
+
+    .img-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;padding:40px;backdrop-filter:blur(8px)}
+    .img-modal.active{display:flex}
+    .img-modal img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 20px 80px rgba(0,0,0,.8);animation:imgZoom .3s ease}
+    .img-modal-close{position:absolute;top:20px;right:20px;background:rgba(17,22,29,.9);border:1px solid var(--border);color:var(--text);font-size:28px;cursor:pointer;padding:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;transition:background .2s}
+    .img-modal-close:hover{background:var(--card)}
+
+    @keyframes modalSlide{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes imgZoom{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+
     @media (max-width:980px){
+      .showcase{grid-template-columns:1fr}
+      .features{grid-template-columns:1fr}
+      .server-tools-grid{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
       .hero h1{font-size:32px}
+      .modal-content{padding:20px;max-width:calc(100% - 40px)}
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <img src="../server-desktop_combined.png" alt="Logo">
+      <img src="server-desktop_combined.png" alt="SoltrOS logo">
       <div class="name">Soltros OS</div>
     </header>
   </div>
 
   <section class="hero wrap">
-    <h1>Soltros OS Blog</h1>
-    <p>Updates on Soltros OS</p>
+    <h1>Immutable Linux for gaming & development</h1>
+    <p>
+      SoltrOS is an immutable Linux desktop and server operating system built on Fedora CoreOS, designed for gaming and development workloads.
+Updates are delivered weekly as atomic images. No major version upgrades or compatibility issues to manage, ever. The system rolls forward seamlessly, tracking Fedora's release cycle without disruption.
+Choose your release track:
+LTS follows Fedora's stable releases for production reliability. Unstable tracks upcoming features from alpha and beta channels, with safety guardrails in place.
+Both tracks deliver a clean, performant system that evolves continuously without the traditional upgrade cycle.
+    </p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/soltros/Soltros-OS/pulls">Contribute</a>
+      <a class="btn" href="https://github.com/soltros/Soltros-OS/discussions">Forum</a>
+      <a class="btn sec" href="troubleshooting.html">Troubleshooting</a>
+      <a class="btn sec" href="features.html">Features</a>
+      <a class="btn sec" href="flatpak-apps.html">Flatpak apps</a>
+      <a class="btn sec" href="/blog/index.html">Blog</a>
+      <a class="btn sec" href="helper.html">Helper.sh tool</a>
+      <a class="btn sec" href="getting-started.html">Getting Started</a>
+    </div>
   </section>
 
-  <section class="blog-list">
-    <!-- Blog Post 1 (Most Recent) -->
-    <article class="post-card">
-      <div class="post-meta">
-        <span>November 3, 2025</span>
-        <span>•</span>
-        <span>3 min read</span>
+  <section class="logo-divider">
+    <div class="split-logo-card">
+      <img src="server-desktop_combined.png" alt="SoltrOS Split Logo" class="split-logo">
+      <div class="logo-labels">
+        <div class="label-item" onclick="scrollToSection('showcase')">
+          <div class="color-dot blue"></div>
+          <span>Desktop</span>
+        </div>
+        <div class="label-separator">|</div>
+        <div class="label-item" onclick="scrollToSection('server-section')">
+          <div class="color-dot white"></div>
+          <span>Server</span>
+        </div>
       </div>
-      <h2><a href="posts/lts-longterm-kernels.html">LTS Releases Moving to Long-Term Kernels</a></h2>
-      <p class="post-excerpt">
-        All LTS releases of Soltros OS will now ship with long-term support kernels from kwizart's COPR repository, starting with 6.12 LTS. Fedora's kernels tend to break things, and for an LTS release where stability is the entire point, that's not acceptable.
-      </p>
-      <span class="tag">Announcement</span>
-      <span class="tag">LTS</span>
-      <br><br>
-      <a href="posts/lts-longterm-kernels.html" class="read-more">Read more →</a>
-    </article>
+    </div>
+  </section>
 
-    <!-- Blog Post 2 -->
-    <article class="post-card">
-      <div class="post-meta">
-        <span>October 27, 2025</span>
-        <span>•</span>
-        <span>6 min read</span>
+  <section class="showcase" id="showcase">
+    <div class="desk-card">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_cosmic.png" alt="COSMIC desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge">
+          <img src="soltros.svg" alt="SoltrOS logo">
+        </div>
       </div>
-      <h2><a href="posts/soltros-fedora-43-tracking.html">Soltros OS Branches Now Track Fedora 43 and Rawhide</a></h2>
-      <p class="post-excerpt">
-        All Soltros OS LTS branches have transitioned to tracking Fedora 43, while unstable branches now follow Rawhide until Fedora 44 enters early development. This includes both desktop and server editions, with Soltros OS Server moving from Fedora 42 to Fedora 43.
-      </p>
-      <span class="tag">Release Update</span>
-      <span class="tag">Fedora</span>
-      <span class="tag">Soltros OS</span>
-      <br><br>
-      <a href="posts/soltros-fedora-43-tracking.html" class="read-more">Read more →</a>
-    </article>
+      <h3>COSMIC</h3>
+      <p><a href="https://www.mediafire.com/file_premium/atvkvk9uoqp3pkj/soltros-os-lts_cosmic-latest.iso/file">LTS</a> / <a href="https://www.mediafire.com/file_premium/6ill0znx7ffabd2/soltros-os-unstable_cosmic.iso/file">Unstable </a></p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('cosmic')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_kde.png" alt="Plasma desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge">
+          <img src="soltros.svg" alt="SoltrOS logo">
+        </div>
+      </div>
+      <h3>Plasma</h3>
+      <p><a href="https://www.mediafire.com/file_premium/1tcrq3vzuu3hfdf/soltros-os-lts_latest.iso/file">LTS</a> / <a href="https://www.mediafire.com/file_premium/idmej3osl1mpoh8/soltros-os_unstable-latest.iso/file">Unstable</a></p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('plasma')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_gnome.png" alt="GNOME desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge">
+          <img src="soltros.svg" alt="SoltrOS logo">
+        </div>
+      </div>
+      <h3>GNOME</h3>
+      <p><a href="https://www.mediafire.com/file_premium/1tj2qoo38iezkc1/soltros-os-lts_gnome-latest.iso/file">LTS</a> / <a href="https://www.mediafire.com/file_premium/ix3amdjov7bqjud/soltros-os-unstable-gnome.iso/file">Unstable</a></p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('gnome')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card coming-soon">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_kde.png" alt="Plasma Bigscreen preview" style="opacity:0.4;filter:blur(2px)">
+        <div class="coming-soon-badge">
+          <span>Coming Soon</span>
+        </div>
+      </div>
+      <h3>Plasma Bigscreen</h3>
+      <p style="color:var(--low)">HTPC Edition</p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('bigscreen')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card coming-soon">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_kde.png" alt="Hyprland preview" style="opacity:0.4;filter:blur(2px)">
+        <div class="coming-soon-badge">
+          <span>Coming Soon</span>
+        </div>
+      </div>
+      <h3>Hyprland</h3>
+      <p style="color:var(--low)">Wayland Compositor</p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('hyprland')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card coming-soon">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_gnome.png" alt="Enlightenment preview" style="opacity:0.4;filter:blur(2px)">
+        <div class="coming-soon-badge">
+          <span>Coming Soon</span>
+        </div>
+      </div>
+      <h3>Enlightenment</h3>
+      <p style="color:var(--low)">E Desktop Environment</p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('enlightenment')">Learn more</button>
+      </div>
+    </div>
+  </section>
 
-    <!-- Blog Post 3 -->
-    <article class="post-card">
-      <div class="post-meta">
-        <span>October 22, 2025</span>
-        <span>•</span>
-        <span>4 min read</span>
-      </div>
-      <h2><a href="posts/fixing-container-policy.html">Fixing Container Policy Issues in Soltros OS</a></h2>
-      <p class="post-excerpt">
-        I recently discovered an issue with container signature verification in Soltros OS. The problem? Policy.json configuration wasn't keeping up with the growing family of image variants. Here's what went wrong.
-      </p>
-      <span class="tag">Update</span>
-      <span class="tag">Containers</span>
-      <span class="tag">Security</span>
-      <br><br>
-      <a href="posts/fixing-container-policy.html" class="read-more">Read more →</a>
-    </article>
+  <section class="features">
+    <div class="card">
+      <h4>🎮 Gaming ready</h4>
+      <ul>
+        <li>Performance-tuned kernel</li>
+        <li><b>MangoHud</b> &amp; <b>GameMode</b> preinstalled</li>
+        <li>Steam, Lutris, Heroic, RetroArch via Flatpak</li>
+        <li>Optimized CPU governor &amp; network tweaks</li>
+        <li>Native controller support (PS/Xbox/Switch/Steam/8BitDo)</li>
+      </ul>
+    </div>
 
-    <!-- Blog Post 4 -->
-    <article class="post-card">
-      <div class="post-meta">
-        <span>October 16, 2025</span>
-        <span>•</span>
-        <span>6 min read</span>
+    <div class="card">
+      <h4>💻 MacBook support</h4>
+      <ul>
+        <li>Thermals with <code>thermald</code> &amp; <code>mbpfan</code></li>
+        <li>Apple SMC sensors (<code>applesmc</code>)</li>
+        <li>Tuned fan curves &amp; humidity-resistant settings</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>📦 Package choices (safe)</h4>
+      <ul>
+        <li><b>rpm-ostree</b>: immutable base</li>
+        <li><b>Flatpak</b>: sandboxed apps</li>
+        <li><b>Distrobox</b>: containerized dev envs</li>
+        <li><b>Homebrew</b>: extra CLI tools</li>
+        <li><b>Nix (Determinate, flakes)</b>: huge catalog, rpm-ostree compatible</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>🛠️ Developer experience</h4>
+      <ul>
+        <li>Zsh/Fish with Starship, Atuin, Zoxide, useful aliases</li>
+        <li>Git with SSH signing</li>
+        <li><code>helper.sh</code> to install Flatpaks/dev tools/containers fast</li>
+        <li>Podman Desktop &amp; Zed Editor available via Flatpak</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>🎨 Desktops</h4>
+      <ul>
+        <li>Vanilla <b>Plasma</b>, <b>COSMIC</b>, or <b>GNOME</b></li>
+        <li>Dark defaults, Papirus icons</li>
+        <li>Fast startup</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>🔒 Security & reliability</h4>
+      <ul>
+        <li>Image-based updates with easy rollback</li>
+        <li>Cosign signing &amp; verification</li>
+        <li>Flatpak sandboxing</li>
+        <li>Verified sources across managers</li>
+      </ul>
+    </div>
+
+    <div class="card full">
+      <h4>Included highlights</h4>
+      <p>optimized kernel · tailscale · thermald · lm_sensors · Steam · Lutris · VLC · Jellyfin MP · LibreOffice · Bitwarden · RetroArch · Podman Desktop · Flatseal · Mission Center · Warehouse</p>
+    </div>
+  </section>
+
+  <section class="server-section" id="server-section">
+    <div class="server-header">
+      <h2>SoltrOS Server Edition</h2>
+      <p>Container-native server built on Fedora BootC with Docker CE, Podman, and enterprise management tools</p>
+    </div>
+    
+    <div class="server-tools-grid">
+      <div class="tool-card" onclick="openModal('docker')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/docker.svg" alt="Docker">
+        </div>
+        <h4>Docker CE</h4>
       </div>
-      <h2><a href="posts/building-soltros-os.html">Building Soltros OS</a></h2>
-      <p class="post-excerpt">
-        I got hooked on Bootc and cloud-native Linux and realized I could build an immutable OS that wasn't laser-focused on one specific use case. 
-        So I made Soltros OS—an attempt at a more general-purpose take on immutable computing.
-      </p>
-      <span class="tag">Linux</span>
-      <span class="tag">Fedora</span>
-      <span class="tag">Immutable OS</span>
-      <br><br>
-      <a href="posts/building-soltros-os.html" class="read-more">Read more →</a>
-    </article>
+      
+      <div class="tool-card" onclick="openModal('podman')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/podman.png" alt="Podman">
+        </div>
+        <h4>Podman</h4>
+      </div>
+      
+      <div class="tool-card" onclick="openModal('cockpit')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/cockpit.png" alt="Cockpit">
+        </div>
+        <h4>Cockpit</h4>
+      </div>
+      
+      <div class="tool-card" onclick="openModal('kvm')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/kvm.png" alt="KVM">
+        </div>
+        <h4>KVM/Libvirt</h4>
+      </div>
+      
+      <div class="tool-card" onclick="openModal('tailscale')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/tailscale.png" alt="Tailscale">
+        </div>
+        <h4>Tailscale</h4>
+      </div>
+
+      <div class="tool-card" onclick="openModal('nebula')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/nebula.png" alt="Nebula">
+        </div>
+        <h4>Nebula</h4>
+      </div>
+      
+      <div class="tool-card" onclick="openModal('buildah')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/buildah.png" alt="Buildah">
+        </div>
+        <h4>Buildah</h4>
+      </div>
+      
+      <div class="tool-card" onclick="openModal('aide')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/aide.png" alt="AIDE">
+        </div>
+        <h4>AIDE</h4>
+      </div>
+      
+      <div class="tool-card" onclick="openModal('nftables')">
+        <div class="hover-badge server-badge">
+          <img src="soltros_white.svg" alt="SoltrOS Server logo">
+        </div>
+        <div class="tool-icon">
+          <img src="logos/nftables.png" alt="nftables">
+        </div>
+        <h4>nftables</h4>
+      </div>
+    </div>
+    
+    <div class="server-cta">
+      <a class="btn" href="https://publicweb.soltros.info/files/soltros-os-server-latest-42.iso">Download Server</a>
+      <button class="btn sec" onclick="openModal('server')">Learn more</button>
+    </div>
   </section>
 
   <footer>
     <div class="foot">
-      © <span id="year"></span> Derrik • <a href="index.html">Blog</a> • <a href="mailto:soltros@proton.me">Contact</a>
+      © <span id="y"></span> SoltrOS • GPL-3.0 components • Not affiliated with Fedora.
     </div>
   </footer>
 
+  <div class="modal" id="infoModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="img-modal" id="imgModal" onclick="closeImageModal()">
+    <button class="img-modal-close" onclick="closeImageModal()">&times;</button>
+    <img id="modalImage" src="" alt="">
+  </div>
+
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    const desktopInfo = {
+      cosmic: {
+        title: 'COSMIC Desktop',
+        content: `
+          <p>COSMIC is System76's next-generation desktop environment built with Rust. It offers a modern, efficient, and customizable experience.</p>
+          <ul>
+            <li><strong>Rust-based:</strong> Built for performance and reliability</li>
+            <li><strong>Tiling support:</strong> Advanced window management out of the box</li>
+            <li><strong>Customizable:</strong> Extensive theming and layout options</li>
+            <li><strong>Modern UI:</strong> Clean, intuitive interface design</li>
+          </ul>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os/soltros-lts_cosmic:latest</code>
+          <p>Or, for unstable:</p>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os/soltros-unstable_cosmic:latest</code>
+          <p>Download <p><a href="https://www.mediafire.com/file_premium/atvkvk9uoqp3pkj/soltros-os-lts_cosmic-latest.iso/file">LTS</a> or <a href="https://www.mediafire.com/file_premium/6ill0znx7ffabd2/soltros-os-unstable_cosmic.iso/file">Unstable </a></p>
+          <p>Perfect for users who want cutting-edge technology with a polished desktop experience.</p>
+        `
+      },
+      plasma: {
+        title: 'KDE Plasma Desktop',
+        content: `
+          <p>KDE Plasma is a powerful, feature-rich desktop environment known for its flexibility and beautiful design.</p>
+          <ul>
+            <li><strong>Highly customizable:</strong> Tweak every aspect of your desktop</li>
+            <li><strong>Feature-complete:</strong> Tons of built-in tools and widgets</li>
+            <li><strong>Modern design:</strong> Sleek interface with smooth animations</li>
+            <li><strong>Performance:</strong> Surprisingly light despite rich features</li>
+          </ul>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os/soltros-os_lts:latest</code>
+           <p>Or, for unstable:</p>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os/soltros-os:latest</code>
+          <p>Download either <a href="https://www.mediafire.com/file_premium/1tcrq3vzuu3hfdf/soltros-os-lts_latest.iso/file">LTS</a> or <a href="https://www.mediafire.com/file_premium/idmej3osl1mpoh8/soltros-os_unstable-latest.iso/file">Unstable</a></p>
+          <p>Ideal for power users who want complete control over their desktop environment.</p>
+        `
+      },
+      gnome: {
+        title: 'GNOME Desktop',
+        content: `
+          <p>GNOME is a clean, modern desktop environment focused on simplicity and productivity with a polished, cohesive experience.</p>
+          <ul>
+            <li><strong>Simple & elegant:</strong> Distraction-free interface that gets out of your way</li>
+            <li><strong>Activities overview:</strong> Powerful workspace and window management</li>
+            <li><strong>Extensions:</strong> Customize your workflow with community add-ons</li>
+            <li><strong>Touch-friendly:</strong> Great for laptops with touchscreens and gestures</li>
+            <li><strong>Integrated ecosystem:</strong> Cohesive suite of polished applications</li>
+          </ul>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os/soltros-lts_gnome:latest</code>
+          <p>Or, for unstable:</p>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os/soltros-os-unstable_gnome:latest</code>
+          <p> Download either <a href="https://www.mediafire.com/file_premium/1tj2qoo38iezkc1/soltros-os-lts_gnome-latest.iso/file">LTS</a> or <a href="https://www.mediafire.com/file_premium/ix3amdjov7bqjud/soltros-os-unstable-gnome.iso/file">Unstable</a></p>
+          <p>Perfect for users who value simplicity, elegance, and a consistent user experience across all their applications.</p>
+        `
+      },
+      bigscreen: {
+        title: 'Plasma Bigscreen (Coming Soon)',
+        content: `
+          <p>Plasma Bigscreen is a user interface designed for TVs and home theater PCs, offering a 10-foot user experience optimized for remote control navigation.</p>
+          <ul>
+            <li><strong>TV-optimized:</strong> Designed specifically for large screens and couch usage</li>
+            <li><strong>Remote friendly:</strong> Full navigation with game controllers and TV remotes</li>
+            <li><strong>Media center:</strong> Perfect for streaming, gaming, and home entertainment</li>
+            <li><strong>Voice control:</strong> Integration with voice assistants and commands</li>
+            <li><strong>App ecosystem:</strong> Access to media apps and streaming services</li>
+          </ul>
+          <p>Plasma Bigscreen will transform SoltrOS into the ultimate HTPC operating system, combining the reliability of an immutable base with a beautiful living room interface.</p>
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Note:</strong> This edition is currently in development. Check back soon for updates!
+          </p>
+        `
+      },
+      hyprland: {
+        title: 'Hyprland (Coming Soon)',
+        content: `
+          <p>Hyprland is a dynamic tiling Wayland compositor with stunning animations, extensive customization, and powerful window management.</p>
+          <ul>
+            <li><strong>Beautiful animations:</strong> Smooth, eye-catching window transitions and effects</li>
+            <li><strong>Tiling WM:</strong> Efficient automatic window tiling with manual control</li>
+            <li><strong>Highly configurable:</strong> Script almost every aspect of your workflow</li>
+            <li><strong>Wayland native:</strong> Modern display protocol with better performance</li>
+            <li><strong>Growing ecosystem:</strong> Active community with plugins and themes</li>
+          </ul>
+          <p>The Hyprland edition will bring cutting-edge tiling window management to SoltrOS, perfect for power users who want maximum control and efficiency.</p>
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Note:</strong> This edition is currently in development. Check back soon for updates!
+          </p>
+        `
+      },
+      enlightenment: {
+        title: 'Enlightenment (Coming Soon)',
+        content: `
+          <p>Enlightenment (E) is a lightweight, highly customizable desktop environment known for its stunning visual effects and efficient resource usage.</p>
+          <ul>
+            <li><strong>Lightweight:</strong> Runs smoothly on older hardware while looking beautiful</li>
+            <li><strong>Eye candy:</strong> Gorgeous themes and visual effects out of the box</li>
+            <li><strong>Modular design:</strong> Use only the components you need</li>
+            <li><strong>Extensive theming:</strong> Deep customization of every visual element</li>
+            <li><strong>Mature & stable:</strong> Decades of development and refinement</li>
+          </ul>
+          <p>The Enlightenment edition will offer a unique blend of beauty and performance, ideal for users who want a visually stunning desktop without the resource overhead.</p>
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Note:</strong> This edition is currently in development. Check back soon for updates!
+          </p>
+        `
+      },
+      docker: {
+        title: 'Docker CE',
+        content: `
+          <p>Docker is the industry-standard container platform that makes it easy to build, ship, and run distributed applications.</p>
+          <ul>
+            <li><strong>Complete toolkit:</strong> Includes Docker Engine, BuildX, and Docker Compose</li>
+            <li><strong>Wide compatibility:</strong> Run millions of containers from Docker Hub</li>
+            <li><strong>Developer friendly:</strong> Simple commands and workflow</li>
+          </ul>
+        `
+      },
+      podman: {
+        title: 'Podman',
+        content: `
+          <p>Podman is a daemonless container engine for developing, managing, and running OCI containers with a focus on security.</p>
+          <ul>
+            <li><strong>Rootless containers:</strong> Run containers without root privileges</li>
+            <li><strong>Docker compatible:</strong> Drop-in replacement with same CLI</li>
+            <li><strong>Systemd integration:</strong> Native support for system services</li>
+          </ul>
+        `
+      },
+      cockpit: {
+        title: 'Cockpit',
+        content: `
+          <p>Cockpit is a web-based server management interface that makes Linux server administration easy and accessible.</p>
+          <ul>
+            <li><strong>Web console:</strong> Manage your server from any browser</li>
+            <li><strong>Real-time monitoring:</strong> CPU, memory, network, and storage metrics</li>
+            <li><strong>Container management:</strong> Control Docker and Podman containers visually</li>
+          </ul>
+          <p>Access at: <code>https://your-server:9090</code></p>
+        `
+      },
+      kvm: {
+        title: 'KVM/Libvirt',
+        content: `
+          <p>KVM (Kernel-based Virtual Machine) with Libvirt provides enterprise-grade virtualization directly in the Linux kernel.</p>
+          <ul>
+            <li><strong>Full virtualization:</strong> Run complete operating systems as VMs</li>
+            <li><strong>High performance:</strong> Near-native performance with hardware acceleration</li>
+            <li><strong>Flexible management:</strong> Control VMs via Cockpit, CLI, or virt-manager</li>
+          </ul>
+        `
+      },
+      tailscale: {
+        title: 'Tailscale',
+        content: `
+          <p>Tailscale creates a secure private network between your devices using WireGuard, making remote access simple and secure.</p>
+          <ul>
+            <li><strong>Zero-config VPN:</strong> Connect devices without port forwarding</li>
+            <li><strong>WireGuard based:</strong> Modern, fast, and secure encryption</li>
+            <li><strong>Easy access:</strong> Reach your server from anywhere securely</li>
+          </ul>
+        `
+      },
+     nebula: {
+        title: 'Nebula',
+        content: `
+          <p>Nebula creates a fully decentralized overlay network using certificate-based mesh connectivity, making secure peer-to-peer networking simple without central coordination servers.</p>
+          <ul>
+            <li><strong>True peer-to-peer:</strong> Direct encrypted connections between hosts</li>
+            <li><strong>Lighthouse discovery:</strong> Decentralized routing without central control</li>
+            <li><strong>Built for scale:</strong> Proven in production with thousands of nodes</li>
+          </ul>
+        `
+      },
+      buildah: {
+        title: 'Buildah',
+        content: `
+          <p>Buildah is a tool for building OCI and Docker container images without requiring a daemon.</p>
+          <ul>
+            <li><strong>Flexible builds:</strong> Create images from scratch or Dockerfiles</li>
+            <li><strong>Scriptable:</strong> Integrate into CI/CD pipelines easily</li>
+            <li><strong>Lightweight:</strong> No daemon required, minimal overhead</li>
+          </ul>
+        `
+      },
+      aide: {
+        title: 'AIDE',
+        content: `
+          <p>AIDE (Advanced Intrusion Detection Environment) monitors file system changes to detect unauthorized modifications.</p>
+          <ul>
+            <li><strong>Intrusion detection:</strong> Identify unauthorized file changes</li>
+            <li><strong>Compliance:</strong> Meet security audit requirements</li>
+            <li><strong>Automated checks:</strong> Regular integrity verification</li>
+          </ul>
+        `
+      },
+      nftables: {
+        title: 'nftables',
+        content: `
+          <p>nftables is the modern Linux firewall framework that replaces iptables with improved performance and syntax.</p>
+          <ul>
+            <li><strong>Advanced filtering:</strong> Flexible packet filtering and NAT</li>
+            <li><strong>Better performance:</strong> More efficient than legacy iptables</li>
+            <li><strong>Simplified rules:</strong> Cleaner, more readable configuration</li>
+          </ul>
+        `
+      },
+      server: {
+        title: 'SoltrOS Server Edition',
+        content: `
+          <p>A container-native server platform built on Fedora BootC, designed for modern infrastructure with enterprise-grade management tools.</p>
+          
+          <h3>Why SoltrOS Server?</h3>
+          <ul>
+            <li><strong>Container-First:</strong> Docker CE and Podman pre-configured and ready to deploy</li>
+            <li><strong>Immutable Infrastructure:</strong> RPM-OSTree based for reliable, atomic updates</li>
+            <li><strong>Web Management:</strong> Cockpit console provides full system control from any browser</li>
+            <li><strong>Enterprise Security:</strong> Built-in audit logging, intrusion detection, and signed images</li>
+          </ul>
+          
+          <h3>Key Features</h3>
+          <ul>
+            <li><strong>Dual Container Runtimes:</strong> Use Docker for compatibility or Podman for rootless security</li>
+            <li><strong>Zero-Config Networking:</strong> Tailscale integration for secure remote access</li>
+            <li><strong>Full Virtualization:</strong> KVM/Libvirt support for running VMs alongside containers</li>
+            <li><strong>Performance Monitoring:</strong> PCP (Performance Co-Pilot) tracks system metrics</li>
+            <li><strong>Rollback Ready:</strong> Easy system recovery with bootc image-based updates</li>
+          </ul>
+          
+          <h3>Perfect For</h3>
+          <p>Homelab enthusiasts, small business infrastructure, development servers, container orchestration, self-hosted services, and anyone wanting a rock-solid server foundation with modern tooling.</p>
+          
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Quick Start:</strong> After installation, access Cockpit at <code>https://your-server:9090</code> to manage containers, VMs, storage, and more from your browser.
+          </p>
+        `
+      }
+    };
+
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function openModal(desktop) {
+      const modal = document.getElementById('infoModal');
+      const body = document.getElementById('modalBody');
+      const info = desktopInfo[desktop];
+      
+      body.innerHTML = `<h2>${info.title}</h2>${info.content}`;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('infoModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnBackdrop(event) {
+      if (event.target.id === 'infoModal') {
+        closeModal();
+      }
+    }
+
+    function openImageModal(src, alt) {
+      const modal = document.getElementById('imgModal');
+      const img = document.getElementById('modalImage');
+      
+      img.src = src;
+      img.alt = alt;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imgModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeImageModal();
+      }
+    });
   </script>
 </body>
 </html>
