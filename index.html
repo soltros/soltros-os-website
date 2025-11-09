@@ -63,6 +63,23 @@
       transform:scale(1) translateY(0);
     }
     
+    /* Coming soon styling */
+    .coming-soon-badge{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+      background:rgba(17,22,29,0.95);
+      border:2px solid var(--accent);
+      border-radius:12px;
+      padding:12px 24px;
+      font-weight:700;
+      font-size:1.1rem;
+      color:var(--accent);
+      box-shadow:0 4px 20px rgba(62,166,255,.5);
+      z-index:10;
+    }
+    
     .desk-card h3{margin:10px 0 2px;font-size:1.1rem}
     .desk-card p{margin:0;color:var(--low);font-size:.92rem}
     .desk-actions{display:flex;gap:10px;justify-content:center;margin-top:12px}
@@ -219,6 +236,45 @@ Both tracks deliver a clean, performant system that evolves continuously without
       <p><a href="https://www.mediafire.com/file_premium/1tj2qoo38iezkc1/soltros-os-lts_gnome-latest.iso/file">LTS</a> / <a href="https://www.mediafire.com/file_premium/ix3amdjov7bqjud/soltros-os-unstable-gnome.iso/file">Unstable</a></p>
       <div class="desk-actions">
         <button class="btn sec" onclick="openModal('gnome')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card coming-soon">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_kde.png" alt="Plasma Bigscreen preview" style="opacity:0.4;filter:blur(2px)">
+        <div class="coming-soon-badge">
+          <span>Coming Soon</span>
+        </div>
+      </div>
+      <h3>Plasma Bigscreen</h3>
+      <p style="color:var(--low)">HTPC Edition</p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('bigscreen')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card coming-soon">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_kde.png" alt="Hyprland preview" style="opacity:0.4;filter:blur(2px)">
+        <div class="coming-soon-badge">
+          <span>Coming Soon</span>
+        </div>
+      </div>
+      <h3>Hyprland</h3>
+      <p style="color:var(--low)">Wayland Compositor</p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('hyprland')">Learn more</button>
+      </div>
+    </div>
+    <div class="desk-card coming-soon">
+      <div class="image-wrapper">
+        <img src="screenshots/soltros-os_gnome.png" alt="Enlightenment preview" style="opacity:0.4;filter:blur(2px)">
+        <div class="coming-soon-badge">
+          <span>Coming Soon</span>
+        </div>
+      </div>
+      <h3>Enlightenment</h3>
+      <p style="color:var(--low)">E Desktop Environment</p>
+      <div class="desk-actions">
+        <button class="btn sec" onclick="openModal('enlightenment')">Learn more</button>
       </div>
     </div>
   </section>
@@ -466,6 +522,57 @@ Both tracks deliver a clean, performant system that evolves continuously without
           <br><code>sudo bootc switch ghcr.io/soltros/soltros-os/soltros-os-unstable_gnome:latest</code>
           <p> Download either <a href="https://www.mediafire.com/file_premium/1tj2qoo38iezkc1/soltros-os-lts_gnome-latest.iso/file">LTS</a> or <a href="https://www.mediafire.com/file_premium/ix3amdjov7bqjud/soltros-os-unstable-gnome.iso/file">Unstable</a></p>
           <p>Perfect for users who value simplicity, elegance, and a consistent user experience across all their applications.</p>
+        `
+      },
+      bigscreen: {
+        title: 'Plasma Bigscreen (Coming Soon)',
+        content: `
+          <p>Plasma Bigscreen is a user interface designed for TVs and home theater PCs, offering a 10-foot user experience optimized for remote control navigation.</p>
+          <ul>
+            <li><strong>TV-optimized:</strong> Designed specifically for large screens and couch usage</li>
+            <li><strong>Remote friendly:</strong> Full navigation with game controllers and TV remotes</li>
+            <li><strong>Media center:</strong> Perfect for streaming, gaming, and home entertainment</li>
+            <li><strong>Voice control:</strong> Integration with voice assistants and commands</li>
+            <li><strong>App ecosystem:</strong> Access to media apps and streaming services</li>
+          </ul>
+          <p>Plasma Bigscreen will transform SoltrOS into the ultimate HTPC operating system, combining the reliability of an immutable base with a beautiful living room interface.</p>
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Note:</strong> This edition is currently in development. Check back soon for updates!
+          </p>
+        `
+      },
+      hyprland: {
+        title: 'Hyprland (Coming Soon)',
+        content: `
+          <p>Hyprland is a dynamic tiling Wayland compositor with stunning animations, extensive customization, and powerful window management.</p>
+          <ul>
+            <li><strong>Beautiful animations:</strong> Smooth, eye-catching window transitions and effects</li>
+            <li><strong>Tiling WM:</strong> Efficient automatic window tiling with manual control</li>
+            <li><strong>Highly configurable:</strong> Script almost every aspect of your workflow</li>
+            <li><strong>Wayland native:</strong> Modern display protocol with better performance</li>
+            <li><strong>Growing ecosystem:</strong> Active community with plugins and themes</li>
+          </ul>
+          <p>The Hyprland edition will bring cutting-edge tiling window management to SoltrOS, perfect for power users who want maximum control and efficiency.</p>
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Note:</strong> This edition is currently in development. Check back soon for updates!
+          </p>
+        `
+      },
+      enlightenment: {
+        title: 'Enlightenment (Coming Soon)',
+        content: `
+          <p>Enlightenment (E) is a lightweight, highly customizable desktop environment known for its stunning visual effects and efficient resource usage.</p>
+          <ul>
+            <li><strong>Lightweight:</strong> Runs smoothly on older hardware while looking beautiful</li>
+            <li><strong>Eye candy:</strong> Gorgeous themes and visual effects out of the box</li>
+            <li><strong>Modular design:</strong> Use only the components you need</li>
+            <li><strong>Extensive theming:</strong> Deep customization of every visual element</li>
+            <li><strong>Mature & stable:</strong> Decades of development and refinement</li>
+          </ul>
+          <p>The Enlightenment edition will offer a unique blend of beauty and performance, ideal for users who want a visually stunning desktop without the resource overhead.</p>
+          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
+            <strong>Note:</strong> This edition is currently in development. Check back soon for updates!
+          </p>
         `
       },
       docker: {
