@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Introducing HyprVibe for Soltros OS - Soltros OS Blog</title>
+  <meta name="description" content="A gorgeous Hyprland desktop experience inspired by Chris Fisher's setup, now available for rpm-ostree users">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#11161d;
+      --surface:#0e1319;
+      --text:#e8eef4;
+      --muted:#a7b5c4;
+      --low:#8ea0b4;
+      --accent:#3ea6ff;
+      --border:#1b2633;
+      --ok:#1ad1a5;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --w:1160px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#0a0f14 60%,#090e13);
+      color:var(--text);
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial
+    }
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+    header{display:flex;align-items:center;gap:16px;padding:20px 0}
+    header img{width:44px;height:44px;border-radius:12px}
+    header .name{font-weight:700}
+    
+    /* Post-specific styles */
+    .back-link{
+      display:inline-block;
+      color:var(--muted);
+      margin:20px 0 10px;
+      font-size:.95rem
+    }
+    .back-link:hover{color:var(--accent)}
+    
+    article{max-width:720px;margin:0 auto;padding:20px}
+    .post-header{margin-bottom:32px}
+    .post-header h1{font-size:2.5rem;line-height:1.2;margin:0 0 16px}
+    .post-meta{
+      color:var(--low);
+      font-size:.95rem;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:20px
+    }
+    .tag{
+      display:inline-block;
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:4px 10px;
+      background:#0e141b;
+      color:#cfe6ff;
+      font-size:.85rem;
+      margin-right:6px
+    }
+    
+    .post-content{color:var(--text);line-height:1.8}
+    .post-content h2{margin:40px 0 16px;color:var(--text);font-size:1.75rem}
+    .post-content h3{margin:32px 0 12px;color:var(--text);font-size:1.35rem}
+    .post-content p{margin:16px 0;color:var(--muted)}
+    .post-content ul, .post-content ol{margin:16px 0;padding-left:24px;color:var(--muted)}
+    .post-content li{margin:8px 0}
+    .post-content code{
+      background:var(--surface);
+      padding:3px 8px;
+      border-radius:4px;
+      font-size:.9em;
+      color:var(--ok)
+    }
+    .post-content pre{
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:16px;
+      overflow-x:auto;
+      margin:20px 0
+    }
+    .post-content pre code{
+      background:none;
+      padding:0;
+      color:var(--text)
+    }
+    .post-content blockquote{
+      border-left:3px solid var(--accent);
+      padding-left:20px;
+      margin:24px 0;
+      color:var(--muted);
+      font-style:italic
+    }
+    .post-content img{
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+      margin:24px 0
+    }
+    .post-content a{color:var(--accent);text-decoration:underline}
+    .post-content a:hover{color:#5bb8ff}
+    
+    footer{border-top:1px solid var(--border);background:var(--surface);margin-top:60px}
+    .foot{max-width:var(--w);margin:0 auto;padding:16px 20px;color:#9db0c4;font-size:.92rem;text-align:center}
+    
+    @media (max-width:980px){
+      .post-header h1{font-size:2rem}
+      article{padding:20px 10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="../../server-desktop_combined.png" alt="Soltros OS Logo">
+      <div class="name">Soltros OS</div>
+    </header>
+  </div>
+
+  <div class="wrap">
+    <a href="../index.html" class="back-link">← Back to all posts</a>
+  </div>
+
+  <article>
+    <div class="post-header">
+      <h1>HyprVibe Comes to Soltros OS</h1>
+      <div class="post-meta">
+        <span>November 10, 2025</span>
+        <span>•</span>
+        <span>8 min read</span>
+      </div>
+      <div>
+        <span class="tag">Announcement</span>
+        <span class="tag">Hyprland</span>
+        <span class="tag">Desktop</span>
+      </div>
+    </div>
+
+    <div class="post-content">
+      <p>
+        I've been following Jupiter Broadcasting for years, and when Chris Fisher shared his <a href="https://github.com/ChrisLAS/hyprvibe" target="_blank">HyprVibe</a> setup, I was impressed. It's a well-configured Hyprland desktop that runs on NixOS, with good attention to detail and thoughtful keybindings.
+      </p>
+
+      <p>
+        The problem is that it's NixOS-specific. If you don't want to learn Nix or prefer a different base system, you're out of luck. Since I maintain Soltros OS (which uses rpm-ostree), I decided to port it over.
+      </p>
+
+      <h2>What is HyprVibe?</h2>
+      <p>
+        HyprVibe is Chris Fisher's Hyprland configuration. It includes:
+      </p>
+
+      <ul>
+        <li><strong>Hyprland</strong> - Dynamic tiling Wayland compositor</li>
+        <li><strong>Waybar</strong> - Status bar with custom modules (GPU temps, weather, Bitcoin prices, etc.)</li>
+        <li><strong>Dunst</strong> - Notification daemon</li>
+        <li><strong>Hyprlock & Hypridle</strong> - Lock screen and idle management</li>
+        <li><strong>Performance tweaks</strong> - Various optimizations</li>
+        <li><strong>Sensible keybindings</strong> - Nothing too exotic</li>
+      </ul>
+
+      <p>
+        It's a complete desktop setup that works out of the box.
+      </p>
+
+      <h2>The Technical Challenge</h2>
+      <p>
+        Porting from NixOS to rpm-ostree wasn't straightforward. The original setup uses:
+      </p>
+
+      <ul>
+        <li>Nix flakes for configuration management</li>
+        <li>NixOS-specific module system</li>
+        <li>Hardcoded paths to the Nix store</li>
+        <li>Declarative package and service management</li>
+      </ul>
+
+      <p>
+        None of that translates directly to a standard Linux filesystem. I had to extract the actual config files and scripts, then figure out how to integrate them properly with rpm-ostree's image-based model.
+      </p>
+
+      <h3>The Solution: XDG Base Directories</h3>
+      <p>
+        Most Linux applications follow the XDG Base Directory specification. They look for configs in this order:
+      </p>
+
+      <ol>
+        <li><code>~/.config/</code> - User's personal config (checked first)</li>
+        <li><code>/etc/xdg/</code> - System-wide defaults (fallback)</li>
+      </ol>
+
+      <p>
+        This works perfectly for an image-based OS. I put the HyprVibe configs in both <code>/etc/xdg/</code> (system-wide) and <code>/etc/skel/</code> (template for new users). This means:
+      </p>
+
+      <ul>
+        <li>New installations automatically copy configs to the user's home directory</li>
+        <li>Existing users switching via bootc get working configs immediately from <code>/etc/xdg/</code></li>
+        <li>Users can still customize by copying to <code>~/.config/</code> and editing</li>
+      </ul>
+
+      <p>
+        No scripts needed at login. Everything just works.
+      </p>
+
+      <h2>What's Included</h2>
+      <p>
+        This is a complete port of the HyprVibe experience:
+      </p>
+
+      <ul>
+        <li>All original keybindings (browser changed to Waterfox since that's what Soltros ships)</li>
+        <li>Custom Waybar modules</li>
+        <li>Blur effects and animations</li>
+        <li>Tokyo Night color scheme</li>
+        <li>Lock screen and idle behavior</li>
+        <li>Rofi for app launching and brightness control</li>
+      </ul>
+
+      <h3>How It Works</h3>
+      <p>
+        Because everything follows the XDG specification:
+      </p>
+
+      <ul>
+        <li>Hyprland finds its config in <code>/etc/xdg/hypr/</code></li>
+        <li>Waybar finds its config in <code>/etc/xdg/waybar/</code></li>
+        <li>Dunst finds its config in <code>/etc/xdg/dunst/</code></li>
+        <li>Everything else follows the same pattern</li>
+      </ul>
+
+      <p>
+        Boot into the HyprVibe image and you get a fully configured desktop immediately.
+      </p>
+
+      <h3>Changes from the Original</h3>
+      <p>
+        I kept the spirit of Chris's setup but made a few adjustments for Soltros:
+      </p>
+
+      <ul>
+        <li>Browser keybinding launches Waterfox instead of Firefox</li>
+        <li>All paths converted from Nix store to standard FHS locations</li>
+        <li>Scripts placed in <code>/etc/xdg/</code> so they work system-wide</li>
+        <li>Added optional <code>setup-hyprvibe</code> command for users who want to customize</li>
+      </ul>
+
+      <h2>Getting Started</h2>
+      <p>
+        HyprVibe is available in both LTS (Long Term Support) and Unstable tracks.
+      </p>
+
+      <h3>New Installations</h3>
+      <pre><code># Download the ISO from https://soltros.dev
+# Choose either:
+#   - soltros-os-lts_hyprvibe (stable)
+#   - soltros-os-unstable_hyprvibe (latest packages)
+# Install normally
+# Select Hyprland at login</code></pre>
+
+      <h3>Existing Soltros Users</h3>
+      <pre><code># Switch to the HyprVibe image
+bootc switch ghcr.io/soltros/soltros-os-lts_hyprvibe:latest
+
+# Or for Unstable track:
+bootc switch ghcr.io/soltros/soltros-os-unstable_hyprvibe:latest
+
+# Reboot
+systemctl reboot
+
+# Select Hyprland at GDM login</code></pre>
+
+      <p>
+        No additional configuration needed. The system-wide configs are picked up automatically.
+      </p>
+
+      <h3>Customizing</h3>
+      <p>
+        If you want to modify the configs:
+      </p>
+
+      <pre><code># Copy configs to your home directory
+setup-hyprvibe
+
+# Edit as needed
+nano ~/.config/hypr/hyprland.conf
+
+# Hyprland reloads automatically on save</code></pre>
+
+      <h2>Keybindings</h2>
+      <p>
+        Here are the main keybindings to get started:
+      </p>
+
+      <ul>
+        <li><code>SUPER + RETURN</code> - Terminal</li>
+        <li><code>SUPER + SPACE</code> - App launcher</li>
+        <li><code>SUPER + F</code> - Browser</li>
+        <li><code>SUPER + E</code> - File manager</li>
+        <li><code>SUPER + L</code> - Lock screen</li>
+        <li><code>SUPER + C</code> - Close window</li>
+        <li><code>SUPER + V</code> - Toggle floating</li>
+        <li><code>SUPER + 1-0</code> - Switch workspaces</li>
+        <li><code>SUPER + B</code> - Brightness menu</li>
+        <li><code>Print</code> - Screenshot</li>
+      </ul>
+
+      <p>
+        The complete list is in <code>~/.config/hypr/hyprland.conf</code> after running <code>setup-hyprvibe</code>.
+      </p>
+
+      <h2>Why This Matters</h2>
+      <p>
+        This is about making good software more accessible. Chris's HyprVibe is well-designed, but it was limited to NixOS users. Now anyone running Soltros (or potentially other rpm-ostree systems) can use it without learning a new configuration system.
+      </p>
+
+      <p>
+        It also demonstrates the value of following standards. The XDG Base Directory specification made this port possible. When applications follow common conventions, configurations become portable across distributions.
+      </p>
+
+      <h2>Credit</h2>
+      <p>
+        All credit for the design, keybindings, and overall setup goes to <a href="https://github.com/ChrisLAS" target="_blank">Chris Fisher</a> and his <a href="https://github.com/ChrisLAS/hyprvibe" target="_blank">HyprVibe</a> repository. I just adapted it for a different platform. If you like this setup, check out <a href="https://www.jupiterbroadcasting.com/" target="_blank">Jupiter Broadcasting</a>.
+      </p>
+
+      <h2>What's Next</h2>
+      <p>
+        Plans for the future:
+      </p>
+
+      <ul>
+        <li>Keep in sync with upstream HyprVibe updates</li>
+        <li>Add Soltros-specific improvements where appropriate</li>
+        <li>Write some documentation for new users</li>
+        <li>See what other desktop environments make sense as spins</li>
+      </ul>
+
+      <h2>Try It</h2>
+      <p>
+        <strong>New users:</strong> Download from <a href="https://soltros.dev" target="_blank">soltros.dev</a> (LTS and Unstable tracks available)
+      </p>
+
+      <p>
+        <strong>Existing Soltros users:</strong>
+      </p>
+
+      <pre><code>bootc switch ghcr.io/soltros/soltros-os-lts_hyprvibe:latest</code></pre>
+
+      <p>
+        Questions or issues? Open an issue on <a href="https://github.com/soltros" target="_blank">GitHub</a> or join the community chat.
+      </p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="foot">
+      © <span id="year"></span> Soltros OS • <a href="../index.html">Blog</a> • <a href="https://github.com/soltros" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

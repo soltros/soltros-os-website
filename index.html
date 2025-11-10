@@ -251,24 +251,18 @@ Both tracks deliver a clean, performant system that evolves continuously without
         <button class="btn sec" onclick="openModal('bigscreen')">Learn more</button>
       </div>
     </div>
-    <div class="desk-card coming-soon">
+    <div class="desk-card">
       <div class="image-wrapper">
-        <img src="screenshots/soltros-os_hyprvibe.jpg" alt="Hyprland preview" style="opacity:0.4;filter:blur(2px)">
-        <div class="coming-soon-badge">
-          <span>Coming Soon</span>
+        <img src="screenshots/soltros-os_hyprvibe.jpg" alt="Hyprland HyprVibe desktop screenshot" onclick="openImageModal(this.src, this.alt)">
+        <div class="hover-badge">
+          <img src="soltros.svg" alt="SoltrOS logo">
         </div>
       </div>
-      <h3>Hyprland (Soltros OS Hyprvibed)</h3>
-      <p style="color:var(--low)">Wayland Compositor</p>
+      <h3>Hyprland (HyprVibe)</h3>
+      <p><a href="#">LTS</a> / <a href="#">Unstable</a></p>
       <div class="desk-actions">
         <button class="btn sec" onclick="openModal('hyprland')">Learn more</button>
       </div>
-    </div>
-    <div class="desk-card coming-soon">
-      <div class="image-wrapper">
-        <img src="screenshots/soltros-os_enlightenment.png" alt="Enlightenment preview" style="opacity:0.4;filter:blur(2px)">
-        <div class="coming-soon-badge">
-          <span>Coming Soon</span>
         </div>
       </div>
       <h3>Enlightenment</h3>
@@ -541,21 +535,22 @@ Both tracks deliver a clean, performant system that evolves continuously without
           </p>
         `
       },
-      hyprland: {
-        title: 'Hyprland (Coming Soon)',
+          hyprland: {
+        title: 'Hyprland HyprVibe',
         content: `
-          <p>Hyprland is a dynamic tiling Wayland compositor with stunning animations, extensive customization, and powerful window management.</p>
+          <p>Hyprland is a dynamic tiling Wayland compositor with stunning animations and extensive customization, featuring the HyprVibe configuration from Chris Fisher.</p>
           <ul>
             <li><strong>Beautiful animations:</strong> Smooth, eye-catching window transitions and effects</li>
             <li><strong>Tiling WM:</strong> Efficient automatic window tiling with manual control</li>
-            <li><strong>Highly configurable:</strong> Script almost every aspect of your workflow</li>
+            <li><strong>HyprVibe config:</strong> Pre-configured with Chris Fisher's setup from Jupiter Broadcasting</li>
             <li><strong>Wayland native:</strong> Modern display protocol with better performance</li>
-            <li><strong>Growing ecosystem:</strong> Active community with plugins and themes</li>
+            <li><strong>Ready to use:</strong> Waybar, Dunst, and all essentials pre-configured</li>
           </ul>
-          <p>The Hyprland edition will bring cutting-edge tiling window management to SoltrOS, and based on <a href="https://github.com/ChrisLAS/hyprvibe">Hyprvibe</a>. It is perfect for power users who want maximum control and efficiency.</p>
-          <p style="margin-top:20px;padding:16px;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px">
-            <strong>Note:</strong> This edition is currently in development. Check back soon for updates!
-          </p>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os-lts_hyprvibe:latest</code>
+          <p>Or, for unstable:</p>
+          <br><code>sudo bootc switch ghcr.io/soltros/soltros-os-unstable_hyprvibe:latest</code>
+          <p>Download links coming soon - check the <a href="/blog/posts/hyprvibe-announcement.html">blog announcement</a> for more details.</p>
+          <p>Perfect for power users who want maximum control and efficiency with a battle-tested configuration.</p>
         `
       },
       enlightenment: {
