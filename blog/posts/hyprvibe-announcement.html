@@ -249,8 +249,9 @@
         <li>Browser keybinding launches Waterfox instead of Firefox</li>
         <li>All paths converted from Nix store to standard FHS locations</li>
         <li>Scripts placed in <code>/etc/xdg/</code> so they work system-wide</li>
-        <li>Added optional <code>setup-hyprvibe</code> command for users who want to customize</li>
         <li>Replaced Rofi with Wofi for better styling, and superior functionality</li>
+        <li>Changed default wallpaper</li>
+        <li>Replaced GDM with SDDM as it is superior for handling Hyprland sessions</li>
       </ul>
 
       <h2>Getting Started</h2>
@@ -276,22 +277,11 @@ bootc switch ghcr.io/soltros/soltros-os-unstable_hyprvibe:latest
 # Reboot
 systemctl reboot
 
-# Select Hyprland at GDM login</code></pre>
+# Select Hyprland at SDDM login</code></pre>
 
       <p>
         No additional configuration needed. The system-wide configs are picked up automatically.
       </p>
-
-      <h3>Customizing</h3>
-      <p>
-        If you want to modify the configs:
-      </p>
-
-      <pre><code># Copy configs to your home directory
-setup-hyprvibe
-
-# Edit as needed
-nano ~/.config/hypr/hyprland.conf
 
 # Hyprland reloads automatically on save</code></pre>
 
